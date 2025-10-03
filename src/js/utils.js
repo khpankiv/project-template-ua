@@ -138,7 +138,7 @@ export function generateLoremIpsumParagraphs(paragraphsCount = 2, sentencesPerPa
 
 /**************************************************************************************************
  * @name getInfoById - Retrieves all product information by id.
- * @param {string|Array|Object} id - Single ID, array of IDs, or object with ID-quantity pairs
+ * @param {string|Array} id - Single ID or array of cart items with {id, name, size, color, quantity}
  * @returns {Promise<Object|Array|null>} Product(s) information or null if not found
  **************************************************************************************************/
 export async function getInfoById(id) {
@@ -149,19 +149,21 @@ export async function getInfoById(id) {
 		return null;
 	}
 	
-	// If id is an object: {id: quantity, ...}
-	if (id && typeof id === 'object' && !Array.isArray(id)) {
-		return Object.keys(id).map(key => {
-			const product = allProducts.find(p => String(p.id) === String(key));
-			return product ? { ...product, quantity: id[key] } : null;
-		}).filter(Boolean);
-	}
-	
-	// If id is an array: [id1, id2, ...]
+	// If id is an array of cart items: [{id, name, size, color, quantity}, ...]
 	if (Array.isArray(id)) {
-		return id.map(singleId => 
-			allProducts.find(p => String(p.id) === String(singleId))
-		).filter(Boolean);
+		return id.map(cartItem => {
+			const product = allProducts.find(p => String(p.id) === String(cartItem.id));
+			if (product) {
+				return {
+					...product,
+					quantity: cartItem.quantity,
+					// Use cart item's size and color if available, otherwise use product defaults
+					size: cartItem.size || product.size,
+					color: cartItem.color || product.color
+				};
+			}
+			return null;
+		}).filter(Boolean);
 	}
 	
 	// If id is a single value (just id, no quantity)

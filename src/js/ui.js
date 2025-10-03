@@ -293,7 +293,7 @@ export function createSlides(imageCount, numSlides, imageFolder) {
  ***************************************************************************************************/
 export async function displayCartItems() {
   const allCart = JSON.parse(localStorage.getItem('cart')) || [];
-		if (!allCart || Object.keys(allCart).length === 0) {
+		if (!allCart || allCart.length === 0) {
 			// Show empty cart message
 			clearCart();
 		} else {
@@ -303,21 +303,24 @@ export async function displayCartItems() {
 			cartTableBody.innerHTML = '';
 			items.forEach(item => {
 				const row = document.createElement('tr');
+				// Create unique identifier for this cart item
+				const itemKey = `${item.id}-${item.size}-${item.color}`;
+				row.setAttribute('data-item-key', itemKey);
 				row.innerHTML = `
 				<td><img class="cart-item-image" src="${item.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png')}" alt="Product Image"></td>
-				<td class="cart-item-name">${item.name}</td>
+				<td class="cart-item-name">${item.name}<br><small>Size: ${item.size}, Color: ${item.color}</small></td>
 				<td class="cart-item-price">$${item.price}</td>
 				<td class="cart-item-quantity">
 					<div class="quantity-controls">
-						<button type="button" class="button-quantity minus" data-id="${item.id}">-</button>
+						<button type="button" class="button-quantity minus" data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">-</button>
 						<input class="quantity" value="${item.quantity}" min="1" readonly>
-						<button type="button" class="button-quantity plus" data-id="${item.id}">+</button>
+						<button type="button" class="button-quantity plus" data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">+</button>
 					</div>
 				</td>
 				<td class="cart-item-total">$${item.price * item.quantity}</td>
 				<td>
 					<button class="delete-item-button">
-						<img class="delete-icon" src="assets/images/icons/trash.svg" alt="Delete"data-id="${item.id}">
+						<img class="delete-icon" src="assets/images/icons/trash.svg" alt="Delete" data-id="${item.id}" data-size="${item.size}" data-color="${item.color}">
 					</button>
 				</td>
 			`;
