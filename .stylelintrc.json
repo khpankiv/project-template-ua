@@ -1,8 +1,6 @@
 {
   "extends": "stylelint-config-standard-scss",
   "rules": {
-    "indentation": "tab",
-    "color-hex-case": "lower",
     "color-hex-length": "long",
     "selector-class-pattern": null,
     "declaration-block-no-redundant-longhand-properties": null,
@@ -20,6 +18,10 @@
     "media-feature-range-notation": null,
     "keyframes-name-pattern": null,
     "declaration-block-single-line-max-declarations": null,
-    "declaration-block-no-shorthand-property-overrides": null
+    "declaration-block-no-shorthand-property-overrides": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "selector-not-notation": null,
+    "scss/double-slash-comment-empty-line-before": null
   }
 }
