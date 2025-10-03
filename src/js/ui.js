@@ -6,6 +6,7 @@ import { updatePagination } from "./interractions.js";
 import { productCardTemplatePath, productsPerPage, numberOfRandomProducts, numberOfRandomSets, imageCount, imageFolder} from "./file_links.js";
 import { getProductsByField, getInfoById, getRandomItems, generateLoremIpsumParagraphs } from "./utils.js";
 import { getCartTotal, clearCart } from "./logic.js";
+import { showMessage } from "./forms.js";
 
 // ===========================================================
 // ================= Load Header and Footer =========================
@@ -200,7 +201,7 @@ export async function renderProductsForPage(products,  currentPage) {
  ******************************************************************************/
 export function renderProductDetailsPage(product) {
 	if (!product) {
-		showNotFoundPopup('error', 'Product not found');
+		showMessage('error', 'Product not found');
 		return;
 	}
   document.title = `${product.name} - Product Details`;
