@@ -257,32 +257,315 @@ export function renderProductDetailsPage(product) {
 
 /********************************************************************************************************
  * @name createSlides - Creates slides for the travel suitcases slider.
+ * Improved version with smooth transitions and accessibility.
  ********************************************************************************************************/
 export function createSlides(imageCount, numSlides, imageFolder) {
 		const sliderContainer = document.getElementById("travel-slider");
 		if (!sliderContainer) return;
+		
 		// all travel suitcase images
 		const images = Array.from({ length: imageCount }, (_, i) => `${imageFolder}travel-suitcase${i + 1}.png`);
-		let start = 0;
+		const phrases = [
+			'Adventure Awaits with Premium Quality',
+			'Explore the World in Style',
+			'Journey Beyond Limits',
+			'Discover New Horizons',
+			'Travel with Confidence',
+			'Experience Ultimate Comfort',
+			'Your Perfect Travel Companion',
+			'Quality That Goes the Distance'
+		];
+		
+		let currentIndex = 0;
+		let isTransitioning = false;
 
-		function renderSlides(startIdx) {
+		// Create navigation buttons
+		const prevBtn = document.createElement('button');
+		prevBtn.className = 'travel-slider-arrow travel-slider-arrow-left';
+		prevBtn.innerHTML = '&#8592;';
+		prevBtn.setAttribute('aria-label', 'Previous slide');
+		prevBtn.setAttribute('tabindex', '0');
+		
+		const nextBtn = document.createElement('button');
+		nextBtn.className = 'travel-slider-arrow travel-slider-arrow-right';
+		nextBtn.innerHTML = '&#8594;';
+		nextBtn.setAttribute('aria-label', 'Next slide');
+		nextBtn.setAttribute('tabindex', '0');
+
+		// Initial render - create all slides at once
+		function initSlides() {
 			sliderContainer.innerHTML = '';
 			for (let i = 0; i < numSlides; i++) {
-				const imgIdx = (startIdx + i) % images.length;
+				const imgIdx = i % images.length;
 				const slide = document.createElement("div");
 				slide.className = "travel-slide";
 				slide.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${images[imgIdx]})`;
-				slide.innerHTML = generateLoremIpsumParagraphs(1, 1);
+				slide.setAttribute('role', 'group');
+				slide.setAttribute('aria-label', `Slide ${i + 1} of ${numSlides}`);
+				
+				const textContent = document.createElement('p');
+				textContent.className = 'travel-slide-text';
+				textContent.textContent = phrases[imgIdx % phrases.length];
+				slide.appendChild(textContent);
+				
 				sliderContainer.appendChild(slide);
+			}
+			
+			// Add navigation buttons after slides
+			sliderContainer.parentElement.appendChild(prevBtn);
+			sliderContainer.parentElement.appendChild(nextBtn);
+		}
+
+		// Update slides smoothly - only change background images
+		function updateSlides(direction = 1) {
+			if (isTransitioning) return;
+			isTransitioning = true;
+			
+			currentIndex = (currentIndex + direction + images.length) % images.length;
+			
+			const slides = sliderContainer.querySelectorAll('.travel-slide');
+			slides.forEach((slide, i) => {
+				const imgIdx = (currentIndex + i) % images.length;
+				
+				// Add fade-out class
+				slide.classList.add('travel-slide-transition');
+				
+				// Update background and text after a short delay
+				setTimeout(() => {
+					slide.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${images[imgIdx]})`;
+					const textEl = slide.querySelector('.travel-slide-text');
+					if (textEl) {
+						textEl.textContent = phrases[imgIdx % phrases.length];
+					}
+					
+					// Remove transition class
+					setTimeout(() => {
+						slide.classList.remove('travel-slide-transition');
+						isTransitioning = false;
+					}, 300);
+				}, 150);
+			});
+		}
+
+		// Event listeners
+		prevBtn.addEventListener('click', () => updateSlides(-1));
+		nextBtn.addEventListener('click', () => updateSlides(1));
+		
+		// Keyboard navigation
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowLeft') {
+				updateSlides(-1);
+			} else if (e.key === 'ArrowRight') {
+				updateSlides(1);
+			}
+		});
+
+		// Auto-play
+		let autoPlayInterval = setInterval(() => updateSlides(1), 4000);
+		
+		// Pause on hover
+		sliderContainer.addEventListener('mouseenter', () => {
+			clearInterval(autoPlayInterval);
+		});
+		
+		sliderContainer.addEventListener('mouseleave', () => {
+			autoPlayInterval = setInterval(() => updateSlides(1), 4000);
+		});
+
+		// Touch/swipe support
+		let touchStartX = 0;
+		let touchEndX = 0;
+		
+		sliderContainer.addEventListener('touchstart', (e) => {
+			touchStartX = e.changedTouches[0].screenX;
+		}, { passive: true });
+		
+		sliderContainer.addEventListener('touchend', (e) => {
+			touchEndX = e.changedTouches[0].screenX;
+			handleSwipe();
+		}, { passive: true });
+		
+		function handleSwipe() {
+			const swipeThreshold = 50;
+			const diff = touchStartX - touchEndX;
+			
+			if (Math.abs(diff) > swipeThreshold) {
+				if (diff > 0) {
+					updateSlides(1); // Swipe left
+				} else {
+					updateSlides(-1); // Swipe right
+				}
 			}
 		}
 
-		renderSlides(start);
-		setInterval(() => {
-			start = (start + 1) % images.length;
-			renderSlides(start);
-		}, 3000);
+		initSlides();
 	}
+
+// ===========================================================
+// ================= Product Slider ===========================
+// ===========================================================
+
+/********************************************************************************************************
+ * @name createProductSlider - Creates a reusable product slider with navigation.
+ * @param {string} containerId - The ID of the container element.
+ * @param {number} itemsPerView - Number of items to show at once on desktop (default: 4).
+ ********************************************************************************************************/
+export function createProductSlider(containerId, itemsPerView = 4) {
+	const container = document.querySelector(containerId);
+	if (!container) return;
+	
+	// Get current items
+	const items = Array.from(container.children);
+	if (items.length === 0) return;
+	
+	// Check if we need a slider (only if more items than can be shown)
+	const needsSlider = items.length > itemsPerView;
+	if (!needsSlider) {
+		// Just add grid layout without slider
+		container.classList.add('product-slider-no-scroll');
+		return;
+	}
+	
+	let currentIndex = 0;
+	let isTransitioning = false;
+	
+	// Wrap container in slider wrapper
+	const wrapper = document.createElement('div');
+	wrapper.className = 'product-slider-wrapper';
+	container.parentNode.insertBefore(wrapper, container);
+	wrapper.appendChild(container);
+	
+	// Add slider class to container
+	container.classList.add('product-slider-track');
+	
+	// Create navigation buttons
+	const prevBtn = document.createElement('button');
+	prevBtn.className = 'product-slider-arrow product-slider-arrow-left';
+	prevBtn.innerHTML = '&#8592;';
+	prevBtn.setAttribute('aria-label', 'Previous products');
+	prevBtn.setAttribute('tabindex', '0');
+	
+	const nextBtn = document.createElement('button');
+	nextBtn.className = 'product-slider-arrow product-slider-arrow-right';
+	nextBtn.innerHTML = '&#8594;';
+	nextBtn.setAttribute('aria-label', 'Next products');
+	nextBtn.setAttribute('tabindex', '0');
+	
+	wrapper.appendChild(prevBtn);
+	wrapper.appendChild(nextBtn);
+	
+	// Calculate responsive items per view
+	function getItemsPerView() {
+		const width = window.innerWidth;
+		if (width < 768) return 1; // Mobile: 1 item
+		if (width < 1024) return 2; // Tablet: 2 items
+		return itemsPerView; // Desktop: default (4 items)
+	}
+	
+	// Update slider position
+	function updateSlider() {
+		const currentItemsPerView = getItemsPerView();
+		const maxIndex = Math.max(0, items.length - currentItemsPerView);
+		
+		// Ensure index is within bounds
+		currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+		
+		// Calculate offset (percentage based)
+		const itemWidth = 100 / currentItemsPerView;
+		const offset = -(currentIndex * itemWidth);
+		
+		container.style.transform = `translateX(${offset}%)`;
+		
+		// Update button states
+		prevBtn.disabled = currentIndex === 0;
+		nextBtn.disabled = currentIndex >= maxIndex;
+		
+		prevBtn.classList.toggle('disabled', currentIndex === 0);
+		nextBtn.classList.toggle('disabled', currentIndex >= maxIndex);
+	}
+	
+	// Navigation functions
+	function goToNext() {
+		if (isTransitioning) return;
+		const currentItemsPerView = getItemsPerView();
+		const maxIndex = Math.max(0, items.length - currentItemsPerView);
+		
+		if (currentIndex < maxIndex) {
+			isTransitioning = true;
+			currentIndex++;
+			updateSlider();
+			setTimeout(() => { isTransitioning = false; }, 400);
+		}
+	}
+	
+	function goToPrev() {
+		if (isTransitioning) return;
+		
+		if (currentIndex > 0) {
+			isTransitioning = true;
+			currentIndex--;
+			updateSlider();
+			setTimeout(() => { isTransitioning = false; }, 400);
+		}
+	}
+	
+	// Event listeners
+	prevBtn.addEventListener('click', goToPrev);
+	nextBtn.addEventListener('click', goToNext);
+	
+	// Touch/swipe support
+	let touchStartX = 0;
+	let touchEndX = 0;
+	
+	container.addEventListener('touchstart', (e) => {
+		touchStartX = e.changedTouches[0].screenX;
+	}, { passive: true });
+	
+	container.addEventListener('touchend', (e) => {
+		touchEndX = e.changedTouches[0].screenX;
+		handleSwipe();
+	}, { passive: true });
+	
+	function handleSwipe() {
+		const swipeThreshold = 50;
+		const diff = touchStartX - touchEndX;
+		
+		if (Math.abs(diff) > swipeThreshold) {
+			if (diff > 0) {
+				goToNext(); // Swipe left
+			} else {
+				goToPrev(); // Swipe right
+			}
+		}
+	}
+	
+	// Keyboard navigation
+	prevBtn.addEventListener('keydown', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			goToPrev();
+		}
+	});
+	
+	nextBtn.addEventListener('keydown', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			goToNext();
+		}
+	});
+	
+	// Update on window resize
+	let resizeTimeout;
+	window.addEventListener('resize', () => {
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(() => {
+			updateSlider();
+		}, 150);
+	});
+	
+	// Initial update
+	updateSlider();
+}
  
 // ===========================================================
 // ================= Cart Page Tables =====================
