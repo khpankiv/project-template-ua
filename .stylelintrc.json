@@ -1,0 +1,15 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "indentation": "tab",
+    "color-hex-case": "lower",
+    "color-hex-length": "long",
+    "selector-class-pattern": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "scss/at-import-partial-extension": null,
+    "scss/dollar-variable-pattern": null,
+    "no-descending-specificity": null,
+    "property-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null
+  }
+}
