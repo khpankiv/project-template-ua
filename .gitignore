@@ -5,6 +5,9 @@ package-lock.json
 # Generated/Compiled files
 src/css/main.css
 src/css/main.css.map
+dist/
+dist/*.css
+dist/*.css.map
 
 # IDE/Editor files
 .vscode/
