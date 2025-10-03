@@ -3,9 +3,9 @@
  * 13 |     @include responsive-size(padding, if(map-get($btn-map, padding), map-get($btn-map, padding), null));
  *    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *    '
- *   src\scss\components\_buttons.scss 13:5  button()
- *   src\scss\components\_buttons.scss 35:5  @import
- *   src\scss\main.scss 5:9                  root stylesheet */
+ *   src/scss/components/_buttons.scss 13:5  button()
+ *   src/scss/components/_buttons.scss 35:5  @import
+ *   src/scss/main.scss 5:9                  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -15,5 +15,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Undefined mixin.\a    \2577 \a 13 \2502      @include responsive-size(padding, if(map-get($btn-map, padding), map-get($btn-map, padding), null));\d\a    \2502      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   src\\scss\\components\\_buttons.scss 13:5  button()\a   src\\scss\\components\\_buttons.scss 35:5  @import\a   src\\scss\\main.scss 5:9                  root stylesheet";
+  content: "Error: Undefined mixin.\a    \2577 \a 13 \2502      @include responsive-size(padding, if(map-get($btn-map, padding), map-get($btn-map, padding), null));\d\a    \2502      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   src/scss/components/_buttons.scss 13:5  button()\a   src/scss/components/_buttons.scss 35:5  @import\a   src/scss/main.scss 5:9                  root stylesheet";
 }
