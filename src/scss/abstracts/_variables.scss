@@ -10,12 +10,10 @@ $text-color: #000000;
 $accent-pink: #B92770;
 $accent-pink-dark: #cfadbeee;
 $accent-pink-light: #c2a0b1;
-
-$shadow-color: rgba(193, 199, 212, 0.7);
+$shadow-color: rgb(193 199 212 / 70%);
 $hover-shadow-color: $grey;
 $stars-color: #FFC107;
 $stars-grey-color: #E0E0E0;
-
 $error-color: $accent-pink;
 $success-color: $grey-dark;
 $info-color: $text-color;
@@ -49,7 +47,6 @@ $font-6: clamp(36px, 5vw, 48px);     // h1 / hero
 $font-weight-normal: 400;
 $font-weight-bold: 700;
 $font-weight-black: 900;
-
 $line-height-single: 1;
 $line-height-tight: 1.2;  
 $line-height-base: 1.5;    
@@ -75,7 +72,6 @@ $container-width: map-get($breakpoints, xl);
 $fluid-container: clamp(320px, 90vw, 1440px);
 $container-padding: $space-7;
 $section-spacing: $space-7;
-
 $grid-min-1: 500px;
 $grid-min-2: 400px;
 $grid-min-3: 300px;
@@ -152,7 +148,7 @@ $shadow: 0px 20px 80px 0px $shadow-color;
 $shadow-hover: 0px 0px 20px 10px $hover-shadow-color; 
 $shadow-filter-dropdown: 0.5rem 2rem $shadow-color;
 $shadow-form-focus: 0 0 0 3px rgba($accent-pink, 0.1);
-$shadow-modal: 0 4px 20px rgba(0,0,0,0.2);
+$shadow-modal: 0 4px 20px rgb(0 0 0 / 20%);
 
 // ======================================================
 // =============== Maps for Components ==================
@@ -173,7 +169,6 @@ $hover-effects-map: (
   'thumbnail': (transform: scale(1.05)),
   'travel-slide': (transform: scale(1.05), shadow: $shadow-hover)
 );
-
 $button-styles-map: (
   'btn-base': (
     bg-color: $accent-pink,
@@ -234,7 +229,6 @@ $button-styles-map: (
     selected-effect: 'header-icon'
   )
 );
-
 $section-styles-map: (
   'hero': (
     padding-top-bottom: $space-8,
@@ -283,7 +277,6 @@ $space-3xl: $space-7;
 $space-4xl: $space-8;
 $space-5xl: $space-8;
 $space-10xl: $space-10;
-
 $font-size-xs: $font-1;
 $font-size-sm: $font-2;
 $font-size-md: $font-3;
@@ -291,7 +284,6 @@ $font-size-lg: $font-4;
 $font-size-xl: $font-5;
 $font-size-2xl: $font-5;
 $font-size-3xl: $font-6;
-
 $breakpoint-mobile: map-get($breakpoints, md);
 $breakpoint-tablet: map-get($breakpoints, lg);
 $breakpoint-desktop: map-get($breakpoints, xl);

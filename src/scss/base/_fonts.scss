@@ -10,11 +10,11 @@
 //   font-display: swap;
 // }
 
-//Use Montserrat as the only font for the project to ensure consistency and simplicity
+// Use Montserrat as the only font for the project to ensure consistency and simplicity
 // Inter font is very similar to Montserrat 
 // I decided to stick with one font as I don't see a big difference in design
 @font-face {
-  font-family: 'Montserrat';
+  font-family: Montserrat;
   src: url('../assets/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
@@ -54,6 +54,7 @@
   position: absolute;
   left: 0;
 }
+
 // ==================================================================================
 
 // ============================================================

@@ -60,11 +60,23 @@ export async function initPaginationButtons(products, currentPage) {
 				currentPage = currentPage + 1;
 				await renderProductsForPage(products, currentPage);
 			});
+			nextPageBtn.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					nextPageBtn.click();
+				}
+			});
 		}
 		if (prevPageBtn) {
 			prevPageBtn.addEventListener('click', async () => {
 				currentPage = currentPage - 1;
 				await renderProductsForPage(products, currentPage);
+			});
+			prevPageBtn.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					prevPageBtn.click();
+				}
 			});
 		}
 	}
