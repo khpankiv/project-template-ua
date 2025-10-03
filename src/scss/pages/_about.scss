@@ -1,0 +1,103 @@
+// =====================================================================
+// About Page Styles
+// =====================================================================
+
+// =========Title Banner===============================================
+.title-section {
+	@include banner("../assets/images/backgrounds/banner-about.png");
+	padding-block: $space-10xl;
+}
+
+.page-content {
+	padding-top: $space-5xl;
+	display: flex;
+	flex-direction: column;
+	gap: $space-5xl;
+	width: 100%;
+}
+
+// ========Features Section===============================================
+.features-details {
+  display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	justify-content: space-between;
+	@include responsive-size(gap, $space-4xl);
+}
+
+.feature-item {
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	@include responsive-size(gap, $space-dl);
+	@include hover-effect('feature-icon');
+
+	.feature-icon {
+		@include responsive-size(width, $space-5xl);
+		height: auto;
+	}
+
+	.feature-title {
+		@include font-parameters($font-size-md, $font-weight-bold, $color: $grey-dark);
+	}
+
+	.feature-text {
+		@include font-parameters($font-size-sm, $font-weight-normal, $color: $grey-dark);
+	}
+}
+
+// ========Offer Section===============================================
+.offer-banner {
+	width: 100%;
+}
+
+.offer-text-about {
+	@include section-styles('about-offer');
+}
+
+// ========Team Section===============================================
+.team-section {
+	display: flex;
+	flex-direction: column;
+	gap: $space-3xl;
+}
+
+.underlined {
+	// @include font-parameters($font-size-2xl, $font-weight-black, $color: $text-color);
+	text-align: center;
+	margin-bottom: $space-lg;
+	width: fit-content;
+	margin: 0 auto;
+}
+
+.team-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: $space-3xl;
+	text-align: center;
+	width: 100%;
+
+	.team-member {
+		width: 100%;
+		@include hover-effect('people-card');
+		// display: flex;
+		// flex-direction: column;
+		// align-items: center;
+		// gap: $space-md;
+
+		// img {
+		// 	width: $space-7xl;
+		// 	height: auto;
+		// 	border-radius: 50%;
+		// }
+
+		// .member-name {
+		// 	@include font-parameters($font-size-md, $font-weight-bold, $color: $grey-dark);
+		// }
+
+		// .member-role {
+		// 	@include font-parameters($font-size-sm, $font-weight-normal, $color: $grey-dark);
+		// }
+	}
+}

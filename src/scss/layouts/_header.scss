@@ -1,0 +1,179 @@
+// ==========================================================
+// =============== Header Layout ============================
+// ==========================================================
+
+.header {
+  @include z(header);
+  background-color: $pure-white;
+  box-shadow: $shadow;
+  padding: $space-3 $space-4;
+
+  @include respond-to(md) {
+    padding: $space-2 $space-3;
+  }
+}
+
+// ---------- Top Section ----------
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-4;
+
+  @include respond-to(md) {
+    flex-direction: column;
+    gap: $space-2;
+  }
+}
+
+// ---------- Social Icons ----------
+.socials {
+  display: flex;
+  gap: $space-2;
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: $space-6;
+    height: $space-6;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    @include hover-effect('header-icon');
+  }
+}
+
+// ---------- Logo ----------
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $font-4;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  color: $text-color;
+
+  .logo-bg {
+    width: $space-6;
+    height: $space-6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  @include hover-effect('header-logo');
+}
+
+// ---------- Header Icons (login, cart, burger) ----------
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+
+  a,
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $space-6;
+    height: $space-6;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .cart-link {
+    position: relative;
+
+    .cart-counter {
+      font-size: $font-1;
+      font-weight: $font-weight-bold;
+      line-height: $line-height-single;
+      color: $pure-white;
+      background: $accent-pink;
+      border-radius: 50%;
+      width: $space-4;
+      height: $space-4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: -$space-2;
+      right: -$space-2;
+    }
+  }
+}
+
+// ---------- Divider ----------
+.divider {
+  border: none;
+  border-top: 1px solid $grey-light;
+  margin: $space-3 0;
+}
+
+// ---------- Navigation ----------
+.nav {
+  .nav-list {
+    display: flex;
+    justify-content: center;
+    gap: $space-4;
+
+    @include respond-to(md) {
+      flex-direction: column;
+      align-items: center;
+      gap: $space-2;
+    }
+
+    .nav-link {
+      font-size: $font-2;
+      font-weight: $font-weight-bold;
+      line-height: $line-height-base;
+      color: $text-color;
+      text-transform: uppercase;
+      position: relative;
+
+      &.active {
+        color: $accent-pink;
+      }
+
+      @include hover-effect('header-icon');
+
+      .arrow {
+        width: $space-2;
+        height: auto;
+        margin-left: $space-1;
+      }
+    }
+  }
+}
+
+// ---------- Mobile Menu Toggle ----------
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: $space-1;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  .hamburger-line {
+    width: $space-4;
+    height: 2px;
+    background: $text-color;
+  }
+
+  @include respond-to(md) {
+    display: flex;
+  }
+}

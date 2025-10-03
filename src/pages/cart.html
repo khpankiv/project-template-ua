@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/src/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cart</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+    
+		<div class="title-section">
+        <h1>Cart</h1>
+    </div>
+    
+    <div class="page-content container">
+
+				<div class="cart-message is-hidden" id="thank-you-message">
+          <p>Thank you for your purchase!</p>
+        </div>
+        <div class="cart-message is-hidden" id="cart-empty-message">
+          <p>Your cart is currently empty.<br>Use the catalog to add new items.</p>
+        </div>			
+
+				<table class="cart-table">
+          <thead>
+            <tr>
+              <th>IMAGE</th><th>PRODUCT NAME</th><th>PRICE</th><th>QUANTITY</th><th>TOTAL</th><th>DELETE</th>
+            </tr>
+          </thead>
+					<!-- Cart Items Template -->
+          <tbody id="cart-tbody">
+						<!-- Items Inserts Here -->
+          </tbody>
+        </table>
+    
+      <section class="cart-bottom">
+					<div class="cart-actions">
+						<button class="button" id="continue-shopping" onclick="window.location.href='pages/catalog.html'">CONTINUE SHOPPING</button>
+						<button class="button" id="clear-shopping-cart">CLEAR SHOPPING CART</button>
+					</div>
+					<div class="cart-summary">
+					<!-- Total Table -->
+           <table class="cart-summary-table" id="cart-summary-table">
+              <tr>
+                <td class="cart-summary-label">Sub Total</td>
+                <td class="cart-summary-amount" id="cart-subtotal-amount">$0</td>
+              </tr>
+              <tr>
+                <td class="cart-summary-label">Discount</td>
+                <td class="cart-summary-amount" id="cart-discount-amount">$0</td>
+							</tr>
+              <tr>
+								<td class="cart-summary-label">Shipping</td>
+								<td class="cart-summary-amount" id="cart-shipping-amount">$30</td>
+							</tr>
+              <tr class="cart-summary-total">
+                <td class="cart-summary-label">Total:</td>
+                <td class="cart-summary-amount" id="cart-total-amount">$0</td>
+              </tr>
+           </table>
+					<button class="button" id="checkout-button">CHECKOUT</button>
+				</div>
+			</section>
+
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module" src="js/cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base href="/src/">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Product Details</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+	<div id="header"></div>
+
+	<main class="page-content container">
+    
+		<!-- Main Product Section-->
+		<div class="product-main">
+
+			<!-- Main Product Images -->
+			<div class="product-image">
+					<img id="product-main-image" alt="Product">
+					<div class="image-thumbnails" id="image-thumbnails">
+							<!-- Thumbnails will be dynamically inserted here -->
+					</div>
+			</div>
+			
+			<!-- Main Product-Info -->
+			<div class="product-info">
+				<h2 id="product-name">Loading...</h2>
+				<div class="product-rating">
+					<div id="product-stars"></div>
+					<span id="product-rating-text">(0 reviews)</span>
+				</div>
+				<div class="product-price">
+					<span id="product-price">€0</span>
+				</div>
+				<div class="product-description">
+					<p id="product-description-text">Loading product description...</p>
+				</div>
+
+					<!-- Filter Options -->
+				<div class="filter-labeled">
+					<label class="filter-label">Size</label>
+					<div class="filter-dropdown" id="filter-size">
+							<button class="filter-btn"></button>
+							<ul class="filter-options">
+									<li class="filter-option" data-value="M">M</li>
+									<li class="filter-option" data-value="L">L</li>
+									<li class="filter-option" data-value="XL">XL</li>
+									<li class="filter-option" data-value="S">S</li>
+									<li class="filter-option" data-value="S, M, XL">S, M, XL</li>
+									<li class="filter-option" data-value="S-L">S-L</li>
+							</ul>
+					</div>
+				</div>
+				<div class="filter-labeled">
+						<label class="filter-label">Color</label>
+						<div class="filter-dropdown" id="filter-color">
+								<button class="filter-btn"></button>
+								<ul class="filter-options">
+										<li class="filter-option" data-value="red">Red</li>
+										<li class="filter-option" data-value="blue">Blue</li>
+										<li class="filter-option" data-value="grey">Grey</li>
+										<li class="filter-option" data-value="green">Green</li>
+										<li class="filter-option" data-value="black">Black</li>
+										<li class="filter-option" data-value="pink">Pink</li>
+										<li class="filter-option" data-value="yellow">Yellow</li>
+								</ul>
+						</div>
+				</div>
+				<div class="filter-labeled">
+					<label class="filter-label">Category</label>
+					<div class="filter-dropdown" id="filter-category">
+						<button class="filter-btn"></button>
+						<ul class="filter-options">
+							<li class="filter-option" data-value="suitcases">Suitcases</li>
+							<li class="filter-option" data-value="kids' luggage">Kids' luggage</li>
+							<li class="filter-option" data-value="luggage sets">Luggage sets</li>
+							<li class="filter-option" data-value="carry-ons">Carry-ons</li>
+						</ul>
+					</div>
+				</div>
+				<!-- Product Buttons Section -->
+				<div class="product-buttons-section">
+					<div class="quantity-controls">
+						<button type="button" class="button-quantity minus" id="quantity-minus">-</button>
+						<input class="quantity" value="1" min="1" readonly>
+						<button type="button" class="button-quantity plus" id="quantity-plus">+</button>
+					</div>
+					<button class="button" id="add-multiple-products">Add to Cart</button>
+				</div>
+				<div class="payment-icons">
+					<img src="assets/images/icons/Payments.png" alt="Visa">
+						<!-- <img src="assets/images/icons/visa.png" alt="Visa">
+						<img src="assets/images/icons/mastercard.png" alt="MasterCard">
+						<img src="assets/images/icons/paypal.png" alt="PayPal">
+						<img src="assets/images/icons/amex.png" alt="American Express"> -->
+				</div>
+			</div>
+
+		</div>
+		
+		<!-- Product Tabs Section -->
+		<div class="product-tabs">
+			<div class="tab-buttons">
+				<button class="button-tab" data-tab="details">DETAILS</button>
+				<button class="button-tab active" data-tab="reviews">REVIEWS</button>
+				<button class="button-tab" data-tab="shipping">SHIPPING POLICY</button>
+			</div>
+			
+			<div class="tab-content">
+				<!-- Details Tab -->
+				<div id="details" class="tab-pane">
+					<h4>Product Details</h4>
+					<div class="product-details">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+				<!-- Reviews Tab -->
+				<div id="reviews" class="tab-pane active">
+					<div class="review-form-container">
+						<!-- Review List -->
+						<div class="product-reviews">
+							<h4 id="number-of-reviews">1 review for </h4>
+							<div id="reviews-container" class="reviews-list">
+								<!-- Reviews should be loaded here -->
+								<div class="review-item">
+									<img src="assets/images/users/review.png" alt="Ella Harper" class="review-avatar profile-icon">
+									<div class="review-meta">
+										<div class="review-header-info">
+											<div>
+												<span class="review-author"><strong>Ella Harper</strong></span>
+												<span class="review-date">/ June 11, 2025</span>
+											</div>
+											<div class="review-rating">
+												<!-- <span class="star-full" data-rating="1">★</span>
+												<span class="star-full" data-rating="2">★</span>
+												<span class="star-full" data-rating="3">★</span>
+												<span class="star-full" data-rating="4">★</span>
+												<span class="star-bg" data-rating="5">★</span> -->
+											</div>
+										</div>
+										<p class="review-text">
+											Proin iaculis nibh vitae lectus mollis bibendum. Quisque varius eget urna sit amet luctus. Suspendisse potenti curabitur ac placerat est, sit amet sodales risus.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Review Form -->
+						<form id="review-form" class="review-form"> 
+							<h4>Add Review</h4>
+							<p>Your email address won't be shared with anybody. Required fields have the symbol *</p>
+							<div class="rate-product-section">
+								<h4 >RATE PRODUCT</h4>
+								<div class="star-rating">
+									<span class="star" data-rating="1">★</span>
+									<span class="star" data-rating="2">★</span>
+									<span class="star" data-rating="3">★</span>
+									<span class="star" data-rating="4">★</span>
+									<span class="star" data-rating="5">★</span>
+								</div>
+							</div>
+							<div class="form-grid">
+								<textarea id="text-review" class="review-textarea" placeholder="Your Review*" required autocomplete="off"></textarea>
+								<input id="name-review" class="review-input" placeholder="Your Name*" required autocomplete="off">
+								<input id="email-review" class="review-input" placeholder="Your Email*" required autocomplete="off">
+							</div>
+							<div class="form-checkbox-row">
+								<input type="checkbox" id="agree-checkbox" class="review-checkbox" required>
+								<p>Save my name, email, and website in this browser for when I leave another comment.</p>
+							</div>
+							<button class="button-submit">SUBMIT</button>
+							<div class="success-message is-hidden" id="success-message">
+            			Thank you for your message! We'll get back to you soon.
+          		</div>
+						</form>
+					</div>
+				</div>
+				<!-- Shipping Policy Tab -->
+				<div id="shipping" class="tab-pane">
+					<h4>Shipping Policy</h4>
+					<p>We offer worldwide shipping. All orders are processed within 2-3 business days. Delivery times may vary based on your location.</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- You May Also Like Section -->
+		<section class="you-may-also-like product-grid-section">
+			<h2 class="underlined">You May Also Like
+				<hr class="divider">
+			</h2>
+			<div class="recommended-products product-grid-product-render">
+					<!-- 4 random products will be loaded here -->
+			</div>
+		</section>
+	
+	</main>
+
+	<div id="footer"></div>
+
+	<script type="module" src="js/product-details.js"></script>
+</body>
+</html>

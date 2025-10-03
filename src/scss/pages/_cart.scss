@@ -1,0 +1,113 @@
+// =======Cart page specific styles===========================
+// =================================================
+// ======================Main Table========================
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+	font-size: $font-size-md;
+	font-weight: $font-weight-bold;
+	text-align: center;
+	align-items: center;
+	table-layout: fixed;
+
+		thead {
+			background-color: $color-table-background;
+		}
+
+		th, td {
+			border-bottom: $border solid $accent-pink;
+			width: 16.66%; 
+			overflow: hidden;
+			white-space: normal;
+ 		  word-break: break-word; 
+		}
+
+		th {
+			@include font-parameters($font-size-md, $font-weight-bold);
+			color: $pure-white;
+			padding-block: $space-lg;
+		}
+		
+		tbody tr:hover {
+			@include hover-effect('table-row');
+		}
+
+		.quantity-controls {
+			justify-content: center;
+			gap: $space-sm;
+			margin: 0 auto;
+		}
+		
+		.cart-item-image {
+			@include responsive-size(width, $cart-image-size);
+			height: auto;
+		}
+
+	}
+
+//===================Bottom part of the cart=========================
+.cart-bottom {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+	gap: $space-5xl;
+	align-items: start;
+
+	.button {
+		font-size: $font-size-xs;
+	}
+}
+
+// ============Cart Actions Buttons=========================
+.cart-actions {
+	display: flex;
+	gap: $space-lg;
+}
+
+// =============Summary Table=========================
+.cart-summary {
+	color: $pure-white;
+	background-color: $color-table-background;
+	padding-left: $space-lg;
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: $font-size-md;
+		font-weight: $font-weight-bold;
+	}
+
+	tr {
+
+		border-bottom: $border solid $accent-pink;
+	}
+
+	td {		
+		padding: $space-lg;
+	}
+
+	td.cart-summary-label {
+		text-align: start;
+	}
+
+	td.cart-summary-amount {
+		text-align: end;
+	}
+
+	.cart-summary-total {
+		font-size: $font-size-md;
+	}
+
+	#checkout-button {
+		margin: $space-xl 0;
+	}
+}
+
+// ===================Cart Message=========================
+.cart-message {
+	text-align: center;
+	margin: $space-5xl 0;
+	font-size: $font-size-2xl;
+	font-weight: $font-weight-black;
+	color: $accent-pink;
+}

@@ -1,0 +1,394 @@
+// @use 'sass:color';
+// ==================================================
+// ======= Form and Inputs Styles ===================
+// ==================================================
+
+// =============Universlal Form Styles==================
+form {
+	display: flex;
+	flex-direction: column;
+	gap: $space-lg;
+	// padding: $space-lg;
+	width: 100%;
+	justify-content: space-between;
+	text-align: start;
+	font-size: $font-size-xs;
+
+	h4 {
+		font-size: $font-size-sm;
+		font-weight: $font-weight-bold;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: $space-sm;
+	}
+		
+	.form-line-group {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.button-submit {
+		@include button ('btn-base');
+		width: auto;
+		// padding: $space-md $space-2xl;
+
+		&:disabled {
+			// background: $grey-extra-light;
+			// color: $color-muted;
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+	}
+}
+
+.password-wrapper {
+		position: relative;
+		display: flex;
+		align-items: center;
+		
+		input {
+			padding-right: $space-3xl;
+		}
+		
+		.password-toggle {
+			position: absolute;
+			right: $space-sm;
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: $space-xs;
+			color: $grey;
+			font-size: $input-font-size;
+			transition: color $animation-fast;
+		}
+}
+
+label {
+	font-size: $font-size-sm;
+	font-weight: $font-weight-bold;
+	display: block;
+}
+
+textarea {
+		resize: vertical;
+		min-height: $min-height-textinput;
+}
+
+// .form-checkbox-row {
+// 	display: flex;
+// 	align-items: center;
+// 	gap: $space-md;
+// 	font-size: $font-size-xs;
+// 	color: $grey;
+// }
+
+input,
+textarea {
+	@include input-styles($border-color:$accent-pink);
+}
+
+// &.success {
+// 			input, textarea, select {
+// 					border-color: $success-color;
+// 					background-color: lighten($success-color, 45%);
+// 			}
+// 		}
+
+// 			&.error {
+// 			input, textarea, select {
+// 					border-color: $error-color;
+// 					background-color: lighten($error-color, 45%);
+// 			}
+// }
+    
+// ==================================================================
+// Filters Fields
+// ==================================================================
+.filter-dropdown {
+	cursor: pointer;
+	@include input-styles();
+
+			.filter-btn {
+				display: flex;
+				align-items: center;
+				justify-content: space-between; 
+				width: 100%;
+				background: transparent;
+				border: none;
+				text-align: left;
+				@include font-parameters(
+					$font-size-sm, 
+					$font-weight-normal,
+					$line-height-single, 
+					$color: $grey);
+			}
+
+			.filter-options {
+				display: none;
+				cursor: pointer;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				background: $pure-white;
+				border: $border solid $grey-light;
+				width: 100%;
+				z-index: $z-filter-dropdown;
+			}
+
+			&:hover .filter-options,
+			&.open .filter-options {
+				display: block;
+			}
+
+			&.closed .filter-options {
+				display: none;
+			}
+
+			.filter-option {
+				display: block;
+				padding: $space-sm $space-md;    
+				@include hover-effect('dropdown-option');       
+				@include selected-effect('dropdown-option');
+				@include font-parameters(
+					$font-size-sm,
+					$font-weight-normal,
+					$line-height-base,
+					$color: $input-text-color,
+				);
+			}
+}
+// ==================================================================
+// Sorting
+// ==================================================================
+.sort-dropdown {
+	@extend .filter-dropdown;
+	width: auto;
+	
+	.sort-btn {
+		@extend .filter-btn;
+	}
+
+	.sort-options {
+		@extend .filter-options;
+	}
+}
+
+// ==================================================================
+// Search
+// ==================================================================
+.search-field {
+	@include input-styles();
+	display: flex;
+	// align-items: center;
+	@include font-parameters(
+			$font-size-sm, 
+			$font-weight-normal,
+			$line-height-single, 
+			$color: $grey);
+
+		.catalog-search {
+			width: 100%;
+			border: none;
+			@include font-parameters(
+				$font-size-sm, 
+				$font-weight-normal,
+				$line-height-single, 
+				$color: $grey);
+			box-sizing: border-box;
+		
+			&:focus {
+				outline: none;
+				box-shadow: none;
+			}
+		}
+
+		.search-icon {
+			position: absolute;
+			right: $space-md;
+			top: 50%;
+			transform: translateY(-50%);
+			display: flex;
+			align-items: center;
+			pointer-events: auto;
+			
+			img {
+				cursor: pointer;
+				@include hover-effect('search-icon');
+			}
+		}
+}
+
+// ==================================================================
+// =============Modal styles ========================================
+// ==================================================================
+	.modal {
+			@include modal-backdrop;
+			@include fadeIn;
+	}
+	
+	.modal-content {
+
+			@include modal-content;
+			@include slideDown;
+	}
+    
+	.modal-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: $space-lg;
+		border-bottom: $border solid $grey-extra-light;
+		background: $accent-pink-light;
+		
+		h2 {
+			font-size: $font-size-lg;
+			font-weight: $font-weight-bold;
+		}
+			
+		.close {
+			background: none;
+			border: none;
+			font-size: $font-size-xl;
+			font-weight: bold;
+			color: $grey;
+			cursor: pointer;
+			padding: 0;
+			line-height: 1;
+			transition: color $animation-fast;
+				
+			&:hover {
+				color: $accent-pink;
+			}
+		}
+	}
+
+	#login-form {
+		@extend form;
+
+		.form-grid {
+			display: grid;
+			width: 100%;
+			grid-template-columns: 1fr 1fr;
+			// @include responsive-size(gap, $space-lg);
+			font-size: $font-size-sm;
+			// color: $grey;
+
+			.review-textarea {
+				grid-column: span 2;
+			}
+		}
+
+		#login-button {
+			@extend .button;
+			width: 100%;
+		}
+
+	#review-form {
+		@extend form;
+	}
+}         
+
+	
+// ==================================================================
+// Notification styles
+// ==================================================================
+// .input-wrapper {
+//   position: relative; // щоб notification міг позиціонуватись всередині
+//   display: inline-block; 
+// }
+
+.notification {
+  position: absolute;
+  top: 50%;
+  left: 100%; // праворуч від інпута
+  transform: translate(8px, -50%); // невеликий відступ і центр по висоті
+  background: $error-color;
+  color: $pure-white;
+  padding: $space-xs $space-sm;
+  border-radius: $radius-s;
+  font-size: $font-size-xs;
+  white-space: nowrap;
+  z-index: $z-notification;
+  box-shadow: $shadow;
+
+  // анімація появи
+  animation: fadeIn $animation-medium $animation-ease;
+
+  &.success { background: $success-color; }
+  &.info    { background: $info-color; }
+  &.error   { background: $error-color; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(12px, -50%); }
+  to   { opacity: 1; transform: translate(8px, -50%); }
+}
+
+
+
+
+//   .notification-backdrop {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background: rgba(0, 0, 0, 0.3);
+// 		opacity: 0.5;
+//     z-index: 1000;
+//     pointer-events: auto;
+//   }
+
+// .notification {
+//   &.error {
+//     position: fixed;
+//     top: 50%;
+//     right: 50%;
+//     background: $grey-dark;
+//     padding: $space-2xl $space-2xl;
+// 		border: 2px solid $pure-white;
+// 		@include font-parameters(
+// 			$font-size-2xl, 
+// 			$font-weight-bold, 
+// 			$color: $pure-white);
+//     z-index: 1001;
+//     animation: slideInRight $animation-fast ease-out;
+//   }
+// }
+        
+// .success-message {
+// 		background: lighten($success-color, 40%);
+// 		color: lighten($success-color, 20%);
+// 		padding: $space-lg;
+// 		border-radius: $radius-s;
+// 		margin-top: $space-lg;
+// 		text-align: center;
+// 		@include font-parameters($font-size-md, $font-weight-bold);
+// 		border-left: 4px solid $success-color;
+// 		display: none;
+		
+// 		&.show {
+// 			display: block;
+// 			@include fadeIn;
+// 		}
+// }
+
+// .error-message {
+// 		color: $error-color;
+// 		@include font-parameters($font-size-sm, $font-weight-bold);
+// 		margin-top: $space-sm;
+// 		font-size: $font-size-xs;
+// 		font-weight: 400;
+// 		display: none;
+// 		@include fadeIn($animation-fast);
+// 		animation: shake $animation-slow ease-in-out;
+		
+// 		&.show {
+// 			display: block;
+// 		}
+// }
+

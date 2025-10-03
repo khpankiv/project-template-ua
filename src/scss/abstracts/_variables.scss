@@ -1,0 +1,196 @@
+// ======================================================
+// =============== Colors ===============================
+// ======================================================
+$grey: #727174;
+$grey-dark: #504E4A;
+$grey-light: #E9E9ED;
+$grey-extra-light: #E7E8E9;
+$pure-white: #FFFFFF;
+$text-color: #000000;
+$accent-pink: #B92770;
+$accent-pink-dark: #cfadbeee;
+$accent-pink-light: #c2a0b1;
+
+$shadow-color: rgba(193, 199, 212, 0.7);
+$hover-shadow-color: $grey;
+$stars-color: #FFC107;
+$stars-grey-color: #E0E0E0;
+
+$error-color: $accent-pink;
+$success-color: $grey-dark;
+$info-color: $text-color;
+
+// ======================================================
+// =============== Spacing Scale ========================
+// ======================================================
+$space-1: 0.25rem;                       // 4px
+$space-2: 0.5rem;                        // 8px
+$space-3: 1rem;                          // 16px
+$space-4: 1.5rem;                        // 24px
+$space-5: clamp(2rem, 3vw, 2.5rem);      // 32–40px
+$space-6: clamp(2.5rem, 4vw, 3rem);      // 40–48px
+$space-7: clamp(3rem, 5vw, 4rem);        // 48–64px
+$space-8: clamp(4rem, 7vw, 5rem);        // 64–80px
+$space-9: clamp(6rem, 10vw, 8rem);       // 96–128px
+$space-10: clamp(8rem, 15vw, 10rem);     // 128–160px
+
+$photo-icon-size: $space-8;
+
+// ======================================================
+// =============== Typography ===========================
+// ======================================================
+$font-1: clamp(12px, 1.5vw, 14px);   // captions
+$font-2: clamp(14px, 2vw, 16px);     // body
+$font-3: clamp(16px, 2.5vw, 20px);   // subheading
+$font-4: clamp(20px, 3vw, 24px);     // h3
+$font-5: clamp(28px, 4vw, 40px);     // h2
+$font-6: clamp(36px, 5vw, 48px);     // h1 / hero
+
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+$line-height-single: 1;
+$line-height-tight: 1.2;  
+$line-height-base: 1.5;    
+$line-height-loose: 2;  
+
+// ======================================================
+// =============== Layout ===============================
+// ======================================================
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1440px
+);
+
+@mixin respond-to($bp) {
+  @media (max-width: map-get($breakpoints, $bp)) {
+    @content;
+  }
+}
+
+$container-width: map-get($breakpoints, xl);
+$fluid-container: clamp(320px, 90vw, 1440px);
+$container-padding: $space-7;
+$section-spacing: $space-7;
+
+$grid-min-1: 500px;
+$grid-min-2: 400px;
+$grid-min-3: 300px;
+$grid-min-4: 250px;
+
+// ======================================================
+// =============== Z-index ==============================
+// ======================================================
+$z: (
+  base: 1,
+  hover: 2,
+  header: 100,
+  dropdown: 200,
+  sticky: 300,
+  modal-backdrop: 1000,
+  modal: 1010,
+  notification: 1100
+);
+
+@mixin z($key) {
+  z-index: map-get($z, $key);
+}
+
+// ======================================================
+// =============== Animations ===========================
+// ======================================================
+$animation-fast: 0.1s;
+$animation-medium: 0.3s;
+$animation-slow: 0.5s;
+$animation-ease: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+// ======================================================
+// =============== Shadows ==============================
+// ======================================================
+$shadow: 0px 20px 80px 0px $shadow-color;
+$shadow-hover: 0px 0px 20px 10px $hover-shadow-color; 
+$shadow-filter-dropdown: 0.5rem 2rem $shadow-color;
+$shadow-form-focus: 0 0 0 3px rgba($accent-pink, 0.1);
+$shadow-modal: 0 4px 20px rgba(0,0,0,0.2);
+
+// ======================================================
+// =============== Maps for Components ==================
+// ======================================================
+
+$hover-effects-map: (
+  'header-icon': (transform: scale(1.1), color: $accent-pink),
+  'header-logo': (transform: scale(1.05), color: $accent-pink),
+  'footer': (color: $accent-pink),
+  'hero-image': (transform: scale(1.05), shadow: $shadow-hover),
+  'product-card': (transform: scale(1.02), shadow: $shadow-hover),
+  'sticky-element': (shadow: $shadow-hover)
+);
+
+$button-styles-map: (
+  'btn-base': (
+    padding: $space-2 $space-4,
+    font-size: $font-2,
+    background: $accent-pink,
+    color: $pure-white,
+    border-radius: 4px
+  ),
+  'btn-outline': (
+    padding: $space-2 $space-4,
+    font-size: $font-2,
+    background: transparent,
+    color: $accent-pink,
+    border: 2px solid $accent-pink,
+    border-radius: 4px
+  )
+);
+
+$section-styles-map: (
+  'hero': (
+    padding-top-bottom: $space-8,
+    padding-left: $space-5,
+    gap: $space-4,
+    title-color: $text-color,
+    text-color: $grey-dark
+  ),
+  'main-news': (
+    padding-top-bottom: $space-6,
+    padding-left: $space-5,
+    gap: $space-3
+  ),
+  'offer-white': (
+    padding-top-bottom: $space-6,
+    padding-left: $space-5,
+    gap: $space-4,
+    title-color: $accent-pink
+  )
+);
+
+// ======================================================
+// =============== Compatibility Aliases (temp) =========
+// ======================================================
+$space-xs: $space-1;
+$space-sm: $space-2;
+$space-md: $space-3;
+$space-dl: $space-3;
+$space-lg: $space-4;
+$space-xl: $space-5;
+$space-2xl: $space-6;
+$space-3xl: $space-7;
+$space-4xl: $space-8;
+$space-5xl: $space-8;
+$space-10xl: $space-10;
+
+$font-size-xs: $font-1;
+$font-size-sm: $font-2;
+$font-size-md: $font-3;
+$font-size-lg: $font-4;
+$font-size-xl: $font-5;
+$font-size-2xl: $font-5;
+$font-size-3xl: $font-6;
+
+$breakpoint-mobile: map-get($breakpoints, md);
+$breakpoint-tablet: map-get($breakpoints, lg);
+$breakpoint-desktop: map-get($breakpoints, xl);

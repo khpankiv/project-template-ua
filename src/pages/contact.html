@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/src/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main>
+		<!-- Title Banner -->
+    <div class="title-section">
+        <h1>Contact Us</h1>
+      <p>We'd love to hear from you. Get in touch with our team!</p>
+    </div>
+    
+    <div class="page-content container">
+
+			<!-- Features Section -->
+      <div class="features-details">
+        <div class="feature-item">
+          <div class="feature-icon-bg">
+            <img src="assets/images/icons/feature-location.svg" alt="Location" class="feature-icon">
+          </div>
+          <h3 class="feature-title">Our Location</h3>
+          <p class="feature-text">
+            1234 NW Bobcat Lane, St.<br>
+            Robert, MO 65584-5678
+          </p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-bg">
+            <img src="assets/images/icons/feature-clock.svg" alt="Operating Time" class="feature-icon">
+          </div>
+          <h3 class="feature-title">Operating Time</h3>
+          <p class="feature-text">
+            Monday - Friday: 9am - 6 pm<br>
+            Weekends: 10:30 am - 6pm
+          </p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-bg">
+            <img src="assets/images/icons/feature-mail.svg" alt="Email" class="feature-icon">
+          </div>
+          <h3 class="feature-title">Our Email</h3>
+          <p class="feature-text">
+            best@shop.com<br>
+            info@bestshop.com
+          </p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-bg">
+            <img src="assets/images/icons/feature-phone.svg" alt="Call Us" class="feature-icon">
+          </div>
+          <h3 class="feature-title">Call Us</h3>
+          <p class="feature-text">
+            (268)142-8413<br>
+            (760)265-2917
+          </p>
+        </div>
+      </div>
+
+      <div class="offer-2-section">
+				<div class="offer-banner">
+        	<img src="assets/images/news/hero-contact.png" alt="Contact us hero image">
+				</div>
+        
+				<form class="review-form" id="contact-form">
+          <h3 class="form-title">Your Feedback Is Much Appreciated!</h3>
+          <p>We will contact you when you complete the following form!</p>
+					<!-- <div class="form-grid-contacts	"> -->
+						<div class="form-group">
+							<label for="name">Your Name<span>*</span></label>
+							<input id="name" name="name" required autocomplete="off">
+							<span class="error-message" id="name-error"></span>
+						</div>
+						<div class="form-group">
+							<label for="mail">Your Email Address<span>*</span></label>
+							<input id="mail" name="email" required autocomplete="off">
+							<span class="error-message" id="mail-error"></span>
+						</div>
+						<div class="form-group">
+							<label for="topic">Topic<span>*</span></label>
+							<input type="text" id="topic" name="topic" required autocomplete="off">
+							<span class="error-message" id="topic-error"></span>
+						</div>
+						<div class="form-group">
+							<label for="message">Your Message<span>*</span></label>
+							<textarea id="message" name="message" rows="5" required autocomplete="off"></textarea>
+							<span class="error-message" id="message-error"></span>
+						</div>
+					<!-- </div> -->
+          <button class="button-submit">SUBMIT</button>
+          <!-- <div class="success-message is-hidden" id="success-message"> -->
+            <!-- Thank you for your message! We'll get back to you soon. -->
+          <!-- </div> -->
+        </form>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script type="module" src="js/contact.js"></script>
+</body>
+</html>

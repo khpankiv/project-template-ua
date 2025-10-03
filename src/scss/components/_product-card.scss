@@ -1,0 +1,105 @@
+// ==========================================================
+// ======= Product Card ====================================
+// ===========================================================
+.product-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background-color: $pure-white;
+	align-items: center;
+	text-align: center;
+	cursor: pointer;
+	@include hover-effect('product-card');
+}
+
+.product-card-img-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.product-card-img {
+	box-shadow: $shadow;
+	width: 100%;
+}
+.badge-sale {
+	position: absolute;
+	@include responsive-size(top, $space-md);
+	@include responsive-size(left, $space-md);
+	background: $accent-pink;
+	@include font-parameters(
+		$font-size-xs, 
+		$font-weight-bold,
+		$color: $pure-white);
+	text-transform: uppercase;
+	@include responsive-size(padding, $space-xs $space-sm);
+	z-index: 2;
+	// letter-spacing: 0.05em;
+}
+
+.product-card-info {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: $space-dl;
+	padding-block: $space-dl;
+	align-items: center;
+}
+
+.product-card-name {
+	@include font-parameters(
+		$font-size-md, 
+		$font-weight-bold,
+		$color: $text-color);
+}
+
+.product-card-price {
+	@include font-parameters(
+		$font-size-md, 
+		$font-weight-bold, 
+		$color: $grey-dark);
+}
+
+// ===========================================================
+//======== Sidebar Compact Product Card =========================
+// ===========================================================
+.sidebar-product-card {
+	display: flex;
+	align-items: center;
+	gap: $space-lg;
+	padding: $space-md 0;
+	background: transparent;
+	transition: background-color $animation-medium $animation-ease;
+	@include hover-effect('product-card');
+}
+
+.sidebar-product-img {
+	@include responsive-size(width, $photo-icon-size);
+	height: auto;
+	object-fit: cover;
+	box-shadow: $shadow;
+	flex: 0;
+}
+
+.sidebar-product-info {
+	display: flex;
+	flex-direction: column;
+	gap: $space-xs;
+	min-width: 0;
+	flex: 1;
+}
+
+.sidebar-product-name {
+	@include font-parameters($font-size-sm, $font-weight-normal);
+}
+
+.sidebar-product-rating {
+	display: flex;
+	align-items: center;
+	gap: $space-xs;
+	font-size: $font-size-sm;
+}
+
+.sidebar-product-price {
+	@include font-parameters($font-size-sm, $font-weight-normal);
+}
+

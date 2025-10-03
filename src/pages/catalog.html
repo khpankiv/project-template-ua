@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<base href="/src/">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Catalog</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+	<div id="header"></div>
+
+	<main class="catalog container">
+
+		<!-- Filter Section	 -->
+		<section class="filter-section">
+			<hr class="divider">
+
+			<div class="filters-grid">
+				<!-- Size Filter -->
+				<div class="filter-labeled">
+					<label class="filter-label" for="size">Size</label>
+					<div class="filter-dropdown" id="filter-size">
+						<button class="filter-btn" id="size"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
+						<ul class="filter-options">
+							<li class="filter-option" data-value="all">All</li>
+							<li class="filter-option" data-value="M">M</li>
+							<li class="filter-option" data-value="L">L</li>
+							<li class="filter-option" data-value="XL">XL</li>
+							<li class="filter-option" data-value="S">S</li>
+							<li class="filter-option" data-value="S, M, XL">S, M, XL</li>
+							<li class="filter-option" data-value="S-L">S-L</li>
+						</ul>
+					</div>
+				</div>
+				<!-- Category Filter -->
+				<div class="filter-labeled">
+					<label class="filter-label" for="category">Category</label>
+					<div class="filter-dropdown" id="filter-category">
+						<button class="filter-btn" id="category"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
+						<ul class="filter-options">
+							<li class="filter-option" data-value="all">All</li>
+							<li class="filter-option" data-value="suitcases">Suitcases</li>
+							<li class="filter-option" data-value="kids' luggage">Kids' luggage</li>
+							<li class="filter-option" data-value="luggage sets">Luggage sets</li>
+							<li class="filter-option" data-value="carry-ons">Carry-ons</li>
+						</ul>
+					</div>
+				</div>
+				<!-- Color Filter -->
+				<div class="filter-labeled">
+					<label class="filter-label" for="color">Color</label>
+					<div class="filter-dropdown" id="filter-color">
+						<button class="filter-btn" id="color"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
+						<ul class="filter-options">
+							<li class="filter-option" data-value="all">All</li>
+							<li class="filter-option" data-value="red">Red</li>
+							<li class="filter-option" data-value="blue">Blue</li>
+							<li class="filter-option" data-value="grey">Grey</li>
+							<li class="filter-option" data-value="green">Green</li>
+							<li class="filter-option" data-value="black">Black</li>
+							<li class="filter-option" data-value="pink">Pink</li>
+							<li class="filter-option" data-value="yellow">Yellow</li>
+						</ul>
+					</div>
+				</div>
+				<!-- Sale Checkbox -->
+				<div class="filter-labeled">
+					<label class="filter-label" for="salesStatus">On Sale</label>
+					<div class="checkbox" id="filter-salesStatus">
+						<input type="checkbox" data-value="false" id="salesStatus">
+					</div>
+				</div>
+
+			</div>
+			<hr class="divider">
+			<!-- Filter Buttons -->
+			<div class="filter-buttons">
+				<button class="filter-resume-btn" id="filter-reset">Clear filters</button>
+				<button class="filter-resume-btn" id="filter-apply">Apply filters</button>
+			</div>
+		</section>
+
+		<div class="catalog-page-container">
+			<!-- Sort and Search Section -->
+			<div class="sort-search-line">
+				<!-- Showing Products Count -->
+				<span class="product-count" id="product-count">Showing 0 of 0 products</span>
+				<!-- Sort Field -->
+				<div class="sort-dropdown" id="sort-dropdown">
+					<button class="sort-btn" id="sort-selected"><span>Default Sorting</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
+					<ul class="sort-options" id="sort-options">
+						<li data-value="price-asc" class="filter-option">Price: Low to High </li>
+						<li data-value="price-desc" class="filter-option">Price: High to Low</li>
+						<li data-value="name-asc" class="filter-option">Name: A to Z</li>
+						<li data-value="name-desc" class="filter-option">Name: Z to A</li>
+						<li data-value="popularity" class="filter-option">Popularity</li>
+						<li data-value="rating" class="filter-option">Rating</li>
+					</ul>
+				</div>
+			</div>
+			<!-- Search Field -->
+			<div class="search-field">
+				<input class="catalog-search" id="catalog-search" placeholder="Search Models" autocomplete="off">
+				<span class="search-icon" aria-label="Search">
+					<img class="search-icon-img" src="assets/images/icons/search.svg" alt="Search Icon">
+				</span>
+			</div>
+
+			<!-- Products Grid and Sidebar -->
+			<div class="product-grid">
+				<!-- Products will be dynamically inserted here -->
+			</div>
+
+			<!-- Sidebar -->
+			<aside class="sidebar">
+				<h3>Top best sets</h3>
+				<div class="random-products-list">
+					<!-- Random sets will be inserted here -->
+				</div>
+			</aside>
+
+			<!-- Pagination Buttons -->
+			<div class="page-buttons container">
+				<button id="button-previous-page" class="button-scroll-page">
+					&lt; Previous
+				</button>
+				<div class="page-number" id="page-number">
+					<!-- Page numbers will be dynamically inserted here -->
+				</div>
+				<button id="button-next-page" class="button-scroll-page">
+					Next &gt;
+				</button>
+			</div>
+
+		</div>
+
+	</main>
+
+	<div id="footer"></div>
+
+	<script type="module" src="js/catalog.js"></script>
+</body>
+
+</html>

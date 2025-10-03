@@ -1,0 +1,55 @@
+// ======================================================
+// =============== Mixins ===============================
+// ======================================================
+
+// Hover effect
+@mixin hover-effect($key) {
+  $hover-map: map-get($hover-effects-map, $key);
+
+  &:hover {
+    @if map-has-key($hover-map, transform) {
+      transform: map-get($hover-map, transform);
+    }
+    @if map-has-key($hover-map, color) {
+      color: map-get($hover-map, color);
+    }
+    @if map-has-key($hover-map, shadow) {
+      box-shadow: map-get($hover-map, shadow);
+    }
+  }
+}
+
+// Button styles
+@mixin button($key) {
+  $btn-map: map-get($button-styles-map, $key);
+
+  padding: map-get($btn-map, padding);
+  font-size: map-get($btn-map, font-size);
+  background: map-get($btn-map, background);
+  color: map-get($btn-map, color);
+  border-radius: map-get($btn-map, border-radius);
+
+  @if map-has-key($btn-map, border) {
+    border: map-get($btn-map, border);
+  }
+}
+
+// Section styles
+@mixin section-styles($section-type) {
+  $section-map: map-get($section-styles-map, $section-type);
+
+  padding: map-get($section-map, padding-top-bottom) map-get($section-map, padding-left);
+  gap: map-get($section-map, gap);
+
+  @if map-has-key($section-map, title-color) {
+    .section-title {
+      color: map-get($section-map, title-color);
+    }
+  }
+
+  @if map-has-key($section-map, text-color) {
+    .section-text {
+      color: map-get($section-map, text-color);
+    }
+  }
+}

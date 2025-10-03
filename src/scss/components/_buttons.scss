@@ -1,0 +1,125 @@
+// ======================================================================
+// Button styles using a map for different button types
+// ======================================================================
+
+// ===========================================================
+// ====Button universal mixin================================
+// =========================================================
+@mixin button($key) {
+    $btn-map: map-get($button-styles-map, $key);
+    background-color: if(map-get($btn-map, bg-color), map-get($btn-map, bg-color), null);
+    color: if(map-get($btn-map, text-color), map-get($btn-map, text-color), null);
+    border: if(map-get($btn-map, border), map-get($btn-map, border), null);
+    @include responsive-size(padding, if(map-get($btn-map, padding), map-get($btn-map, padding), null));
+    @include font-parameters(
+			if(map-get($btn-map, font-size), map-get($btn-map, font-size), null),
+			if(map-get($btn-map, font-weight), map-get($btn-map, font-weight), null),
+			$line-height: $line-height-single,
+			$color: if(map-get($btn-map, text-color), map-get($btn-map, text-color), null)
+    	);
+    text-align: center;
+    border-radius: if(map-get($btn-map, border-radius), map-get($btn-map, border-radius), null);
+    @if (map-get($btn-map, hover-effect)) {
+			@include hover-effect(map-get($btn-map, hover-effect));
+    }
+    @if (map-get($btn-map, selected-effect)) {
+			@include selected-effect(map-get($btn-map, selected-effect));
+    }
+		&.disabled {
+			opacity: 0;
+			pointer-events: none;
+		}
+}
+
+.button {
+    @include button('btn-base');
+}
+
+.button-add {
+	@extend .button;
+}
+
+// =======================================================================
+// Add to Cart button
+// =====================================================================
+// .button-add {
+// 		@include button('btn-base');
+// }
+
+// ========================================================================
+// Quantity controls
+// =======================================================================
+.quantity-controls {
+  display: flex;
+	max-width: $quantity-input-width;
+  align-items: center;
+	justify-content: center;
+	text-align: center;
+	border: $border solid $accent-pink;
+	background-color: transparent;
+}
+
+.quantity-controls > * {	
+  flex: 1 1 0;
+  width: 33%;
+	height: 100%;
+	text-align: center;
+	padding: 0;
+  border: none;
+	cursor: pointer;
+	@include font-parameters (
+		$font-size-lg, 
+		$font-weight-bold,
+		$line-height-single, 
+		$color: $grey);
+}
+
+.button-quantity {
+		@include button ('btn-quantity');
+}
+
+// ===========================================================================
+// Pagination styles
+// ==========================================================================
+.page-buttons {
+    @include responsive-size(margin-top, $space-xl);
+    @include responsive-size(margin-bottom, $space-3xl);
+    display: flex;
+    justify-content: center;
+    @include responsive-size(gap, $space-lg);
+    align-items: center;
+		@include responsive-size(height, $space-2xl);
+}
+
+.button-scroll-page {
+		@include button('btn-scroll-page');
+}
+
+.button-page-number {
+		@include button('btn-page-number');
+}
+
+// ==================================================================
+// Tab styles
+// ==================================================================
+.tab-pane {
+  display: none;
+}
+.tab-pane.active {
+  display: block;
+}
+.button-tab {
+	@include button('btn-tab');
+}
+.tab-buttons {
+	display: flex;
+	justify-content: center;
+	@include responsive-size(gap, $space-2xl);
+}
+
+// ===================================================================
+// Submit form
+// ===================================================================
+// .button-submit {
+// 		@include button('btn-base');
+// }
