@@ -1,0 +1,21 @@
+{
+  "name": "project-template",
+  "version": "1.0.0",
+  "description": "Capstone Project Template ",
+  "repository": {
+    "type": "git",
+    "url": "https://autocode.git.epam.com/campus_javascript/capstone-project/project-template.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "sass --watch src/scss:src/css"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "sass": "^1.92.1"
+  }
+}
