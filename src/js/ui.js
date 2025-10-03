@@ -37,26 +37,52 @@ export async function loadComponent(id, url) {
 /**********************************************************************
  * @name populateProducts - Function to populate a container with a list of product cards.
  * This function handles both the main grid and the random products sidebar.
+ * Optimized to reduce DOM operations by using DocumentFragment.
  * @param {Array<Object>} products - The array of product objects.
  * @param {string} containerSelector - The CSS selector for the container.
+ * @param {string} templateId - The template ID to use.
+ * @param {boolean} isSidebar - Whether this is a sidebar render.
+ * @returns {Promise<void>}
  ****************************************************************************/
 export async function populateProducts(products, containerSelector, templateId, isSidebar = false) {
+	if (!Array.isArray(products) || products.length === 0) {
+		console.warn(`populateProducts: No products to display in ${containerSelector}`);
+		return;
+	}
+	
 	const template = await loadCardTemplate(templateId);
   const container = document.querySelector(containerSelector);
-	if (!container || !template) return;
+	
+	if (!container) {
+		console.error(`populateProducts: Container ${containerSelector} not found`);
+		return;
+	}
+	
+	if (!template) {
+		console.error(`populateProducts: Template ${templateId} not found`);
+		return;
+	}
+	
   // Clear the container before adding new products
   container.innerHTML = '';
+	
+	// Use DocumentFragment for better performance
+	const fragment = document.createDocumentFragment();
+	
 	if (isSidebar) {
 		products.forEach(product => {
-		const card = createSidebarProductCard(product, template);
-		container.appendChild(card);
+			const card = createSidebarProductCard(product, template);
+			fragment.appendChild(card);
 		});
 	} else {
 		products.forEach(product => {
-		const card = createProductCard(product, template);
-		container.appendChild(card);
+			const card = createProductCard(product, template);
+			fragment.appendChild(card);
 		});
 	}
+	
+	// Append all cards at once for better performance
+	container.appendChild(fragment);
 }
 
 /**************************************************************************
