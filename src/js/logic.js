@@ -5,6 +5,7 @@ import { updateCartCounter } from './header.js';
 import { dataFile } from './file_links.js';
 import { fetchProducts } from './utils.js';
 import { getProductsByField } from './utils.js';
+import { showMessage } from './forms.js';
 // import { renderProductsForPage } from './ui.js';
 
 /*************************************************************************************************
@@ -17,7 +18,7 @@ export function addToCart(id, quantity = 1) {
     cart[id] = (cart[id] || 0) + quantity;
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCounter();
-    showMessage('Product added to cart!', 'success', '#cart-counter');
+    showMessage('success', 'Product added to cart!', '#cart-counter');
 }
 
 /*************************************************************************************************
@@ -35,7 +36,7 @@ export function removeFromCart(id, quantity = 1) {
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCounter();
-    showMessage('Product removed from cart!', 'info', '#cart-counter');
+    showMessage('info', 'Product removed from cart!', '#cart-counter');
 }
 
 /*************************************************************************************************
@@ -156,7 +157,7 @@ export function doSearch (products, searchInput) {
 		// First matched product by name
 		const exactMatch = products.find(product => product.name.toLowerCase().includes(query));
 		if (!exactMatch) {
-			showNotFoundPopup( 'Product not found', 'error', '#search-input');
+			showMessage('error', 'Product not found', '#search-input');
 			return;
 		} else {		
 			window.location.href = `pages/product-details-template.html?id=${exactMatch.id}`;

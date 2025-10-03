@@ -435,7 +435,7 @@ function clearError(fieldName) {
  * @name showMessage - Show notification message
  * @param {string} type - The type of message (e.g., success, error)
  * @param {string} message - The message content
- * @param {string} id - The ID of the element to attach the message to
+ * @param {string|HTMLElement} targetEl - The element or selector to attach the message to
  ***************************************************************************/
 export function showMessage(type, message, targetEl) {
   const notification = document.createElement('div');
@@ -443,10 +443,16 @@ export function showMessage(type, message, targetEl) {
   notification.textContent = message;
 
   if (targetEl) {
-    // контейнер для popup
-    const wrapper = targetEl.parentElement;
-    wrapper.style.position = "relative"; 
-    wrapper.appendChild(notification);
+    // Get element from selector if targetEl is a string
+    const element = typeof targetEl === 'string' ? document.querySelector(targetEl) : targetEl;
+    if (element) {
+      // контейнер для popup
+      const wrapper = element.parentElement;
+      wrapper.style.position = "relative"; 
+      wrapper.appendChild(notification);
+    } else {
+      document.body.appendChild(notification);
+    }
   } else {
     document.body.appendChild(notification);
   }
