@@ -72,4 +72,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadComponent('footer', footerPath);
   initHeader();
   await initHomepage();
+  
+  // Initialize button navigation using data-href attribute
+  document.querySelectorAll('[data-href]').forEach(button => {
+    button.addEventListener('click', (e) => {
+      const href = e.currentTarget.getAttribute('data-href');
+      if (href) window.location.href = href;
+    });
+  });
 });

@@ -53,3 +53,165 @@
     }
   }
 }
+
+// Responsive size mixin - scales properties responsively
+@mixin responsive-size($property, $base-size, $tablet-reduction: 0.8, $mobile-reduction: 0.6) {
+  @if $base-size {
+    #{$property}: $base-size;
+    
+    @media (max-width: map-get($breakpoints, lg)) {
+      @if type-of($base-size) == 'number' and unit($base-size) != '' {
+        #{$property}: $base-size * $tablet-reduction;
+      }
+    }
+    
+    @media (max-width: map-get($breakpoints, md)) {
+      @if type-of($base-size) == 'number' and unit($base-size) != '' {
+        #{$property}: $base-size * $mobile-reduction;
+      }
+    }
+  }
+}
+
+// Font parameters mixin
+@mixin font-parameters($font-size: null, $font-weight: null, $line-height: null, $color: null) {
+  @if $font-size {
+    font-size: $font-size;
+  }
+  @if $font-weight {
+    font-weight: $font-weight;
+  }
+  @if $line-height {
+    line-height: $line-height;
+  }
+  @if $color {
+    color: $color;
+  }
+}
+
+// Selected effect mixin
+@mixin selected-effect($key) {
+  $selected-map: map-get($hover-effects-map, $key);
+  
+  &.selected,
+  &:active {
+    @if map-has-key($selected-map, transform) {
+      transform: map-get($selected-map, transform);
+    }
+    @if map-has-key($selected-map, color) {
+      color: map-get($selected-map, color);
+    }
+    @if map-has-key($selected-map, shadow) {
+      box-shadow: map-get($selected-map, shadow);
+    }
+  }
+}
+
+// Flex responsive mixin
+@mixin flex-responsive {
+  display: flex;
+  
+  @media (max-width: map-get($breakpoints, md)) {
+    flex-direction: column;
+  }
+}
+
+// Grid responsive mixin
+@mixin grid-responsive($min-width: 300px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+  
+  @media (max-width: map-get($breakpoints, md)) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Shaded background mixin
+@mixin shaded-background($image-url, $overlay-opacity: 0.3) {
+  background-image: linear-gradient(
+    rgba(0, 0, 0, $overlay-opacity),
+    rgba(0, 0, 0, $overlay-opacity)
+  ), url($image-url);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// Input styles mixin
+@mixin input-styles($border-color: $grey-light, $focus-color: $accent-pink) {
+  border: $border solid $border-color;
+  padding: $space-2 $space-3;
+  border-radius: 4px;
+  font-size: $font-2;
+  transition: border-color $animation-medium ease;
+  
+  &:focus {
+    outline: none;
+    border-color: $focus-color;
+    box-shadow: $shadow-form-focus;
+  }
+}
+
+// Modal backdrop mixin
+@mixin modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  @include z('modal-backdrop');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Modal content mixin
+@mixin modal-content {
+  background: $pure-white;
+  padding: $space-5;
+  border-radius: 8px;
+  box-shadow: $shadow-modal;
+  @include z('modal');
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+// Animation mixins
+@mixin fadeIn {
+  animation: fadeIn $animation-medium $animation-ease;
+}
+
+@mixin slideDown {
+  animation: slideDown $animation-medium $animation-ease;
+}
+
+@mixin fade($duration: $animation-medium) {
+  animation: fade $duration $animation-ease;
+}
+
+@mixin slide($duration: $animation-medium, $direction: 'down') {
+  animation: slide#{capitalize($direction)} $duration $animation-ease;
+}
+
+// Banner mixin for promotional sections
+@mixin banner($bg-image: null) {
+  padding: $space-6;
+  @if $bg-image {
+    background-image: url($bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  } @else {
+    background: linear-gradient(135deg, $accent-pink, $accent-pink-dark);
+  }
+  color: $pure-white;
+  border-radius: 8px;
+}
+
+// Divider mixin
+@mixin divider($color: $grey-light, $thickness: 1px) {
+  border-bottom: $thickness solid $color;
+  margin: $space-4 0;
+}

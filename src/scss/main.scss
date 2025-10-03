@@ -35,13 +35,12 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	position: relative;
-
-	// @media (max-width: 768px) {
-	//     grid-template-columns: 1fr;
-	//     margin-top: $space-xl;
-	//     margin-left: $space-lg;
-	//     margin-right: $space-lg;
-	// }
+	
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+		margin-top: $space-xl;
+		padding: $space-lg;
+	}
 }
 
 // =========Product Grid Section===============================================
@@ -176,25 +175,3 @@
 		}
 	}
 }
-
-
-// // Responsive styles using variables and mixins
-// @media (max-width: 768px) {
-//     .modal-content {
-//         min-width: 300px;
-//         width: 95%;
-//         margin: $space-md;
-//     }
-    
-//     .modal-header,
-//     #login-form {
-//         padding: $space-lg;
-//     }
-    
-//     .notification {
-//         top: 10px;
-//         right: 10px;
-//         left: 10px;
-//         text-align: center;
-//     }
-// }

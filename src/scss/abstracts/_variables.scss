@@ -80,6 +80,40 @@ $grid-min-1: 500px;
 $grid-min-2: 400px;
 $grid-min-3: 300px;
 $grid-min-4: 250px;
+$min-grid-width-3el: $grid-min-3;
+$min-grid-width-4el: $grid-min-4;
+
+// ======================================================
+// =============== Additional Layout Variables ==========
+// ======================================================
+$main-hero-bg: $grey-extra-light;
+$main-offer-up-margin: $space-7;
+$border: 1px;
+$quantity-input-width: 150px;
+$slide-height: 400px;
+$color-table-background: $pure-white;
+$cart-image-size: 120px;
+
+// Footer variables
+$footer-benefits-bg: $grey-extra-light;
+$footer-benefits-icon-size: $space-6;
+$copyright-text-color: $grey;
+
+// ======================================================
+// =============== Form Variables =======================
+// ======================================================
+$input-font-size: $font-2;
+$min-height-textinput: 120px;
+$border-color: $grey-light;
+$color-muted: $grey;
+$input-text-color: $text-color;
+
+// ======================================================
+// =============== Border Radius ========================
+// ======================================================
+$radius-s: 4px;
+$radius-m: 8px;
+$radius-l: 12px;
 
 // ======================================================
 // =============== Z-index ==============================
@@ -94,6 +128,10 @@ $z: (
   modal: 1010,
   notification: 1100
 );
+
+// Z-index aliases for compatibility
+$z-filter-dropdown: map-get($z, dropdown);
+$z-notification: map-get($z, notification);
 
 @mixin z($key) {
   z-index: map-get($z, $key);
@@ -126,24 +164,74 @@ $hover-effects-map: (
   'footer': (color: $accent-pink),
   'hero-image': (transform: scale(1.05), shadow: $shadow-hover),
   'product-card': (transform: scale(1.02), shadow: $shadow-hover),
-  'sticky-element': (shadow: $shadow-hover)
+  'sticky-element': (shadow: $shadow-hover),
+  'people-card': (transform: scale(1.02), shadow: $shadow-hover),
+  'dropdown-option': (color: $accent-pink),
+  'search-icon': (transform: scale(1.1), color: $accent-pink),
+  'feature-icon': (transform: scale(1.1)),
+  'table-row': (shadow: $shadow-hover),
+  'thumbnail': (transform: scale(1.05)),
+  'travel-slide': (transform: scale(1.05), shadow: $shadow-hover)
 );
 
 $button-styles-map: (
   'btn-base': (
+    bg-color: $accent-pink,
+    text-color: $pure-white,
     padding: $space-2 $space-4,
     font-size: $font-2,
-    background: $accent-pink,
-    color: $pure-white,
-    border-radius: 4px
+    font-weight: $font-weight-normal,
+    border-radius: 4px,
+    hover-effect: 'header-icon'
   ),
   'btn-outline': (
+    bg-color: transparent,
+    text-color: $accent-pink,
     padding: $space-2 $space-4,
     font-size: $font-2,
-    background: transparent,
-    color: $accent-pink,
+    font-weight: $font-weight-normal,
     border: 2px solid $accent-pink,
-    border-radius: 4px
+    border-radius: 4px,
+    hover-effect: 'header-icon'
+  ),
+  'btn-quantity': (
+    bg-color: transparent,
+    text-color: $grey,
+    padding: $space-2,
+    font-size: $font-4,
+    font-weight: $font-weight-bold,
+    border: none,
+    hover-effect: 'header-icon'
+  ),
+  'btn-scroll-page': (
+    bg-color: $grey-light,
+    text-color: $text-color,
+    padding: $space-2 $space-3,
+    font-size: $font-2,
+    font-weight: $font-weight-normal,
+    border-radius: 4px,
+    hover-effect: 'header-icon'
+  ),
+  'btn-page-number': (
+    bg-color: transparent,
+    text-color: $text-color,
+    padding: $space-2 $space-3,
+    font-size: $font-2,
+    font-weight: $font-weight-normal,
+    border: 1px solid $grey-light,
+    border-radius: 4px,
+    hover-effect: 'header-icon',
+    selected-effect: 'header-icon'
+  ),
+  'btn-tab': (
+    bg-color: transparent,
+    text-color: $grey,
+    padding: $space-2 $space-4,
+    font-size: $font-3,
+    font-weight: $font-weight-normal,
+    border-bottom: 2px solid transparent,
+    hover-effect: 'header-icon',
+    selected-effect: 'header-icon'
   )
 );
 
@@ -164,6 +252,19 @@ $section-styles-map: (
     padding-top-bottom: $space-6,
     padding-left: $space-5,
     gap: $space-4,
+    title-color: $accent-pink
+  ),
+  'offer-banner': (
+    padding-top-bottom: $space-6,
+    padding-left: $space-5,
+    gap: $space-4,
+    title-color: $pure-white,
+    text-color: $pure-white
+  ),
+  'about-offer': (
+    padding-top-bottom: $space-6,
+    padding-left: $space-5,
+    gap: $space-3,
     title-color: $accent-pink
   )
 );

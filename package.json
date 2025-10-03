@@ -12,10 +12,18 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "sass --watch src/scss:src/css"
+    "compile": "sass --watch src/scss:src/css",
+    "compile:once": "sass src/scss:src/css --no-source-map",
+    "lint": "npm run lint:js && npm run lint:css",
+    "lint:js": "eslint src/js/**/*.js",
+    "lint:css": "stylelint \"src/scss/**/*.scss\"",
+    "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix"
   },
   "devDependencies": {
+    "eslint": "^8.56.0",
     "live-server": "^1.2.2",
-    "sass": "^1.92.1"
+    "sass": "^1.92.1",
+    "stylelint": "^16.1.0",
+    "stylelint-config-standard-scss": "^13.0.0"
   }
 }
