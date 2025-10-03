@@ -4,7 +4,7 @@
 
 }
  
-//============Benefits Section===========================================
+// ============Benefits Section===========================================
 .benefits {
 		background-image: url('../assets/images/backgrounds/vector_lines.svg');
 		background-repeat: no-repeat;
@@ -19,6 +19,7 @@ text-align: left;
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
+
 @include responsive-size(gap, $space-lg);
 }
 
@@ -29,6 +30,7 @@ justify-content: space-evenly;
 .benefits-list {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
+
 	@include responsive-size(gap, $space-xl);
 
 	@media (max-width: $breakpoint-tablet) {
@@ -43,6 +45,7 @@ justify-content: space-evenly;
 .benefits-item {
 	display: flex;
 	align-items: center; 
+
 	@include responsive-size(gap, $space-xl);
 	@include font-parameters(
 		$font-size-sm, $font-weight-normal, $color: $pure-white);
@@ -50,13 +53,15 @@ justify-content: space-evenly;
 
 .benefits-icon {
 	@include responsive-size(width, $footer-benefits-icon-size);
+
 	height: auto;
 }
 
-//================= Main Footer Content============================
+// ================= Main Footer Content============================
 .footer-main {
 		display: grid;
 		grid-template-columns: 3fr 2fr; 
+
 		@include responsive-size(gap, $space-xl $space-10xl);
 		@include responsive-size(padding-block, $space-5xl $space-4xl);
 		@include font-parameters (
@@ -109,8 +114,10 @@ gap: $space-lg;
 
 	.contact-info {
 		@include responsive-size(margin-top, $space-4xl);
+
 		display: grid;
 		grid-template-columns: 1fr 1fr;
+
 		@include responsive-size(gap, $space-lg);
 		
 		// @media (max-width: $breakpoint-mobile) {
@@ -121,6 +128,7 @@ gap: $space-lg;
 		.contact-item {
 			display: flex;       
 			align-items: center;
+
 			@include responsive-size(gap, $space-md);
 			
 			// @media (max-width: $breakpoint-mobile) {
@@ -140,11 +148,13 @@ gap: $space-lg;
 // Copyright text utility
 .copyright-text {
 	letter-spacing: 0;
+
 	@include font-parameters(
 		$font-size-xs, 
 		$font-weight-normal, 
 		$line-height-single, 
 		$copyright-text-color);
 	@include responsive-size(padding-block, $space-md);
+
 	text-align: center;
 }

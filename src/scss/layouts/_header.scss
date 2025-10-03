@@ -4,6 +4,7 @@
 
 .header {
   @include z(header);
+
   background-color: $pure-white;
   box-shadow: $shadow;
   padding: $space-3 $space-4;
