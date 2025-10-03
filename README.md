@@ -124,10 +124,10 @@ project-template-ua/
 
 ### Homepage (`src/index.html`)
 - Hero section with call-to-action
-- Travel suitcases carousel
-- Selected products showcase
+- **Travel suitcases carousel** - Smooth auto-sliding image carousel with navigation arrows, keyboard support, and touch/swipe gestures
+- **Selected products showcase** - Interactive slider showing 3 products (desktop), 2 (tablet), 1 (mobile) with navigation
 - Special offers (25% and 50% discounts)
-- New arrivals section
+- **New arrivals section** - Product slider with same responsive behavior as selected products
 - Customer testimonials
 
 ### Catalog Page (`src/pages/catalog.html`)
@@ -336,6 +336,40 @@ $breakpoints: (
 - **Alternative**: Python 3.x (for simple HTTP server)
 
 ## ✨ Key Features
+
+### Sliders Implementation
+The homepage features three types of sliders, all built with vanilla JavaScript (no external libraries):
+
+**1. Travel Suitcases Slider**
+- **Smooth Transitions**: Uses CSS transitions instead of DOM recreation to prevent "jumping" effects
+- **Auto-play**: Automatically advances every 4 seconds
+- **Pause on Hover**: Stops auto-play when user hovers over the slider
+- **Navigation**: Left/right arrow buttons for manual control
+- **Keyboard Support**: Arrow keys (←/→) for navigation
+- **Touch/Swipe**: Full touch gesture support for mobile devices
+- **Accessibility**: ARIA labels, roles, and keyboard navigation
+- **Fixed Height**: Prevents layout shifts during transitions
+
+**2. Product Sliders** (Selected Products & New Products Arrival)
+- **Reusable Component**: Single `createProductSlider()` function for both sections
+- **Responsive Display**: 
+  - Desktop (1024px+): 3 products per view
+  - Tablet (768px-1023px): 2 products per view  
+  - Mobile (<768px): 1 product per view
+- **Smart Detection**: Automatically determines if slider is needed based on item count
+- **Smooth Animations**: CSS transform transitions (0.4s ease)
+- **Navigation Buttons**: Prev/Next arrows with disabled states at boundaries
+- **Touch/Swipe**: Mobile-friendly swipe gestures
+- **Keyboard Navigation**: Full keyboard support (Tab, Enter, Space)
+- **Accessibility**: ARIA labels for all interactive elements
+
+**Technical Implementation:**
+- Location: `src/js/ui.js` - `createSlides()` and `createProductSlider()`
+- Styles: `src/scss/components/_sliders.scss`
+- No external dependencies - pure vanilla JavaScript
+- Optimized DOM manipulation (updates background images instead of recreating elements)
+- Event delegation for better performance
+- Responsive design with CSS media queries
 
 ### Accessibility (WCAG Compliant)
 - ✅ Semantic HTML5 structure (nav, section, article, main, aside)
