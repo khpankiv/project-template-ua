@@ -77,13 +77,15 @@ function initLoginModal() {
 export function updateCartCounter() {
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     const cartCounter = document.querySelector('#cart-counter');
-		let totalItems = 0;
-		for (const qty of Object.values(cartItems)) {
-			totalItems += qty;
-		} 
+    let totalItems = 0;
+    
+    // Calculate total items from array
+    if (Array.isArray(cartItems)) {
+        totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    }
     
     if (totalItems > 0) {
-			  cartCounter.style.display = 'flex';
+        cartCounter.style.display = 'flex';
         cartCounter.textContent = totalItems;
     } else {
         cartCounter.style.display = 'none';

@@ -159,6 +159,8 @@ project-template-ua/
 
 ### Cart Page (`src/pages/cart.html`)
 - Cart items table
+- **Smart cart merging**: Products with the same name, size, and color are merged with updated quantity
+- **Separate entries**: Products with the same name but different size or color remain as separate items
 - Quantity update controls
 - Remove item functionality
 - Discount calculation (10% off over $3000)
@@ -166,6 +168,7 @@ project-template-ua/
 - Total calculation
 - Clear cart button
 - Checkout functionality
+- Cart data persisted in LocalStorage as array of items
 
 ### 4. Project Structure
 
@@ -209,6 +212,8 @@ This project has been optimized following modern web development best practices:
 - ✅ **Improved JSDoc** - comprehensive documentation for all functions
 - ✅ **Better async/await** - proper error handling with try/catch
 - ✅ **Input validation** - checks for null/undefined/empty arrays
+- ✅ **Smart cart merging** - products with matching name, size, and color are merged; different variants remain separate
+- ✅ **Cart data structure** - migrated from object to array for better flexibility and merging logic
 
 ### HTML Optimizations
 - ✅ Removed inline `onclick` handlers

@@ -14,11 +14,11 @@ import { initReviewForm, initStarRating } from './forms.js';
  * @name initAddToCartButtons	- Initialize Add to Cart Buttons Click.
  **************************************************************************/
 export function initAddToCartButtons() {
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', async (e) => {
     if (e.target.classList.contains('button-add')) {
       const card = e.target.closest('.product-card');
       const id = card ? card.getAttribute('data-product-id') : null;
-      addToCart(id);
+      await addToCart(id);
       e.stopPropagation();
       return;
     }
@@ -175,10 +175,18 @@ export function initQuantityControls() {
  *********************************************************************************/
 export function initAddQuantity(productId, quantity) {
   const addToCartButton = document.querySelector('#add-multiple-products');
-  addToCartButton.addEventListener('click', () => {
+  addToCartButton.addEventListener('click', async () => {
 		const productId = new URLSearchParams(window.location.search).get('id');
 		const quantity = parseInt(document.querySelector('.quantity').value);
-		addToCart(productId, quantity);
+		
+		// Get selected size and color from dropdowns
+		const sizeButton = document.querySelector('#filter-size .filter-btn');
+		const colorButton = document.querySelector('#filter-color .filter-btn');
+		
+		const selectedSize = sizeButton ? sizeButton.textContent.trim().replace('▾', '').trim() : null;
+		const selectedColor = colorButton ? colorButton.textContent.trim().replace('▾', '').trim() : null;
+		
+		await addToCart(productId, quantity, selectedSize, selectedColor);
   });
 }
 
@@ -251,19 +259,22 @@ export function initCheckoutButton() {
 export function initCartRowsControls() {
 	const cartTableBody = document.querySelector('#cart-tbody');
 	if (!cartTableBody) return;
-	cartTableBody.addEventListener('click', (e) => {
+	cartTableBody.addEventListener('click', async (e) => {
 		const productId = e.target.getAttribute('data-id');
+		const size = e.target.getAttribute('data-size');
+		const color = e.target.getAttribute('data-color');
+		
 		if (e.target.classList.contains('minus')) {
-			removeFromCart(productId, 1);
-			displayCartItems();
+			await removeFromCart(productId, 1, size, color);
+			await displayCartItems();
 		}
 		if (e.target.classList.contains('plus')) {
-			addToCart(productId, 1);
-			displayCartItems();
+			await addToCart(productId, 1, size, color);
+			await displayCartItems();
 		}
 		if (e.target.classList.contains('delete-icon')) {
-			removeFromCart(productId, Infinity);
-			displayCartItems();
+			await removeFromCart(productId, Infinity, size, color);
+			await displayCartItems();
 		}
 	});
 }

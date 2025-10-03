@@ -3,18 +3,53 @@
 // =====================================================================================
 import { updateCartCounter } from './header.js';
 import { dataFile } from './file_links.js';
-import { fetchProducts } from './utils.js';
+import { fetchProducts, getInfoById } from './utils.js';
 import { getProductsByField } from './utils.js';
+import { showMessage } from './forms.js';
 // import { renderProductsForPage } from './ui.js';
 
 /*************************************************************************************************
  * @name addToCart - Adds a specified quantity of a product to the cart.
  * @param {string} id - The ID of the product to add.
  * @param {number} quantity - The quantity to add (default is 1).
+ * @param {string} size - The size of the product (optional).
+ * @param {string} color - The color of the product (optional).
  ****************************************************************************************************/
-export function addToCart(id, quantity = 1) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || {};
-    cart[id] = (cart[id] || 0) + quantity;
+export async function addToCart(id, quantity = 1, size = null, color = null) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Get product info to retrieve name, size, and color
+    const productInfo = await getInfoById(id);
+    if (!productInfo) {
+        console.error('Product not found:', id);
+        return;
+    }
+    
+    const productName = productInfo.name;
+    const productSize = size || productInfo.size;
+    const productColor = color || productInfo.color;
+    
+    // Find existing cart item with matching name, size, and color
+    const existingItem = cart.find(item => 
+        item.name === productName && 
+        item.size === productSize && 
+        item.color === productColor
+    );
+    
+    if (existingItem) {
+        // Merge: update quantity of existing item
+        existingItem.quantity += quantity;
+    } else {
+        // Create new cart entry
+        cart.push({
+            id: id,
+            name: productName,
+            size: productSize,
+            color: productColor,
+            quantity: quantity
+        });
+    }
+    
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCounter();
     showMessage('Product added to cart!', 'success', '#cart-counter');
@@ -24,15 +59,39 @@ export function addToCart(id, quantity = 1) {
  * @name removeFromCart - Removes a specified quantity of a product from the cart.
  * @param {string} id - The ID of the product to remove.
  * @param {number} quantity - The quantity to remove (default is 1).
+ * @param {string} size - The size of the product (optional).
+ * @param {string} color - The color of the product (optional).
  ****************************************************************************************************/
-export function removeFromCart(id, quantity = 1) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || {};
-    if (cart[id]) {
-        cart[id] -= quantity;
-        if (cart[id] <= 0) {
-            delete cart[id];
+export async function removeFromCart(id, quantity = 1, size = null, color = null) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Get product info to retrieve name, size, and color
+    const productInfo = await getInfoById(id);
+    if (!productInfo) {
+        console.error('Product not found:', id);
+        return;
+    }
+    
+    const productName = productInfo.name;
+    const productSize = size || productInfo.size;
+    const productColor = color || productInfo.color;
+    
+    // Find the cart item with matching name, size, and color
+    const itemIndex = cart.findIndex(item => 
+        item.name === productName && 
+        item.size === productSize && 
+        item.color === productColor
+    );
+    
+    if (itemIndex !== -1) {
+        cart[itemIndex].quantity -= quantity;
+        
+        // Remove item if quantity is 0 or less
+        if (cart[itemIndex].quantity <= 0) {
+            cart.splice(itemIndex, 1);
         }
     }
+    
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCounter();
     showMessage('Product removed from cart!', 'info', '#cart-counter');
