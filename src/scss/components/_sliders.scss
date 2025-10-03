@@ -1,0 +1,219 @@
+// ===========================================================
+// ================= Slider Styles ===========================
+// ===========================================================
+
+// Travel Suitcases Slider
+.travel-slider-container {
+	padding-top: $space-3xl;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax($min-grid-width-3el, 1fr));
+	align-items: center;
+	gap: $space-lg;
+	position: relative;
+	overflow: hidden; // Prevent layout jumps
+	min-height: $slide-height; // Stable height
+}
+
+.travel-slide {
+	height: $slide-height;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: $pure-white;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	padding-bottom: $space-2xl;
+	position: relative;
+	
+	// Smooth transitions without recreating DOM
+	transition: opacity $animation-medium $animation-ease;
+	
+	@include hover-effect('travel-slide');
+	
+	&.travel-slide-transition {
+		opacity: 0.7;
+	}
+	
+	.travel-slide-text {
+		font-size: $font-3;
+		font-weight: $font-weight-bold;
+		text-align: center;
+		padding: $space-2 $space-3;
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+		line-height: $line-height-tight;
+	}
+}
+
+// Navigation arrows for travel slider
+.travel-slider-arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba($pure-white, 0.9);
+	color: $accent-pink;
+	border: none;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	font-size: $font-4;
+	cursor: pointer;
+	z-index: 10;
+	transition: all $animation-medium $animation-ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: $shadow;
+	
+	&:hover {
+		background: $accent-pink;
+		color: $pure-white;
+		transform: translateY(-50%) scale(1.1);
+	}
+	
+	&:focus {
+		outline: 2px solid $accent-pink;
+		outline-offset: 2px;
+	}
+	
+	&.travel-slider-arrow-left {
+		left: $space-3;
+	}
+	
+	&.travel-slider-arrow-right {
+		right: $space-3;
+	}
+	
+	@media (max-width: map-get($breakpoints, md)) {
+		width: 40px;
+		height: 40px;
+		font-size: $font-3;
+	}
+}
+
+// ===========================================================
+// ================= Product Slider Styles ===================
+// ===========================================================
+
+.product-slider-wrapper {
+	position: relative;
+	overflow: hidden;
+	padding: 0 60px; // Space for arrows
+	
+	@media (max-width: map-get($breakpoints, md)) {
+		padding: 0 50px;
+	}
+}
+
+.product-slider-track {
+	display: flex;
+	transition: transform 0.4s $animation-ease;
+	gap: $space-3xl;
+	
+	.product-card {
+		flex: 0 0 calc(33.333% - 2rem); // 3 items on desktop (approximate gap compensation)
+		min-width: 0; // Allow flex items to shrink
+		
+		@media (max-width: map-get($breakpoints, lg)) {
+			flex: 0 0 calc(50% - 1.5rem); // 2 items on tablet
+		}
+		
+		@media (max-width: map-get($breakpoints, md)) {
+			flex: 0 0 100%; // 1 item on mobile
+		}
+	}
+}
+
+// When slider is not needed (few items)
+.product-slider-no-scroll {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: $space-3xl;
+	
+	@media (max-width: map-get($breakpoints, lg)) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	
+	@media (max-width: map-get($breakpoints, md)) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Navigation arrows for product slider
+.product-slider-arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba($pure-white, 0.95);
+	color: $accent-pink;
+	border: 2px solid $grey-light;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	font-size: $font-4;
+	cursor: pointer;
+	z-index: 10;
+	transition: all $animation-medium $animation-ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	&:hover:not(.disabled) {
+		background: $accent-pink;
+		color: $pure-white;
+		border-color: $accent-pink;
+		transform: translateY(-50%) scale(1.1);
+	}
+	
+	&:focus {
+		outline: 2px solid $accent-pink;
+		outline-offset: 2px;
+	}
+	
+	&.disabled {
+		opacity: 0.3;
+		cursor: not-allowed;
+		pointer-events: none;
+	}
+	
+	&.product-slider-arrow-left {
+		left: 0;
+	}
+	
+	&.product-slider-arrow-right {
+		right: 0;
+	}
+	
+	@media (max-width: map-get($breakpoints, md)) {
+		width: 40px;
+		height: 40px;
+		font-size: $font-3;
+	}
+}
+
+// Responsive adjustments for sections with sliders
+.product-grid-section {
+	&.selected-products,
+	&.new-products {
+		.product-grid-product-render {
+			padding-top: $space-3xl;
+			// Remove grid layout as it's now handled by slider
+			display: block;
+			
+			// Fallback for when slider is not initialized
+			&:not(.product-slider-track):not(.product-slider-no-scroll) {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: $space-3xl;
+				
+				@media (max-width: map-get($breakpoints, lg)) {
+					grid-template-columns: repeat(2, 1fr);
+				}
+				
+				@media (max-width: map-get($breakpoints, md)) {
+					grid-template-columns: 1fr;
+				}
+			}
+		}
+	}
+}

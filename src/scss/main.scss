@@ -5,6 +5,7 @@
 @import './components/_buttons';
 @import './components/_product-card';
 @import './components/_forms';
+@import './components/_sliders';
 @import './layouts/_header';
 @import './layouts/_footer';
 @import './pages/_about';
@@ -50,6 +51,14 @@
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: $space-3xl;
+	
+	@media (max-width: map-get($breakpoints, lg)) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	
+	@media (max-width: map-get($breakpoints, md)) {
+		grid-template-columns: 1fr;
+	}
 }
 
 // =========Hero Section===============================================
@@ -112,31 +121,6 @@
 .profile-icon {
     width: $photo-icon-size;
     height: auto;
-}
-
-// New slider styles
-
-.travel-slider-container {
-	padding-top: $space-3xl;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax($min-grid-width-3el, 1fr));
-  align-items: center;
-  gap: $space-lg;
-  position: relative;
-}
-
-.travel-slide {
-		height: $slide-height;
-		background-size: cover;
-		color: $pure-white;
-		transition: transform 10s $animation-ease, 
-								box-shadow 2s $animation-ease;
-		display: flex;
-		align-items: flex-end;
-		justify-content: center;
-		padding-bottom: $space-2xl;
-
-		@include hover-effect('travel-slide');
 }
 
 // ========Main Offer Section===============================================

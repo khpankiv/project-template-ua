@@ -4,7 +4,7 @@
 import { fetchProducts } from './utils.js';
 import { initHeader } from './header.js';
 import { initAddToCartButtons, initClickCard } from './interractions.js';
-import { loadComponent, loadProductsMain, createSlides } from './ui.js';
+import { loadComponent, loadProductsMain, createSlides, createProductSlider } from './ui.js';
 import { dataFile,  headerPath, footerPath} from './file_links.js';
 
 /*******************************************************************************
@@ -17,10 +17,14 @@ async function initHomepage() {
     await loadProductsMain(allProducts, 'blocks', 'New Products Arrival', '#new-products');
 		initClickCard();
 		initAddToCartButtons();
-		// === Init Slider ===
+		
+		// === Init Travel Suitcases Slider ===
 		createSlides(8, 4, 'assets/images/slider-img/');
-		// startSlider();
-
+		
+		// === Init Product Sliders ===
+		// Show 3 items per view on desktop so slider is active even with 4 products
+		createProductSlider('#selected-products', 3);
+		createProductSlider('#new-products', 3);
 	}
 
 // Initialize Travel Suitcases slider
