@@ -16,7 +16,7 @@
 	<main class="catalog container">
 
 		<!-- Filter Section	 -->
-		<section class="filter-section">
+		<section class="filter-section" aria-label="Product filters">
 			<hr class="divider">
 
 			<div class="filters-grid">
@@ -24,15 +24,15 @@
 				<div class="filter-labeled">
 					<label class="filter-label" for="size">Size</label>
 					<div class="filter-dropdown" id="filter-size">
-						<button class="filter-btn" id="size"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
-						<ul class="filter-options">
-							<li class="filter-option" data-value="all">All</li>
-							<li class="filter-option" data-value="M">M</li>
-							<li class="filter-option" data-value="L">L</li>
-							<li class="filter-option" data-value="XL">XL</li>
-							<li class="filter-option" data-value="S">S</li>
-							<li class="filter-option" data-value="S, M, XL">S, M, XL</li>
-							<li class="filter-option" data-value="S-L">S-L</li>
+						<button class="filter-btn" id="size" aria-label="Select size filter" aria-haspopup="true" aria-expanded="false" tabindex="0"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="" aria-hidden="true"></button>
+						<ul class="filter-options" role="listbox">
+							<li class="filter-option" data-value="all" role="option" tabindex="0">All</li>
+							<li class="filter-option" data-value="M" role="option" tabindex="0">M</li>
+							<li class="filter-option" data-value="L" role="option" tabindex="0">L</li>
+							<li class="filter-option" data-value="XL" role="option" tabindex="0">XL</li>
+							<li class="filter-option" data-value="S" role="option" tabindex="0">S</li>
+							<li class="filter-option" data-value="S, M, XL" role="option" tabindex="0">S, M, XL</li>
+							<li class="filter-option" data-value="S-L" role="option" tabindex="0">S-L</li>
 						</ul>
 					</div>
 				</div>
@@ -40,13 +40,13 @@
 				<div class="filter-labeled">
 					<label class="filter-label" for="category">Category</label>
 					<div class="filter-dropdown" id="filter-category">
-						<button class="filter-btn" id="category"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
-						<ul class="filter-options">
-							<li class="filter-option" data-value="all">All</li>
-							<li class="filter-option" data-value="suitcases">Suitcases</li>
-							<li class="filter-option" data-value="kids' luggage">Kids' luggage</li>
-							<li class="filter-option" data-value="luggage sets">Luggage sets</li>
-							<li class="filter-option" data-value="carry-ons">Carry-ons</li>
+						<button class="filter-btn" id="category" aria-label="Select category filter" aria-haspopup="true" aria-expanded="false" tabindex="0"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="" aria-hidden="true"></button>
+						<ul class="filter-options" role="listbox">
+							<li class="filter-option" data-value="all" role="option" tabindex="0">All</li>
+							<li class="filter-option" data-value="suitcases" role="option" tabindex="0">Suitcases</li>
+							<li class="filter-option" data-value="kids' luggage" role="option" tabindex="0">Kids' luggage</li>
+							<li class="filter-option" data-value="luggage sets" role="option" tabindex="0">Luggage sets</li>
+							<li class="filter-option" data-value="carry-ons" role="option" tabindex="0">Carry-ons</li>
 						</ul>
 					</div>
 				</div>
@@ -54,16 +54,16 @@
 				<div class="filter-labeled">
 					<label class="filter-label" for="color">Color</label>
 					<div class="filter-dropdown" id="filter-color">
-						<button class="filter-btn" id="color"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
-						<ul class="filter-options">
-							<li class="filter-option" data-value="all">All</li>
-							<li class="filter-option" data-value="red">Red</li>
-							<li class="filter-option" data-value="blue">Blue</li>
-							<li class="filter-option" data-value="grey">Grey</li>
-							<li class="filter-option" data-value="green">Green</li>
-							<li class="filter-option" data-value="black">Black</li>
-							<li class="filter-option" data-value="pink">Pink</li>
-							<li class="filter-option" data-value="yellow">Yellow</li>
+						<button class="filter-btn" id="color" aria-label="Select color filter" aria-haspopup="true" aria-expanded="false" tabindex="0"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="" aria-hidden="true"></button>
+						<ul class="filter-options" role="listbox">
+							<li class="filter-option" data-value="all" role="option" tabindex="0">All</li>
+							<li class="filter-option" data-value="red" role="option" tabindex="0">Red</li>
+							<li class="filter-option" data-value="blue" role="option" tabindex="0">Blue</li>
+							<li class="filter-option" data-value="grey" role="option" tabindex="0">Grey</li>
+							<li class="filter-option" data-value="green" role="option" tabindex="0">Green</li>
+							<li class="filter-option" data-value="black" role="option" tabindex="0">Black</li>
+							<li class="filter-option" data-value="pink" role="option" tabindex="0">Pink</li>
+							<li class="filter-option" data-value="yellow" role="option" tabindex="0">Yellow</li>
 						</ul>
 					</div>
 				</div>
@@ -71,7 +71,7 @@
 				<div class="filter-labeled">
 					<label class="filter-label" for="salesStatus">On Sale</label>
 					<div class="checkbox" id="filter-salesStatus">
-						<input type="checkbox" data-value="false" id="salesStatus">
+						<input type="checkbox" data-value="false" id="salesStatus" aria-label="Show only sale items">
 					</div>
 				</div>
 
@@ -79,8 +79,8 @@
 			<hr class="divider">
 			<!-- Filter Buttons -->
 			<div class="filter-buttons">
-				<button class="filter-resume-btn" id="filter-reset">Clear filters</button>
-				<button class="filter-resume-btn" id="filter-apply">Apply filters</button>
+				<button class="filter-resume-btn" id="filter-reset" aria-label="Clear all filters" tabindex="0">Clear filters</button>
+				<button class="filter-resume-btn" id="filter-apply" aria-label="Apply selected filters" tabindex="0">Apply filters</button>
 			</div>
 		</section>
 
@@ -88,53 +88,53 @@
 			<!-- Sort and Search Section -->
 			<div class="sort-search-line">
 				<!-- Showing Products Count -->
-				<span class="product-count" id="product-count">Showing 0 of 0 products</span>
+				<span class="product-count" id="product-count" aria-live="polite">Showing 0 of 0 products</span>
 				<!-- Sort Field -->
 				<div class="sort-dropdown" id="sort-dropdown">
-					<button class="sort-btn" id="sort-selected"><span>Default Sorting</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
-					<ul class="sort-options" id="sort-options">
-						<li data-value="price-asc" class="filter-option">Price: Low to High </li>
-						<li data-value="price-desc" class="filter-option">Price: High to Low</li>
-						<li data-value="name-asc" class="filter-option">Name: A to Z</li>
-						<li data-value="name-desc" class="filter-option">Name: Z to A</li>
-						<li data-value="popularity" class="filter-option">Popularity</li>
-						<li data-value="rating" class="filter-option">Rating</li>
+					<button class="sort-btn" id="sort-selected" aria-label="Sort products" aria-haspopup="true" aria-expanded="false" tabindex="0"><span>Default Sorting</span><img src="assets/images/icons/arrow.svg" alt="" aria-hidden="true"></button>
+					<ul class="sort-options" id="sort-options" role="listbox">
+						<li data-value="price-asc" class="filter-option" role="option" tabindex="0">Price: Low to High </li>
+						<li data-value="price-desc" class="filter-option" role="option" tabindex="0">Price: High to Low</li>
+						<li data-value="name-asc" class="filter-option" role="option" tabindex="0">Name: A to Z</li>
+						<li data-value="name-desc" class="filter-option" role="option" tabindex="0">Name: Z to A</li>
+						<li data-value="popularity" class="filter-option" role="option" tabindex="0">Popularity</li>
+						<li data-value="rating" class="filter-option" role="option" tabindex="0">Rating</li>
 					</ul>
 				</div>
 			</div>
 			<!-- Search Field -->
 			<div class="search-field">
-				<input class="catalog-search" id="catalog-search" placeholder="Search Models" autocomplete="off">
+				<input class="catalog-search" id="catalog-search" placeholder="Search Models" autocomplete="off" aria-label="Search for luggage models" type="search">
 				<span class="search-icon" aria-label="Search">
-					<img class="search-icon-img" src="assets/images/icons/search.svg" alt="Search Icon">
+					<img class="search-icon-img" src="assets/images/icons/search.svg" alt="" aria-hidden="true">
 				</span>
 			</div>
 
 			<!-- Products Grid and Sidebar -->
-			<div class="product-grid">
+			<div class="product-grid" role="list" aria-label="Product catalog">
 				<!-- Products will be dynamically inserted here -->
 			</div>
 
 			<!-- Sidebar -->
-			<aside class="sidebar">
+			<aside class="sidebar" aria-label="Top best sets">
 				<h3>Top best sets</h3>
-				<div class="random-products-list">
+				<div class="random-products-list" role="list">
 					<!-- Random sets will be inserted here -->
 				</div>
 			</aside>
 
 			<!-- Pagination Buttons -->
-			<div class="page-buttons container">
-				<button id="button-previous-page" class="button-scroll-page">
+			<nav class="page-buttons container" aria-label="Pagination">
+				<button id="button-previous-page" class="button-scroll-page" aria-label="Go to previous page" tabindex="0">
 					&lt; Previous
 				</button>
-				<div class="page-number" id="page-number">
+				<div class="page-number" id="page-number" role="navigation" aria-label="Page numbers">
 					<!-- Page numbers will be dynamically inserted here -->
 				</div>
-				<button id="button-next-page" class="button-scroll-page">
+				<button id="button-next-page" class="button-scroll-page" aria-label="Go to next page" tabindex="0">
 					Next &gt;
 				</button>
-			</div>
+			</nav>
 
 		</div>
 

@@ -13,23 +13,23 @@
 
   <main>
     
-		<div class="title-section">
+		<section class="title-section">
         <h1>Cart</h1>
-    </div>
+    </section>
     
     <div class="page-content container">
 
-				<div class="cart-message is-hidden" id="thank-you-message">
+				<div class="cart-message is-hidden" id="thank-you-message" role="alert" aria-live="polite">
           <p>Thank you for your purchase!</p>
         </div>
-        <div class="cart-message is-hidden" id="cart-empty-message">
+        <div class="cart-message is-hidden" id="cart-empty-message" role="alert" aria-live="polite">
           <p>Your cart is currently empty.<br>Use the catalog to add new items.</p>
         </div>			
 
-				<table class="cart-table">
+				<table class="cart-table" aria-label="Shopping cart items">
           <thead>
             <tr>
-              <th>IMAGE</th><th>PRODUCT NAME</th><th>PRICE</th><th>QUANTITY</th><th>TOTAL</th><th>DELETE</th>
+              <th scope="col">IMAGE</th><th scope="col">PRODUCT NAME</th><th scope="col">PRICE</th><th scope="col">QUANTITY</th><th scope="col">TOTAL</th><th scope="col">DELETE</th>
             </tr>
           </thead>
 					<!-- Cart Items Template -->
@@ -40,12 +40,12 @@
     
       <section class="cart-bottom">
 					<div class="cart-actions">
-						<button class="button" id="continue-shopping" onclick="window.location.href='pages/catalog.html'">CONTINUE SHOPPING</button>
-						<button class="button" id="clear-shopping-cart">CLEAR SHOPPING CART</button>
+						<button class="button" id="continue-shopping" onclick="window.location.href='pages/catalog.html'" aria-label="Continue shopping in catalog" tabindex="0">CONTINUE SHOPPING</button>
+						<button class="button" id="clear-shopping-cart" aria-label="Clear all items from cart" tabindex="0">CLEAR SHOPPING CART</button>
 					</div>
-					<div class="cart-summary">
+					<div class="cart-summary" aria-label="Cart summary">
 					<!-- Total Table -->
-           <table class="cart-summary-table" id="cart-summary-table">
+           <table class="cart-summary-table" id="cart-summary-table" aria-label="Order summary">
               <tr>
                 <td class="cart-summary-label">Sub Total</td>
                 <td class="cart-summary-amount" id="cart-subtotal-amount">$0</td>
@@ -63,7 +63,7 @@
                 <td class="cart-summary-amount" id="cart-total-amount">$0</td>
               </tr>
            </table>
-					<button class="button" id="checkout-button">CHECKOUT</button>
+					<button class="button" id="checkout-button" aria-label="Proceed to checkout" tabindex="0">CHECKOUT</button>
 				</div>
 			</section>
 
