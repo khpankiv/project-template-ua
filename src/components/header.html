@@ -23,16 +23,16 @@
 
     <!-- Header icons: login, cart, hamburger -->
     <div class="header-icons">
-      <a href="#" class="login-link" aria-label="Login to your account" tabindex="0">
+      <a href="#" class="login-link" id="login-icon" aria-label="Login to your account" tabindex="0">
         <img src="images/user.svg" alt="User account icon">
       </a>
 
-      <a href="#" class="cart-link" aria-label="Shopping cart with 0 items" tabindex="0">
+      <a href="#" class="cart-link" id="cart-link" aria-label="Shopping cart with 0 items" tabindex="0">
         <img src="images/cart.svg" alt="Shopping cart icon">
-        <span class="cart-counter" aria-live="polite">0</span>
+        <span class="cart-counter" id="cart-counter" aria-live="polite">0</span>
       </a>
 
-      <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
         <span class="hamburger-line" aria-hidden="true"></span>
         <span class="hamburger-line" aria-hidden="true"></span>
         <span class="hamburger-line" aria-hidden="true"></span>
@@ -59,4 +59,30 @@
       <li role="none"><a href="contact.html" class="nav-link" role="menuitem" tabindex="-1">Contacts</a></li>
     </ul>
   </nav>
+
+  <!-- Login Modal -->
+  <div class="modal is-hidden" id="login-modal" role="dialog" aria-labelledby="login-modal-title" aria-modal="true">
+    <div class="modal-content">
+      <button class="close-modal" id="close-modal" aria-label="Close login modal" tabindex="0">&times;</button>
+      <h2 id="login-modal-title">Account Log In</h2>
+      <form class="login-form" id="login-form" aria-label="Login form">
+        <div class="form-group">
+          <label for="email">Email Address<span aria-label="required">*</span></label>
+          <input type="email" id="email" name="email" required autocomplete="email" aria-required="true">
+          <span class="error-message" id="email-error" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group">
+          <label for="password">Password<span aria-label="required">*</span></label>
+          <div class="password-input-wrapper">
+            <input type="password" id="password" name="password" required autocomplete="current-password" aria-required="true">
+            <button type="button" class="password-toggle" id="password-toggle" aria-label="Toggle password visibility" tabindex="0">
+              <span class="eye-icon" aria-hidden="true">👁️</span>
+            </button>
+          </div>
+          <span class="error-message" id="password-error" role="alert" aria-live="polite"></span>
+        </div>
+        <button type="submit" class="button-submit" aria-label="Log in to your account" tabindex="0">LOG IN</button>
+      </form>
+    </div>
+  </div>
 </header>
