@@ -30,7 +30,7 @@
 }
 @font-face {
   font-family: "Montserrat";
-  src: url("../assets/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+  src: url("/src/assets/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -1732,7 +1732,7 @@ textarea:disabled {
 }
 
 .title-section {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../assets/images/backgrounds/banner-about.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/src/assets/images/backgrounds/banner-about.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
