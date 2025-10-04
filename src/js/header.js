@@ -21,7 +21,6 @@ export function initHeader() {
 function initLoginModal() {
     const loginIcon = document.querySelector('#login-icon');
     const loginModal = document.querySelector('#login-modal');
-    const closeModal = document.querySelector('#close-modal');
     const loginForm = document.querySelector('#login-form');
     const passwordToggle = document.querySelector('#password-toggle');
     const passwordInput = document.querySelector('#password');
@@ -32,12 +31,7 @@ function initLoginModal() {
         loginModal.classList.remove('is-hidden');
     });
 
-    // Close modal
-    closeModal?.addEventListener('click', () => {
-        loginModal.classList.add('is-hidden');
-    });
-
-    // Close modal on outside click
+    // Close modal on outside click (backdrop only)
     window.addEventListener('click', (e) => {
 		if (e.target === loginModal) {
 			loginModal.classList.add('is-hidden');
