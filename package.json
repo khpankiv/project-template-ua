@@ -12,8 +12,9 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "sass --watch src/scss:src/css",
-    "compile:once": "sass src/scss:src/css --no-source-map",
+    "compile": "sass src/scss:dist --no-source-map --style=compressed",
+    "compile:watch": "sass --watch src/scss:dist",
+    "compile:once": "sass src/scss:dist --no-source-map",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint src/js/**/*.js",
     "lint:css": "stylelint \"src/scss/**/*.scss\"",

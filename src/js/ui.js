@@ -141,7 +141,7 @@ async function loadCardTemplate(selector) {
     cardClone.querySelector('.product-card').setAttribute('data-product-id', product.id);
     cardClone.querySelector('.product-card-name').textContent = product.name;
     cardClone.querySelector('.product-card-price').textContent = `€${product.price}`;
-    cardClone.querySelector('.product-card-img').src = product.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png');
+    cardClone.querySelector('.product-card-img').src = product.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png');
     cardClone.querySelector('.product-card-img').alt = product.name;    
     cardClone.querySelector('.badge-sale').style.display = (product.salesStatus === true || product.salesStatus === 'true') ? '' : 'none';
     return cardClone;
@@ -162,7 +162,7 @@ function createSidebarProductCard(product, template) {
     const rating = cardClone.querySelector('.sidebar-product-rating');
     cardClone.querySelector('.sidebar-product-name').textContent = product.name;
     cardClone.querySelector('.sidebar-product-price').textContent = `$${product.price}`;
-    cardClone.querySelector('.sidebar-product-img').src = product.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png');
+    cardClone.querySelector('.sidebar-product-img').src = product.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png');
 		renderStars(product.rating, rating);
     return cardClone;
 }
@@ -233,12 +233,12 @@ export function renderProductDetailsPage(product) {
 	const ratingEl = document.querySelector('.product-rating');
 	document.querySelector('#product-name').textContent = product.name;
 	document.querySelector('#product-price').textContent = `$${product.price}`;
-	document.querySelector('#product-main-image').src = product.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png');
+	document.querySelector('#product-main-image').src = product.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png');
 	const imageThumbnails = document.querySelector('.image-thumbnails');
 	imageThumbnails.innerHTML = '';
 	for (let i = 1; i <= 4; i++) {
 		const thumb = document.createElement('img');
-		thumb.src = product.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png');
+		thumb.src = product.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png');
 		imageThumbnails.appendChild(thumb);
 	}
 	document.querySelector('#product-rating-text').textContent = `${product.popularity} || 0} Clients Reviewed`;
@@ -590,7 +590,7 @@ export async function displayCartItems() {
 				const itemKey = `${item.id}-${item.size}-${item.color}`;
 				row.setAttribute('data-item-key', itemKey);
 				row.innerHTML = `
-				<td><img class="cart-item-image" src="${item.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png')}" alt="Product Image"></td>
+				<td><img class="cart-item-image" src="${item.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png')}" alt="Product Image"></td>
 				<td class="cart-item-name">${item.name}<br><small>Size: ${item.size}, Color: ${item.color}</small></td>
 				<td class="cart-item-price">$${item.price}</td>
 				<td class="cart-item-quantity">

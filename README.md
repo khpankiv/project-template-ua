@@ -20,9 +20,20 @@ This project is based on the Figma design templates located in the `Figma/` dire
 npm install
 ```
 
-### 2. Compile SCSS (if needed)
+### 2. Compile SCSS
 ```bash
 npm run compile
+```
+This compiles SCSS files from `src/scss/` to `dist/main.css` (compressed, production-ready).
+
+**Watch mode (auto-recompile on changes):**
+```bash
+npm run compile:watch
+```
+
+**One-time compilation:**
+```bash
+npm run compile:once
 ```
 
 ### 3. Start Live Server
@@ -31,37 +42,19 @@ npm run compile
 1. Install "Live Server" extension in VS Code
 2. Open `src/index.html` file
 3. Right-click on the file in Explorer panel → "Open with Live Server"
-4. Website will open at `http://localhost:5500/src/`
+4. Website will open at `http://localhost:5500/src/index.html`
 
-**Option 2: Using npm live-server**
+**Option 2: Using npm live-server (from project root)**
 ```bash
-npx live-server --port=5500 --open=/src/
-```
-
-**Option 3: Using live-server from src folder**
-```bash
-cd src
 npx live-server --port=5500
-# Then change base href to "/" in index.html for this method
 ```
+Then navigate to `http://localhost:5500/src/index.html`
 
-**Option 3: Simple file opening (Limited functionality)**
-1. Navigate to `src/` folder
-2. Double-click `index.html` 
-3. ⚠️ **Note**: Some features may not work due to CORS restrictions
-
-**Option 4: Using Python (if installed)**
+**Option 3: Using Python HTTP Server**
 ```bash
-cd src
 python -m http.server 5500
 ```
-Then open `http://localhost:5500`
-
-**Option 5: Using Node.js simple server**
-```bash
-cd src
-npx http-server -p 5500
-```
+Then navigate to `http://localhost:5500/src/index.html`
 
 ### 4. Project Structure
 ```
@@ -73,6 +66,8 @@ project-template-ua/
 │   ├── About Us.png
 │   ├── Contact Us.png
 │   └── My Cart.png
+├── dist/                   # Compiled CSS (generated)
+│   └── main.css            # Compiled, compressed CSS
 ├── src/
 │   ├── index.html          # Homepage
 │   ├── pages/              # Additional pages
@@ -85,8 +80,6 @@ project-template-ua/
 │   │   ├── header.html     # Header with navigation and login modal
 │   │   ├── footer.html     # Footer with benefits section
 │   │   └── product-card.html
-│   ├── css/                # Compiled CSS (generated)
-│   │   └── main.css
 │   ├── scss/               # Source SCSS files
 │   │   ├── main.scss       # Main SCSS entry point
 │   │   ├── abstracts/      # Variables, mixins, functions
@@ -173,13 +166,15 @@ project-template-ua/
 ### 4. Project Structure
 
 ## ⚠️ Important Notes
-- Project uses `<base href="/src/">` for proper asset loading
-- Live server can be started from project root (will open at `/src/` path)
-- All source files are located in the `src/` directory
-- Use `npm run compile` for automatic SCSS compilation with watch mode
+- Project uses `<base href="/">` for proper asset loading from root
+- CSS is compiled to `dist/main.css` (production-ready, compressed)
+- Live server should be started from project root
+- All source files are in `src/` directory, compiled CSS in `dist/`
+- Use `npm run compile` to compile SCSS to dist/ with compression
 
 ## 🔧 Available Scripts
-- `npm run compile` - compile SCSS with automatic file watching
+- `npm run compile` - compile SCSS to dist/ with compression (production-ready)
+- `npm run compile:watch` - compile SCSS with automatic file watching
 - `npm run compile:once` - compile SCSS once without watching
 - `npm run lint` - run both JavaScript and SCSS linters
 - `npm run lint:js` - lint JavaScript files with ESLint
@@ -274,8 +269,11 @@ npm run lint:fix
 
 ### SCSS Compilation
 ```bash
-# Watch mode (auto-compile on file changes)
+# Compile to dist/ (compressed, production-ready)
 npm run compile
+
+# Watch mode (auto-compile on file changes)
+npm run compile:watch
 
 # Compile once
 npm run compile:once
@@ -288,15 +286,25 @@ npm run compile:once
 # Re-install dependencies
 npm install
 
-# Compile manually with npx
-npx sass src/scss:src/css
+# Compile manually with npx to dist/
+npx sass src/scss:dist --no-source-map --style=compressed
+
+# Check that dist/ directory exists
+ls -la dist/
 ```
+
+### CSS not loading
+- Ensure `dist/main.css` exists (run `npm run compile` if not)
+- Check browser console for 404 errors
+- Verify `<base href="/">` in HTML files
+- Clear browser cache
 
 ### Page not loading correctly
 - Ensure you're using a web server (not file:// protocol)
+- Start server from project root (not from src/)
 - Check browser console for errors
 - Clear browser cache and localStorage
-- Verify `<base href="/src/">` is correct for your setup
+- Verify all paths use `src/` prefix for assets/scripts
 
 ### LocalStorage issues
 ```javascript
@@ -309,9 +317,10 @@ localStorage.removeItem('allProducts');
 ```
 
 ### Images not loading
-- Check that paths are relative to the `src/` directory
+- Check that all image paths use `src/` prefix (e.g., `src/assets/images/...`)
 - Verify images exist in `src/assets/images/`
 - Check browser console for 404 errors
+- Ensure server is started from project root
 
 ## 🌐 Browser Compatibility
 
