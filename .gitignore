@@ -3,9 +3,9 @@ node_modules/
 package-lock.json
 
 # Generated/Compiled files
-dist/
-dist/*.css
-dist/*.css.map
+src/dist/
+src/dist/*.css
+src/dist/*.css.map
 
 # IDE/Editor files
 .vscode/
