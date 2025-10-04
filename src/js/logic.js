@@ -218,6 +218,7 @@ export function doSearch (products, searchInput) {
 			showNotFoundPopup( 'Product not found', 'error', '#search-input');
 			return;
 		} else {		
-			window.location.href = `src/pages/product-details-template.html?id=${exactMatch.id}`;
+			const pathPrefix = window.location.pathname.includes('/pages/') ? '' : 'pages/';
+			window.location.href = `${pathPrefix}product-details-template.html?id=${exactMatch.id}`;
 		}
 }

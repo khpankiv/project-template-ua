@@ -2,12 +2,15 @@
 // ================= Project constants ==============================
 // ==========================================================
 
+// Determine path prefix based on current page location
+const pathPrefix = window.location.pathname.includes('/pages/') ? '../' : '';
+
 // ===================File paths=========================
-export const dataFile = 'src/assets/data.json';
-export const productCardTemplatePath = 'src/components/product-card.html';
-export const headerPath = 'src/components/header.html';
-export const footerPath = 'src/components/footer.html';
-export const imageFolder = "src/assets/images/slider-img/";
+export const dataFile = pathPrefix + 'assets/data.json';
+export const productCardTemplatePath = pathPrefix + 'components/product-card.html';
+export const headerPath = pathPrefix + 'components/header.html';
+export const footerPath = pathPrefix + 'components/footer.html';
+export const imageFolder = pathPrefix + "assets/images/slider-img/";
 
 //===================Variables=========================
 export const numberOfRandomProducts = 4; // Number of random products to show on homepage	
