@@ -26,7 +26,8 @@ The stages you will go through as you complete the project – as well as the re
 ### **Stage 1.** Setting up the project
 Start by creating a Git repository in `autocode.git.epam.com`. Click the "Start" button to fork a predefined template into your project space. Then, complete the following steps to set up your project:
 - Clone the repository locally, then run `npm install` inside it to install dependencies from package.json.
-- Add Sass into your project and implement a `compile` script to the package.json file to handle the compilation of all .scss files into .css files. If you’re unfamiliar with how to compile .scss files into .css, please refer to the [guide](https://sass-lang.com/guide/).
+- Add Sass into your project and implement a `compile` script to the package.json file to handle the compilation of all .scss files into .css files, placed in separate `dist` folder. If you’re unfamiliar with how to compile .scss files into .css, please refer to the [guide](https://sass-lang.com/guide/). 
+**!!Note, styles for all pages are included only after the compilation process.**
 - Add a description to a `README.md` file. It should contain clear instructions on how to set up and run your project, including prerequisites (e.g., `npm install` and Sass compilation process).
 
 ### **Stage 2.** Implementing the layout (HTML + CSS)
