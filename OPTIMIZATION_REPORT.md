@@ -202,7 +202,7 @@ document.querySelectorAll('[data-href]').forEach(button => {
 ### 3. Нові npm scripts
 ```json
 {
-  "compile:once": "sass src/scss:src/css --no-source-map",
+  "compile:once": "sass src/scss:dist --no-source-map",
   "lint": "npm run lint:js && npm run lint:css",
   "lint:fix": "автоматичне виправлення помилок"
 }
@@ -211,8 +211,9 @@ document.querySelectorAll('[data-href]').forEach(button => {
 ### 4. .gitignore
 Додано виключення згенерованих файлів:
 ```
-src/css/main.css
-src/css/main.css.map
+dist/
+dist/*.css
+dist/*.css.map
 node_modules/
 ```
 

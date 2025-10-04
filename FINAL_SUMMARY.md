@@ -266,7 +266,7 @@ npm run lint:css -- --fix # Автоматичне виправлення
 
 ```json
 {
-  "compile:once": "sass src/scss:src/css --no-source-map",
+  "compile:once": "sass src/scss:dist --no-source-map",
   "lint": "npm run lint:js && npm run lint:css",
   "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix"
 }
@@ -278,8 +278,9 @@ npm run lint:css -- --fix # Автоматичне виправлення
 
 ```
 # Generated files
-src/css/main.css
-src/css/main.css.map
+dist/
+dist/*.css
+dist/*.css.map
 
 # Dependencies
 node_modules/
