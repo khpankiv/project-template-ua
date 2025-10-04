@@ -130,12 +130,6 @@
     justify-content: center;
     gap: $space-4;
 
-    @include respond-to(md) {
-      flex-direction: column;
-      align-items: center;
-      gap: $space-2;
-    }
-
     .nav-link {
       font-size: $font-2;
       font-weight: $font-weight-bold;
@@ -155,6 +149,54 @@
         height: auto;
         margin-left: $space-1;
       }
+    }
+  }
+
+  // Hide desktop menu on mobile
+  @include respond-to(md) {
+    display: none;
+  }
+}
+
+// ---------- Mobile Menu ----------
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: $pure-white;
+  z-index: 999;
+  padding: $space-6 $space-4;
+  overflow-y: auto;
+
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-3;
+
+    .nav-link {
+      font-size: $font-3;
+      font-weight: $font-weight-bold;
+      line-height: $line-height-base;
+      color: $text-color;
+      text-transform: uppercase;
+      position: relative;
+
+      &.active {
+        color: $accent-pink;
+      }
+
+      @include hover-effect('header-icon');
+    }
+  }
+
+  // Show mobile menu only on mobile devices and when open
+  @include respond-to(md) {
+    &.mobile-menu-open {
+      display: block;
     }
   }
 }

@@ -95,30 +95,30 @@ export function updateCartCounter() {
 // Mobile Menu functionality
 function initMobileMenu() {
     const mobileMenuToggle = document.querySelector('#mobile-menu-toggle');
-    const nav = document.querySelector('.nav');
+    const mobileMenu = document.querySelector('.mobile-menu');
     const body = document.body;
 
-    if (!mobileMenuToggle || !nav) return;
+    if (!mobileMenuToggle || !mobileMenu) return;
 
     mobileMenuToggle.addEventListener('click', () => {
-        const isOpen = nav.classList.contains('mobile-menu-open');
+        const isOpen = mobileMenu.classList.contains('mobile-menu-open');
         
         if (isOpen) {
-            nav.classList.remove('mobile-menu-open');
+            mobileMenu.classList.remove('mobile-menu-open');
             mobileMenuToggle.classList.remove('active');
             body.style.overflow = '';
         } else {
-            nav.classList.add('mobile-menu-open');
+            mobileMenu.classList.add('mobile-menu-open');
             mobileMenuToggle.classList.add('active');
             body.style.overflow = 'hidden';
         }
     });
 
     // Close menu when clicking nav links
-    const navLinks = nav.querySelectorAll('.nav-link');
+    const navLinks = mobileMenu.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            nav.classList.remove('mobile-menu-open');
+            mobileMenu.classList.remove('mobile-menu-open');
             mobileMenuToggle.classList.remove('active');
             body.style.overflow = '';
         });
@@ -126,8 +126,8 @@ function initMobileMenu() {
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (!nav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-            nav.classList.remove('mobile-menu-open');
+        if (!mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+            mobileMenu.classList.remove('mobile-menu-open');
             mobileMenuToggle.classList.remove('active');
             body.style.overflow = '';
         }
