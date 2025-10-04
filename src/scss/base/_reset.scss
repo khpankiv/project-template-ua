@@ -5,7 +5,7 @@
 }
 
 html, body {
-  font-family: Montserrat, Arial, sans-serif;
+  font-family: 'Montserrat', Arial, sans-serif;
   background-color: $pure-white;
   color: $text-color;
   font-size: $font-size-sm; // 16px - Base font size
@@ -55,17 +55,3 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-// ============================================================
-// Utility classes
-// ============================================================
-
-.is-hidden {
-  display: none !important; // тут можна без !important, якщо точно впевнені, що не буде конфліктів
-}
-
-.is-disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-

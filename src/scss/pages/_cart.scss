@@ -24,7 +24,6 @@
 
 		th {
 			@include font-parameters($font-size-md, $font-weight-bold);
-
 			color: $pure-white;
 			padding-block: $space-lg;
 		}
@@ -41,16 +40,16 @@
 		
 		.cart-item-image {
 			@include responsive-size(width, $cart-image-size);
-
 			height: auto;
 		}
 
 	}
 
-// ===================Bottom part of the cart=========================
+//===================Bottom part of the cart=========================
 .cart-bottom {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	align-items: center;
 	gap: $space-5xl;
 	align-items: start;
 
@@ -79,6 +78,7 @@
 	}
 
 	tr {
+
 		border-bottom: $border solid $accent-pink;
 	}
 

@@ -1,230 +1,467 @@
-// ======================================================
-// =============== Mixins ===============================
-// ======================================================
+// @use 'sass:color';
+// =============================================================================
+// ================ Mixins =====================================================
+// =============================================================================
 
-// Hover effect
-@mixin hover-effect($key) {
-  $hover-map: map-get($hover-effects-map, $key);
-
-  &:hover {
-    @if map-has-key($hover-map, transform) {
-      transform: map-get($hover-map, transform);
-    }
-
-    @if map-has-key($hover-map, color) {
-      color: map-get($hover-map, color);
-    }
-
-    @if map-has-key($hover-map, shadow) {
-      box-shadow: map-get($hover-map, shadow);
-    }
-  }
-}
-
-// Button styles
-@mixin button($key) {
-  $btn-map: map-get($button-styles-map, $key);
-
-  padding: map-get($btn-map, padding);
-  font-size: map-get($btn-map, font-size);
-  background: map-get($btn-map, background);
-  color: map-get($btn-map, color);
-  border-radius: map-get($btn-map, border-radius);
-
-  @if map-has-key($btn-map, border) {
-    border: map-get($btn-map, border);
-  }
-}
-
-// Section styles
-@mixin section-styles($section-type) {
-  $section-map: map-get($section-styles-map, $section-type);
-
-  padding: map-get($section-map, padding-top-bottom) map-get($section-map, padding-left);
-  gap: map-get($section-map, gap);
-
-  @if map-has-key($section-map, title-color) {
-    .section-title {
-      color: map-get($section-map, title-color);
-    }
-  }
-
-  @if map-has-key($section-map, text-color) {
-    .section-text {
-      color: map-get($section-map, text-color);
-    }
-  }
-}
-
-// Responsive size mixin - scales properties responsively
-@mixin responsive-size($property, $base-size, $tablet-reduction: 0.8, $mobile-reduction: 0.6) {
-  @if $base-size {
+// Universal responsive size mixin (works with 1, 2, or 4 values like padding/margin)
+@mixin responsive-size($property, $base-size, $mobile-reduction: 0.15, $tablet-reduction: 0.05) {
     #{$property}: $base-size;
+
+        @media (max-width: $breakpoint-tablet) {
+            @if type-of($base-size) == 'list' {
+                $result: ();
+                @for $i from 1 through length($base-size) {
+                    $val: nth($base-size, $i);
+                    $result: append($result, if($val != null, $val * (1 - $tablet-reduction), null));
+                }
+                #{$property}: $result;
+            } @else {
+                #{$property}: $base-size * (1 - $tablet-reduction);
+            }
+        }
+
+        @media (max-width: $breakpoint-mobile) {
+            @if type-of($base-size) == 'list' {
+                $result: ();
+                @for $i from 1 through length($base-size) {
+                    $val: nth($base-size, $i);
+                    $result: append($result, if($val != null, $val * (1 - $mobile-reduction), null));
+                }
+                #{$property}: $result;
+            } @else {
+                #{$property}: $base-size * (1 - $mobile-reduction);
+            }
+        }
+}
+
+
+@mixin grid-responsive($min-width: $min-grid-width-4el) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+}
+
+@mixin flex-responsive(
+        $direction-desktop: row,
+        $direction-tablet: null,
+        $direction-mobile: null,
+        ) {
+            display: flex;
+            flex-direction: $direction-desktop;
+
+            @if $direction-tablet != null {
+                @media (max-width: $breakpoint-tablet) {
+                flex-direction: $direction-tablet;
+                }
+            }
+            @if $direction-mobile != null {
+                @media (max-width: $breakpoint-mobile) {
+                flex-direction: $direction-mobile;
+                }
+            }
+}
+// ==========================================================================
+// Sticky element mixin
+// $direction: 'top', 'bottom', 'left', 'right'
+// ==========================================================================
+@mixin sticky-element($direction: top, $offset: 0, $z: $z-sticky, $animation: false) {
+    position: sticky;
+    z-index: $z;
+    @if $direction == top {
+        top: $offset;
+    } @else if $direction == bottom {
+        bottom: $offset;
+    } @else if $direction == left {
+        left: $offset;
+    } @else if $direction == right {
+        right: $offset;
+    }
+    @if $animation {
+        @include hover-effect('sticky-element'); 
+    }
+}
+
+// ==================================================================
+// Offer Mixins for promotional sections
+// =================================================================
+@mixin section-styles($type) {
+    $params: map-get($section-style-map, $type);
+    $padding-top-bottom: if(map-has-key($params, padding-top-bottom), 
+                            map-get($params, padding-top-bottom), 0);
+    $padding-left: if(map-has-key($params, padding-left), 
+                        map-get($params, padding-left),  $space-4xl);
+    $gap: if(map-has-key($params, gap), map-get($params, gap), $space-lg);
     
-    @media (max-width: map-get($breakpoints, lg)) {
-      @if type-of($base-size) == 'number' and unit($base-size) != '' {
-        #{$property}: $base-size * $tablet-reduction;
-      }
-    }
-    
-    @media (max-width: map-get($breakpoints, md)) {
-      @if type-of($base-size) == 'number' and unit($base-size) != '' {
-        #{$property}: $base-size * $mobile-reduction;
-      }
-    }
-  }
-}
-
-// Font parameters mixin
-@mixin font-parameters($font-size: null, $font-weight: null, $line-height: null, $color: null) {
-  @if $font-size {
-    font-size: $font-size;
-  }
-
-  @if $font-weight {
-    font-weight: $font-weight;
-  }
-
-  @if $line-height {
-    line-height: $line-height;
-  }
-
-  @if $color {
-    color: $color;
-  }
-}
-
-// Selected effect mixin
-@mixin selected-effect($key) {
-  $selected-map: map-get($hover-effects-map, $key);
-  
-  &.selected,
-  &:active {
-    @if map-has-key($selected-map, transform) {
-      transform: map-get($selected-map, transform);
-    }
-
-    @if map-has-key($selected-map, color) {
-      color: map-get($selected-map, color);
-    }
-
-    @if map-has-key($selected-map, shadow) {
-      box-shadow: map-get($selected-map, shadow);
-    }
-  }
-}
-
-// Flex responsive mixin
-@mixin flex-responsive {
-  display: flex;
-  
-  @media (max-width: map-get($breakpoints, md)) {
+    display: flex;
     flex-direction: column;
-  }
+    justify-content: center;
+    align-items: flex-start;
+		text-align: start;
+
+    @include responsive-size(padding, $padding-top-bottom $padding-left); 
+    @include responsive-size(gap, $gap);
+
+    h2 {
+			$title-color: if(map-has-key($params, title-color), 
+											map-get($params, title-color), $text-color);
+			$title-size: if(map-has-key($params, title-size), 
+											map-get($params, title-size), $font-size-2xl);    
+			@include font-parameters(            
+				$title-size,
+				$font-weight-black,
+				$line-height-single,
+				$title-color
+			);
+				margin: 0;
+    }
+
+    p {
+			$text-color: if(map-has-key($params, text-color), map-get($params, text-color), $grey-dark);
+			$text-size: if(map-has-key($params, text-size), map-get($params, text-size), $font-size-sm);
+			@include font-parameters(
+				$text-size,
+				$font-weight-normal,
+				$line-height-base,
+				$text-color
+			);
+    }
+
+    button {
+			@include button('btn-base');
+    }
 }
 
-// Grid responsive mixin
-@mixin grid-responsive($min-width: 300px) {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
-  
-  @media (max-width: map-get($breakpoints, md)) {
-    grid-template-columns: 1fr;
-  }
+// ==================================================================
+// Banner mixin on offer sections
+// ==================================================================
+@mixin banner ($path) {
+	@include shaded-background($path);
+	width: 100%;
+  @include font-parameters(
+    $font-size-sm,
+    $font-weight-normal,
+    $line-height-base,
+    $pure-white
+  );
+
+  text-align: center;
+
+		h1 {
+				@include font-parameters(
+					$font-size-3xl,
+					$font-weight-bold,
+					$line-height-base,
+					$pure-white
+				);}
 }
 
-// Shaded background mixin
-@mixin shaded-background($image-url, $overlay-opacity: 0.3) {
-  background-image: linear-gradient(
-    rgba(0, 0, 0, $overlay-opacity),
-    rgba(0, 0, 0, $overlay-opacity)
-  ), url($image-url);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+// =============================================================================
+// Universal selected effect mixin
+// =============================================================================
+@mixin selected-effect($type, $transition: $animation-medium $animation-ease) {
+    $params: map-get($selected-effects-map, $type);
+    $background: if(map-has-key($params, background), map-get($params, background), null);
+    $color: if(map-has-key($params, color), map-get($params, color), null);
+    $shadow: if(map-has-key($params, shadow), map-get($params, shadow), null);
+    $scale: if(map-has-key($params, scale), map-get($params, scale), null);
+		$text-decoration: if(map-has-key($params, text-decoration), map-get($params, text-decoration), null);
+		$text-decoration-color: if(map-has-key($params, text-decoration-color), map-get($params, text-decoration-color), null);
+    $z-index: if(map-has-key($params, z-index), map-get($params, z-index), null);
+		$height: if(map-has-key($params, height), map-get($params, height), null);
+		$flex: if(map-has-key($params, flex), map-get($params, flex), null);
+
+    transition:
+			transform #{$transition},
+			background #{$transition},
+			color #{$transition},
+			box-shadow #{$transition},
+			flex #{$transition},
+			height #{$transition};
+
+    &.active, &.selected {
+			$transform: '';
+			@if $scale { $transform: $transform + ' scale(' + $scale + ')'; }
+			@if $transform != '' { transform: unquote($transform); }
+			@if $background {background: $background;}
+			@if $color {color: $color;}
+			@if $shadow {box-shadow: $shadow;}
+			@if $text-decoration {text-decoration: $text-decoration;}
+			@if $text-decoration-color {text-decoration-color: $text-decoration-color;}
+			@if $z-index {z-index: $z-index;}
+    }
 }
 
+// ===============================================================================
+// Universal hover effect mixin
+// ===============================================================================
+@mixin hover-effect($type, $transition: $animation-slow $animation-ease) {
+    $params: map-get($hover-effects-map, $type);
+    $rotate: if(map-has-key($params, rotate), map-get($params, rotate), null);
+    $lift: if(map-has-key($params, lift), map-get($params, lift), null);
+    $opacity-from: if(map-has-key($params, opacity-from), map-get($params, opacity-from), 1);
+    $opacity-to: if(map-has-key($params, opacity-to), map-get($params, opacity-to), 1);
+    $background: if(map-has-key($params, background), map-get($params, background), null);
+    $color: if(map-has-key($params, color), map-get($params, color), null);
+    $shadow: if(map-has-key($params, shadow), map-get($params, shadow), null);
+    $scale: if(map-has-key($params, scale), map-get($params, scale), null);
+    $hover-bg-adjust: if(map-has-key($params, hover-bg-adjust), map-get($params, hover-bg-adjust), null);
+		$text-decoration: if(map-has-key($params, text-decoration), map-get($params, text-decoration), null);
+		$text-decoration-color: if(map-has-key($params, text-decoration-color), map-get($params, text-decoration-color), null);
+    transition:
+			opacity #{$transition},
+			transform #{$transition},
+			background #{$transition},
+			color #{$transition},
+			box-shadow #{$transition};
+    
+    opacity: $opacity-from;
+
+    &:hover {
+			$transform: '';
+			@if $scale { $transform: $transform + ' scale(' + $scale + ')'; }
+			@if $lift { $transform: $transform + ' translateY(-' + $lift + ')'; }
+			@if $rotate { $transform: $transform + ' rotate(' + $rotate + ')'; }
+			@if $transform != '' { transform: unquote($transform); }
+			@if $hover-bg-adjust != null and $background != null {
+					background: color.adjust($background, $lightness: map-get($hover-bg-adjust, lightness));
+			} @else if $background {
+				background: $background;
+				opacity: $opacity-to;
+			}
+			z-index: $z-hover;
+			@if $color {color: $color;}
+			@if $shadow {box-shadow: $shadow;}
+			@if $text-decoration {text-decoration: $text-decoration;}
+			@if $text-decoration-color {text-decoration-color: $text-decoration-color;}
+				
+		}
+}
+
+// ==================================================================
+// Icon container mixin for header 
+// ==================================================================
+@mixin icon-container(
+    $hover: 'header-icon', 
+    $tablet-position: center, 
+    $mobile-position: center, 
+    $gap: $space-md) 
+    {
+			display: flex;
+			gap: $gap;
+			align-items: center;
+
+			a {
+				position: relative;
+				display: inline-flex;
+				padding: $space-sm;
+				@include hover-effect($hover);
+			}
+}
+
+// ==================================================================
 // Input styles mixin
-@mixin input-styles($border-color: $grey-light, $focus-color: $accent-pink) {
-  border: $border solid $border-color;
-  padding: $space-2 $space-3;
-  border-radius: 4px;
-  font-size: $font-2;
-  transition: border-color $animation-medium ease;
-  
-  &:focus {
-    outline: none;
-    border-color: $focus-color;
-    box-shadow: $shadow-form-focus;
-  }
+// ==================================================================
+@mixin input-styles($border-color: $grey-light,
+										$padding: $space-md $space-lg, 
+										$font-size: $input-font-size,	) {
+		padding: $padding;
+		position: relative;
+		width: 100%;
+		min-height: $input-height;
+		font-size: $font-size;
+		border: $border solid $border-color;
+		background: $pure-white;
+		color: $input-text-color;
+		font-family: 'Montserrat', Arial, sans-serif;
+		transition: border-color $animation-fast, box-shadow $animation-fast;
+
+		&:focus {
+				outline: none;
+				border-color: $accent-pink;
+				box-shadow: $input-border-focus;
+		}
+
+		&::placeholder {
+				color: $input-text-color;
+				opacity: 1; // Override default opacity
+		}
+
+		&:disabled {
+				background: $grey-extra-light;
+				cursor: not-allowed;
+				// color: $color-muted;
+		}
+}
+// ==================================================================
+//     @media (max-width: $breakpoint-tablet) {
+//         justify-self: $tablet-position;
+//     }
+
+//     @media (max-width: $breakpoint-mobile) {
+//         justify-content: $mobile-position;
+//     }
+
+// ==================================================================
+// =========Animation mixins========================================
+// ==================================================================
+
+@mixin fadeIn($duration: $animation-medium) {
+    animation: fadeIn $duration ease-out;
 }
 
-// Modal backdrop mixin
+@mixin slideDown($duration: $animation-medium) {
+    animation: slideDown $duration ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Animation for form validation errors
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+
+// // Animation for slide in from right
+// @keyframes slideInRight {
+//   from {
+//     transform: translateX(100%);
+//     opacity: 0;
+//   }
+//   to {
+//     transform: translateX(0);
+//     opacity: 1;
+//   }
+// }
+
+
+
+// @mixin slide-in-up($duration: $animation-medium, $distance: 30px) {
+//     animation: slideInUp $duration $animation-ease;
+    
+//     @keyframes slideInUp {
+//         from {
+//             transform: translateY($distance);
+//             opacity: 0;
+//         }
+//         to {
+//             transform: translateY(0);
+//             opacity: 1;
+//         }
+//     }
+// }
+
+
+// @keyframes slideInRight {
+//     from {
+//         transform: translateX(100%);
+//         opacity: 0;
+//     }
+//     to {
+//         transform: translateX(0);
+//         opacity: 1;
+//     }
+// }
+
+
+// ======================================================
+// Modal Mixins
+// ======================================================
+
 @mixin modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(0 0 0 / 50%);
-
-  @include z('modal-backdrop');
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $modal-backdrop;
+    z-index: $z-modal-backdrop;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-// Modal content mixin
-@mixin modal-content {
-  background: $pure-white;
-  padding: $space-5;
-  border-radius: 8px;
-  box-shadow: $shadow-modal;
-
-  @include z('modal');
-
-  max-width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
+@mixin modal-content($min-width: $modal-min-width, $max-width: $modal-max-width) {
+    background: $pure-white;
+    min-width: $min-width;
+    max-width: $max-width;
+    width: 90%;
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+    max-height: $modal-max-height;
+    overflow: auto;
+    box-shadow: $shadow-modal;
+    z-index: $z-modal;
 }
 
-// Animation mixins
-@mixin fadeIn {
-  animation: fadeIn $animation-medium $animation-ease;
+
+// // Loading Spinner
+// @mixin loading-spinner($size: 16px, $border-width: 2px) {
+//     &.loading {
+//         position: relative;
+//         color: transparent;
+        
+//         &::after {
+//             content: '';
+//             position: absolute;
+//             top: 50%;
+//             left: 50%;
+//             transform: translate(-50%, -50%);
+//             width: $size;
+//             height: $size;
+//             border: $border-width solid rgba(0, 0, 0, 0.2);
+//             border-top: $border-width solid currentColor;
+//             border-radius: 50%;
+//             animation: spin 1s linear infinite;
+//         }
+//     }
+    
+//     @keyframes spin {
+//         to {
+//             transform: translate(-50%, -50%) rotate(360deg);
+//         }
+//     }
+// }
+
+
+// ============================================================
+// Utility Mixins 
+// ===========================================================
+
+// @mixin truncate {
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     white-space: nowrap;
+// }
+
+// =============Horizontal line divider mixin=====================
+@mixin divider($color:$accent-pink, $border: $border) {
+    border: $border solid $color;
+    width: 100%;
 }
 
-@mixin slideDown {
-  animation: slideDown $animation-medium $animation-ease;
-}
-
-@mixin fade($duration: $animation-medium) {
-  animation: fade $duration $animation-ease;
-}
-
-@mixin slide($duration: $animation-medium, $direction: 'down') {
-  animation: slide#{capitalize($direction)} $duration $animation-ease;
-}
-
-// Banner mixin for promotional sections
-@mixin banner($bg-image: null) {
-  padding: $space-6;
-
-  @if $bg-image {
-    background-image: url($bg-image);
+// ====================Shaded background mixin=========================
+@mixin shaded-background($image-url, $overlay: rgba(0, 0, 0, 0.4)) {
+    background-image: linear-gradient($overlay, $overlay), url($image-url);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-  } @else {
-    background: linear-gradient(135deg, $accent-pink, $accent-pink-dark);
-  }
-
-  color: $pure-white;
-  border-radius: 8px;
-}
-
-// Divider mixin
-@mixin divider($color: $grey-light, $thickness: 1px) {
-  border-bottom: $thickness solid $color;
-  margin: $space-4 0;
+    position: relative;
+		width: 100%;
 }

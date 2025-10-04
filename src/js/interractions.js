@@ -14,11 +14,11 @@ import { initReviewForm, initStarRating } from './forms.js';
  * @name initAddToCartButtons	- Initialize Add to Cart Buttons Click.
  **************************************************************************/
 export function initAddToCartButtons() {
-  document.addEventListener('click', async (e) => {
+  document.addEventListener('click', (e) => {
     if (e.target.classList.contains('button-add')) {
       const card = e.target.closest('.product-card');
       const id = card ? card.getAttribute('data-product-id') : null;
-      await addToCart(id);
+      addToCart(id);
       e.stopPropagation();
       return;
     }
@@ -35,8 +35,7 @@ export function initClickCard() {
     if (card && !e.target.classList.contains('button-add')) {
       const product = card.getAttribute('data-product-id');
       if (product) {
-        const pathPrefix = window.location.pathname.includes('/pages/') ? '' : 'pages/';
-        window.location.href = `${pathPrefix}product-details-template.html?id=${product}`;
+        window.location.href = `pages/product-details-template.html?id=${product}`;
         e.stopPropagation();
       }
     }
@@ -61,23 +60,11 @@ export async function initPaginationButtons(products, currentPage) {
 				currentPage = currentPage + 1;
 				await renderProductsForPage(products, currentPage);
 			});
-			nextPageBtn.addEventListener('keydown', (e) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault();
-					nextPageBtn.click();
-				}
-			});
 		}
 		if (prevPageBtn) {
 			prevPageBtn.addEventListener('click', async () => {
 				currentPage = currentPage - 1;
 				await renderProductsForPage(products, currentPage);
-			});
-			prevPageBtn.addEventListener('keydown', (e) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault();
-					prevPageBtn.click();
-				}
 			});
 		}
 	}
@@ -123,9 +110,11 @@ export async function updatePagination(products, currentPage) {
   }
   if (nextBtn) {
     if (currentPage === totalPages || totalPages === 0) {
-  		nextBtn.classList.add('is-disabled');
+      nextBtn.style.opacity = '0';
+      nextBtn.style.pointerEvents = 'none';
     } else {
-      nextBtn.classList.remove('is-disabled');
+      nextBtn.style.opacity = '1';
+      nextBtn.style.pointerEvents = '';
 			nextBtn.addEventListener('click', async () => {
 			currentPage = currentPage + 1;
 			await renderProductsForPage(products, currentPage);
@@ -176,18 +165,10 @@ export function initQuantityControls() {
  *********************************************************************************/
 export function initAddQuantity(productId, quantity) {
   const addToCartButton = document.querySelector('#add-multiple-products');
-  addToCartButton.addEventListener('click', async () => {
+  addToCartButton.addEventListener('click', () => {
 		const productId = new URLSearchParams(window.location.search).get('id');
 		const quantity = parseInt(document.querySelector('.quantity').value);
-		
-		// Get selected size and color from dropdowns
-		const sizeButton = document.querySelector('#filter-size .filter-btn');
-		const colorButton = document.querySelector('#filter-color .filter-btn');
-		
-		const selectedSize = sizeButton ? sizeButton.textContent.trim().replace('▾', '').trim() : null;
-		const selectedColor = colorButton ? colorButton.textContent.trim().replace('▾', '').trim() : null;
-		
-		await addToCart(productId, quantity, selectedSize, selectedColor);
+		addToCart(productId, quantity);
   });
 }
 
@@ -260,22 +241,19 @@ export function initCheckoutButton() {
 export function initCartRowsControls() {
 	const cartTableBody = document.querySelector('#cart-tbody');
 	if (!cartTableBody) return;
-	cartTableBody.addEventListener('click', async (e) => {
+	cartTableBody.addEventListener('click', (e) => {
 		const productId = e.target.getAttribute('data-id');
-		const size = e.target.getAttribute('data-size');
-		const color = e.target.getAttribute('data-color');
-		
 		if (e.target.classList.contains('minus')) {
-			await removeFromCart(productId, 1, size, color);
-			await displayCartItems();
+			removeFromCart(productId, 1);
+			displayCartItems();
 		}
 		if (e.target.classList.contains('plus')) {
-			await addToCart(productId, 1, size, color);
-			await displayCartItems();
+			addToCart(productId, 1);
+			displayCartItems();
 		}
 		if (e.target.classList.contains('delete-icon')) {
-			await removeFromCart(productId, Infinity, size, color);
-			await displayCartItems();
+			removeFromCart(productId, Infinity);
+			displayCartItems();
 		}
 	});
 }

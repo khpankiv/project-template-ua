@@ -20,15 +20,6 @@ export async function initSortDropdown(products) {
 		const sortOptions = document.querySelector('#sort-options');
 		const sortOptionItems = sortOptions.querySelectorAll('li');
 		let antiHover = false;
-		
-		// Add keyboard support for sort button
-		sortButton?.addEventListener('keydown', (e) => {
-			if (e.key === 'Enter' || e.key === ' ') {
-				e.preventDefault();
-				sortButton.click();
-			}
-		});
-		
 		sortOptionItems.forEach(option => {
 				option.addEventListener('click',async (e) => {
 					e.stopPropagation();
@@ -45,14 +36,6 @@ export async function initSortDropdown(products) {
 					products = handleSort(products, currentSort);
 					await renderProductsForPage(products, 1);
 				});
-				
-				// Add keyboard support for sort options
-				option.addEventListener('keydown', (e) => {
-					if (e.key === 'Enter' || e.key === ' ') {
-						e.preventDefault();
-						option.click();
-					}
-				});
 		});
 };
 
@@ -67,15 +50,6 @@ export function initFilterDropdown() {
 			const filterOptions = dropdown.querySelector('.filter-options');
 			const filterOptionItems = filterOptions.querySelectorAll('li');
 			let antiHover = false;
-			
-			// Add keyboard support for filter button
-			filterButton?.addEventListener('keydown', (e) => {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault();
-					filterButton.click();
-				}
-			});
-			
 			filterOptionItems.forEach(option => {
 				option.addEventListener('click', async (e) => {
 					e.stopPropagation();
@@ -89,14 +63,6 @@ export function initFilterDropdown() {
 					}, 300);
 					if (filterButton.querySelector('span')) {
 						filterButton.querySelector('span').textContent = option.textContent;
-					}
-				});
-				
-				// Add keyboard support for filter options
-				option.addEventListener('keydown', (e) => {
-					if (e.key === 'Enter' || e.key === ' ') {
-						e.preventDefault();
-						option.click();
 					}
 				});
 		});

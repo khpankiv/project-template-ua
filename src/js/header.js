@@ -29,44 +29,82 @@ function initLoginModal() {
     // Open modal
     loginIcon?.addEventListener('click', (e) => {
         e.preventDefault();
-        loginModal.classList.remove('is-hidden');
+        loginModal.style.display = 'block';
     });
 
-    // Close modal
-    closeModal?.addEventListener('click', () => {
-        loginModal.classList.add('is-hidden');
-    });
+    // // Close modal
+    // closeModal?.addEventListener('click', () => {
+    //     loginModal.style.display = 'none';
+    //     clearFormErrors();
+    // });
 
     // Close modal on outside click
     window.addEventListener('click', (e) => {
-		if (e.target === loginModal) {
-			loginModal.classList.add('is-hidden');
-		}
+			if (e.target === loginModal) {
+				loginModal.style.display = 'none';
+				// clearFormErrors();
+			}
     });
 
     // Password toggle
     passwordToggle?.addEventListener('click', () => {
-		const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-		passwordInput.setAttribute('type', type);
-		passwordToggle.querySelector('.eye-icon').textContent = type === 'password' ? '👁️' : '🙈';
+			const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+			passwordInput.setAttribute('type', type);
+			passwordToggle.querySelector('.eye-icon').textContent = type === 'password' ? '👁️' : '🙈';
     });
 
-	initForm('#login-form', null);
-	
-	// Close modal on successful form submission
-	loginForm?.addEventListener('submit', (e) => {
-		e.preventDefault();
-		const emailInput = document.querySelector('#email');
-		const passwordInput = document.querySelector('#password');
-		
-		if (emailInput && passwordInput && emailInput.value && passwordInput.value) {
-			// Form is valid, close modal
-			loginModal.classList.add('is-hidden');
-			loginForm.reset();
-		}
-	});
+		initForm('#login-form', null);
+
+    // // Form validation and submission
+    // loginForm?.addEventListener('submit', (e) => {
+		// 	e.preventDefault();
+		// 	validateAndSubmitLogin();
+    // });
+
+    // // Real-time email validation
+    // document.querySelector('#email')?.addEventListener('input', validateEmail);
+		// const emailInput = document.querySelector('#email');
+		// validateEmail(emailInput);
 }
 
+
+// // Login form validation and submission
+// function validateAndSubmitLogin() {
+//     const email = document.querySelector('#email').value;
+//     const password = document.querySelector('#password').value;
+//     const emailError = document.querySelector('#email-error');
+//     const passwordError = document.querySelector('#password-error');
+    
+//     let isValid = true;
+
+//     // Email validation
+//     if (!validateEmail()) {
+//         isValid = false;
+//     }
+
+//     // Password validation
+//     if (password.length < 1) {
+//         passwordError.textContent = 'Password is required';
+//         passwordError.style.display = 'block';
+//         isValid = false;
+//     } else {
+//         passwordError.style.display = 'none';
+//     }
+
+//     if (isValid) {
+//         // Simulate successful login
+//         alert('Login successful!');
+//         document.querySelector('#login-modal').style.display = 'none';
+//         clearFormErrors();
+//         document.querySelector('#login-form').reset();
+//     }
+// }
+
+// // Clear form errors
+// function clearFormErrors() {
+//     const errors = document.querySelectorAll('.error-message');
+//     errors.forEach(error => error.style.display = 'none');
+// }
 // ==========================================================================================
 // Cart counter functionality
 // =========================================================================================
@@ -77,15 +115,13 @@ function initLoginModal() {
 export function updateCartCounter() {
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     const cartCounter = document.querySelector('#cart-counter');
-    let totalItems = 0;
-    
-    // Calculate total items from array
-    if (Array.isArray(cartItems)) {
-        totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    }
+		let totalItems = 0;
+		for (const qty of Object.values(cartItems)) {
+			totalItems += qty;
+		} 
     
     if (totalItems > 0) {
-        cartCounter.style.display = 'flex';
+			  cartCounter.style.display = 'flex';
         cartCounter.textContent = totalItems;
     } else {
         cartCounter.style.display = 'none';

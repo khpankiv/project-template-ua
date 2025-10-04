@@ -7,11 +7,9 @@
 // =========================================================
 @mixin button($key) {
     $btn-map: map-get($button-styles-map, $key);
-
     background-color: if(map-get($btn-map, bg-color), map-get($btn-map, bg-color), null);
     color: if(map-get($btn-map, text-color), map-get($btn-map, text-color), null);
     border: if(map-get($btn-map, border), map-get($btn-map, border), null);
-
     @include responsive-size(padding, if(map-get($btn-map, padding), map-get($btn-map, padding), null));
     @include font-parameters(
 			if(map-get($btn-map, font-size), map-get($btn-map, font-size), null),
@@ -19,18 +17,14 @@
 			$line-height: $line-height-single,
 			$color: if(map-get($btn-map, text-color), map-get($btn-map, text-color), null)
     	);
-
     text-align: center;
     border-radius: if(map-get($btn-map, border-radius), map-get($btn-map, border-radius), null);
-
-    @if map-get($btn-map, hover-effect) {
+    @if (map-get($btn-map, hover-effect)) {
 			@include hover-effect(map-get($btn-map, hover-effect));
     }
-
-    @if map-get($btn-map, selected-effect) {
+    @if (map-get($btn-map, selected-effect)) {
 			@include selected-effect(map-get($btn-map, selected-effect));
     }
-
 		&.disabled {
 			opacity: 0;
 			pointer-events: none;
@@ -73,7 +67,6 @@
 	padding: 0;
   border: none;
 	cursor: pointer;
-
 	@include font-parameters (
 		$font-size-lg, 
 		$font-weight-bold,
@@ -91,14 +84,10 @@
 .page-buttons {
     @include responsive-size(margin-top, $space-xl);
     @include responsive-size(margin-bottom, $space-3xl);
-
     display: flex;
     justify-content: center;
-
     @include responsive-size(gap, $space-lg);
-
     align-items: center;
-
 		@include responsive-size(height, $space-2xl);
 }
 
@@ -116,19 +105,15 @@
 .tab-pane {
   display: none;
 }
-
 .tab-pane.active {
   display: block;
 }
-
 .button-tab {
 	@include button('btn-tab');
 }
-
 .tab-buttons {
 	display: flex;
 	justify-content: center;
-
 	@include responsive-size(gap, $space-2xl);
 }
 
