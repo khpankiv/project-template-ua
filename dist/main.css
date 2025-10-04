@@ -724,6 +724,32 @@ form .form-line-group, #login-form #review-form .form-line-group, #login-form .f
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+}
+form .checkbox-label, #login-form #review-form .checkbox-label, #login-form .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #727174;
+  font-weight: 400;
+  cursor: pointer;
+}
+form .checkbox-label input[type=checkbox], #login-form #review-form .checkbox-label input[type=checkbox], #login-form .checkbox-label input[type=checkbox] {
+  cursor: pointer;
+}
+form .checkbox-label span, #login-form #review-form .checkbox-label span, #login-form .checkbox-label span {
+  user-select: none;
+}
+form .forgot, #login-form #review-form .forgot, #login-form .forgot {
+  font-size: 0.75rem;
+  color: #727174;
+  text-decoration: none;
+  white-space: nowrap;
+}
+form .forgot:hover, #login-form #review-form .forgot:hover, #login-form .forgot:hover {
+  color: #B92770;
+  text-decoration: underline;
 }
 form .button-submit, #login-form #review-form .button-submit, #login-form .button-submit {
   background-color: #B92770;
