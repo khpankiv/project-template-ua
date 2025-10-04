@@ -111,7 +111,7 @@
 			
 	.main-banner-2 {
 		@include section-styles('offer-white');
-		@include shaded-background("../assets/images/backgrounds/offer1.png");
+		@include shaded-background("/src/assets/images/backgrounds/offer1.png");
 	}
 }
 
@@ -147,7 +147,7 @@
 
 // ========Main Offer Section===============================================
 .main-offer-section {
-	@include shaded-background("../assets/images/backgrounds/offer2.png");
+	@include shaded-background("/src/assets/images/backgrounds/offer2.png");
 		
 		.main-offer-1 {
 			@include section-styles('offer-banner');
