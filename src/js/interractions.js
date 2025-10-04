@@ -35,7 +35,8 @@ export function initClickCard() {
     if (card && !e.target.classList.contains('button-add')) {
       const product = card.getAttribute('data-product-id');
       if (product) {
-        window.location.href = `src/pages/product-details-template.html?id=${product}`;
+        const pathPrefix = window.location.pathname.includes('/pages/') ? '' : 'pages/';
+        window.location.href = `${pathPrefix}product-details-template.html?id=${product}`;
         e.stopPropagation();
       }
     }

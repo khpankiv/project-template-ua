@@ -7,6 +7,12 @@ import { productCardTemplatePath, productsPerPage, numberOfRandomProducts, numbe
 import { getProductsByField, getInfoById, getRandomItems, generateLoremIpsumParagraphs } from "./utils.js";
 import { getCartTotal, clearCart } from "./logic.js";
 
+// Helper function to get correct image path based on current location
+const getImagePath = () => {
+  const pathPrefix = window.location.pathname.includes('/pages/') ? '../' : '';
+  return pathPrefix + 'assets/images/items/';
+};
+
 // ===========================================================
 // ================= Load Header and Footer =========================
 // ===========================================================
@@ -22,12 +28,40 @@ export async function loadComponent(id, url) {
     try {
       const res = await fetch(url);
       component.innerHTML = await res.text();
+      fixComponentPaths(component);
     } catch (error) {
       console.error(`Failed to load component from ${url}:`, error);
     }
   } else {
     console.error(`Element with ID '${id}' not found in the DOM.`);
   }
+}
+
+/***************************************************************************
+ * @name fixComponentPaths - Fixes paths in loaded components based on current page location.
+ * @param {HTMLElement} component - The component element containing the loaded HTML.
+ **************************************************************************/
+function fixComponentPaths(component) {
+  // Determine if we're in a subdirectory (pages/) or at root level
+  const pathPrefix = window.location.pathname.includes('/pages/') ? '../' : '';
+  
+  // Fix all img src attributes
+  component.querySelectorAll('img[src]').forEach(img => {
+    const src = img.getAttribute('src');
+    // Only fix relative paths, not external URLs or data URIs
+    if (src && !src.startsWith('http') && !src.startsWith('data:') && !src.startsWith('/')) {
+      img.setAttribute('src', pathPrefix + src);
+    }
+  });
+  
+  // Fix all anchor href attributes (except # links)
+  component.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    // Only fix relative paths to internal pages/images, not external URLs or # links
+    if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('/')) {
+      link.setAttribute('href', pathPrefix + href);
+    }
+  });
 }
 
 // ===========================================================
@@ -141,7 +175,7 @@ async function loadCardTemplate(selector) {
     cardClone.querySelector('.product-card').setAttribute('data-product-id', product.id);
     cardClone.querySelector('.product-card-name').textContent = product.name;
     cardClone.querySelector('.product-card-price').textContent = `€${product.price}`;
-    cardClone.querySelector('.product-card-img').src = product.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png');
+    cardClone.querySelector('.product-card-img').src = product.imageUrl.replace('path/to/', getImagePath()).replace('.jpg', '.png');
     cardClone.querySelector('.product-card-img').alt = product.name;    
     cardClone.querySelector('.badge-sale').style.display = (product.salesStatus === true || product.salesStatus === 'true') ? '' : 'none';
     return cardClone;
@@ -162,7 +196,7 @@ function createSidebarProductCard(product, template) {
     const rating = cardClone.querySelector('.sidebar-product-rating');
     cardClone.querySelector('.sidebar-product-name').textContent = product.name;
     cardClone.querySelector('.sidebar-product-price').textContent = `$${product.price}`;
-    cardClone.querySelector('.sidebar-product-img').src = product.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png');
+    cardClone.querySelector('.sidebar-product-img').src = product.imageUrl.replace('path/to/', getImagePath()).replace('.jpg', '.png');
 		renderStars(product.rating, rating);
     return cardClone;
 }
@@ -233,12 +267,12 @@ export function renderProductDetailsPage(product) {
 	const ratingEl = document.querySelector('.product-rating');
 	document.querySelector('#product-name').textContent = product.name;
 	document.querySelector('#product-price').textContent = `$${product.price}`;
-	document.querySelector('#product-main-image').src = product.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png');
+	document.querySelector('#product-main-image').src = product.imageUrl.replace('path/to/', getImagePath()).replace('.jpg', '.png');
 	const imageThumbnails = document.querySelector('.image-thumbnails');
 	imageThumbnails.innerHTML = '';
 	for (let i = 1; i <= 4; i++) {
 		const thumb = document.createElement('img');
-		thumb.src = product.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png');
+		thumb.src = product.imageUrl.replace('path/to/', getImagePath()).replace('.jpg', '.png');
 		imageThumbnails.appendChild(thumb);
 	}
 	document.querySelector('#product-rating-text').textContent = `${product.popularity} || 0} Clients Reviewed`;
@@ -590,7 +624,7 @@ export async function displayCartItems() {
 				const itemKey = `${item.id}-${item.size}-${item.color}`;
 				row.setAttribute('data-item-key', itemKey);
 				row.innerHTML = `
-				<td><img class="cart-item-image" src="${item.imageUrl.replace('path/to/', 'src/assets/images/items/').replace('.jpg', '.png')}" alt="Product Image"></td>
+				<td><img class="cart-item-image" src="${item.imageUrl.replace('path/to/', getImagePath()).replace('.jpg', '.png')}" alt="Product Image"></td>
 				<td class="cart-item-name">${item.name}<br><small>Size: ${item.size}, Color: ${item.color}</small></td>
 				<td class="cart-item-price">$${item.price}</td>
 				<td class="cart-item-quantity">
