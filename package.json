@@ -18,14 +18,16 @@
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint src/js/**/*.js",
     "lint:css": "stylelint \"src/scss/**/*.scss\"",
-    "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix"
+    "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix",
+    "start": "live-server src"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
+    "@eslint/js": "^9.37.0",
+    "eslint": "^8.57.1",
+    "globals": "^16.4.0",
     "live-server": "^1.2.2",
     "sass": "^1.92.1",
     "stylelint": "^16.1.0",
     "stylelint-config-standard-scss": "^13.0.0"
   }
 }
-
