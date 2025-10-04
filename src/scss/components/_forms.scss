@@ -8,7 +8,6 @@ form {
 	display: flex;
 	flex-direction: column;
 	gap: $space-lg;
-
 	// padding: $space-lg;
 	width: 100%;
 	justify-content: space-between;
@@ -34,9 +33,7 @@ form {
 
 	.button-submit {
 		@include button ('btn-base');
-
 		width: auto;
-
 		// padding: $space-md $space-2xl;
 
 		&:disabled {
@@ -113,8 +110,7 @@ textarea {
 // ==================================================================
 .filter-dropdown {
 	cursor: pointer;
-
-	@include input-styles;
+	@include input-styles();
 
 			.filter-btn {
 				display: flex;
@@ -124,7 +120,6 @@ textarea {
 				background: transparent;
 				border: none;
 				text-align: left;
-
 				@include font-parameters(
 					$font-size-sm, 
 					$font-weight-normal,
@@ -156,7 +151,6 @@ textarea {
 			.filter-option {
 				display: block;
 				padding: $space-sm $space-md;    
-
 				@include hover-effect('dropdown-option');       
 				@include selected-effect('dropdown-option');
 				@include font-parameters(
@@ -167,13 +161,11 @@ textarea {
 				);
 			}
 }
-
 // ==================================================================
 // Sorting
 // ==================================================================
 .sort-dropdown {
 	@extend .filter-dropdown;
-
 	width: auto;
 	
 	.sort-btn {
@@ -189,10 +181,8 @@ textarea {
 // Search
 // ==================================================================
 .search-field {
-	@include input-styles;
-
+	@include input-styles();
 	display: flex;
-
 	// align-items: center;
 	@include font-parameters(
 			$font-size-sm, 
@@ -203,13 +193,11 @@ textarea {
 		.catalog-search {
 			width: 100%;
 			border: none;
-
 			@include font-parameters(
 				$font-size-sm, 
 				$font-weight-normal,
 				$line-height-single, 
 				$color: $grey);
-
 			box-sizing: border-box;
 		
 			&:focus {
@@ -229,7 +217,6 @@ textarea {
 			
 			img {
 				cursor: pointer;
-
 				@include hover-effect('search-icon');
 			}
 		}
@@ -244,6 +231,7 @@ textarea {
 	}
 	
 	.modal-content {
+
 			@include modal-content;
 			@include slideDown;
 	}
@@ -285,10 +273,8 @@ textarea {
 			display: grid;
 			width: 100%;
 			grid-template-columns: 1fr 1fr;
-
 			// @include responsive-size(gap, $space-lg);
 			font-size: $font-size-sm;
-
 			// color: $grey;
 
 			.review-textarea {
@@ -298,7 +284,6 @@ textarea {
 
 		#login-button {
 			@extend .button;
-
 			width: 100%;
 		}
 

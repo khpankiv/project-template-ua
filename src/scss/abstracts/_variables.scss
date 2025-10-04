@@ -1,289 +1,369 @@
 // ======================================================
-// =============== Colors ===============================
-// ======================================================
-$grey: #727174;
-$grey-dark: #504E4A;
-$grey-light: #E9E9ED;
-$grey-extra-light: #E7E8E9;
-$pure-white: #FFFFFF;
-$text-color: #000000;
-$accent-pink: #B92770;
-$accent-pink-dark: #cfadbeee;
-$accent-pink-light: #c2a0b1;
-$shadow-color: rgb(193 199 212 / 70%);
-$hover-shadow-color: $grey;
-$stars-color: #FFC107;
-$stars-grey-color: #E0E0E0;
-$error-color: $accent-pink;
-$success-color: $grey-dark;
-$info-color: $text-color;
+// ===============Colors=================================
+//=======================================================
+$grey: #727174; // medium grey - header line, form-text, 
+$grey-dark: #504E4A; // dark grey - text 
+$grey-light: #E9E9ED; // light grey - forms borders,
+$grey-extra-light: #E7E8E9; // very light grey - background, dividers
+$pure-white: #FFFFFF; // pure white
+$text-color: #000000; // main text color
+$accent-pink: #B92770; // main accent from Figma
+$accent-pink-dark: #cfadbeee; // dark pink background
+$accent-pink-light: #c2a0b1; // light pink - buttons, highlights
 
-// ======================================================
-// =============== Spacing Scale ========================
-// ======================================================
-$space-1: 0.25rem;                       // 4px
-$space-2: 0.5rem;                        // 8px
-$space-3: 1rem;                          // 16px
-$space-4: 1.5rem;                        // 24px
-$space-5: clamp(2rem, 3vw, 2.5rem);      // 32–40px
-$space-6: clamp(2.5rem, 4vw, 3rem);      // 40–48px
-$space-7: clamp(3rem, 5vw, 4rem);        // 48–64px
-$space-8: clamp(4rem, 7vw, 5rem);        // 64–80px
-$space-9: clamp(6rem, 10vw, 8rem);       // 96–128px
-$space-10: clamp(8rem, 15vw, 10rem);     // 128–160px
+$shadow-color: rgba(193, 199, 212, 0.7); // shadow color
+$hover-shadow-color: $grey; // lighter shadow color for hover effects
+$stars-color: #FFC107; // color for star ratings
+$stars-grey-color: #E0E0E0; // grey color for inactive stars
 
-$photo-icon-size: $space-8;
+$error-color: $accent-pink; // Red color for error messages
+$success-color: $grey-dark; // Green color for success messages
+$info-color: $text-color; // Amber color for info messages
 
-// ======================================================
-// =============== Typography ===========================
-// ======================================================
-$font-1: clamp(12px, 1.5vw, 14px);   // captions
-$font-2: clamp(14px, 2vw, 16px);     // body
-$font-3: clamp(16px, 2.5vw, 20px);   // subheading
-$font-4: clamp(20px, 3vw, 24px);     // h3
-$font-5: clamp(28px, 4vw, 40px);     // h2
-$font-6: clamp(36px, 5vw, 48px);     // h1 / hero
+// ====================================================
+//==========Sizes and Scales==========================
+//===================================================
+$radius-s: 8px; 
+$border: 2px;
 
+// Spacing Scale (rem based)
+$space-xs: 0.25rem;  // 4px
+$space-sm: 0.5rem;   // 8px
+$space-md: 1rem;     // 16px
+$space-dl: 1.25rem;  // 20px
+$space-lg: 1.5rem;   // 24px
+$space-xl: 2rem;     // 32px
+$space-2xl: 2.5rem;  // 40px
+$space-3xl: 3rem;    // 48px
+$space-4xl: 4rem;    // 64px
+$space-5xl: 5rem;    // 80px
+$space-10xl: 10rem;    // 160px
+
+$photo-icon-size: $space-5xl; // 80px
+
+// =======================================================
+// ================Typography Scale ====================== 
+// Optimized to 7 sizes: 12, 16, 20, 24, 32, 40, 48
+// =======================================================
+$font-size-xs: 0.75rem;   // 12px - Small text, captions
+$font-size-sm: 1rem;      // 16px - Base body text
+$font-size-md: 1.25rem;   // 20px - Large text, subheadings  
+$font-size-lg: 1.5rem;    // 24px - Section headings
+$font-size-xl: 2rem;      // 32px - Page headings
+$font-size-2xl: 2.5rem;   // 40px - Large headings
+$font-size-3xl: 3rem;     // 48px - Extra large headings
+$font-size-10xl: 13rem;   // 208px - Very large headings (offer banner)
+
+//============Font Weights===============================
 $font-weight-normal: 400;
 $font-weight-bold: 700;
 $font-weight-black: 900;
+
+//============Line Heights==============================
 $line-height-single: 1;
 $line-height-tight: 1.2;  
 $line-height-base: 1.5;    
 $line-height-loose: 2;  
 
+// =======================================================
+// =======Layout==========================================
 // ======================================================
-// =============== Layout ===============================
-// ======================================================
-$breakpoints: (
-  sm: 480px,
-  md: 768px,
-  lg: 1024px,
-  xl: 1440px
-);
+// Breakpoints - aligned with REQUIREMENTS.md
+$breakpoint-mobile: 768px;   // tablet breakpoint
+$breakpoint-tablet: 1024px;  // desktop breakpoint  
+$breakpoint-desktop: 1440px; // large desktop breakpoint
 
-@mixin respond-to($bp) {
-  @media (max-width: map-get($breakpoints, $bp)) {
-    @content;
-  }
-}
+// ========Containers sizes and paddings =========
+$container-width: $breakpoint-desktop; 
+$container-padding: $space-4xl; // 64px padding for desktop
 
-$container-width: map-get($breakpoints, xl);
-$fluid-container: clamp(320px, 90vw, 1440px);
-$container-padding: $space-7;
-$section-spacing: $space-7;
-$grid-min-1: 500px;
-$grid-min-2: 400px;
-$grid-min-3: 300px;
-$grid-min-4: 250px;
-$min-grid-width-3el: $grid-min-3;
-$min-grid-width-4el: $grid-min-4;
+// ========Grid min-widths for responsive layouts========
+$min-grid-width-4el: 250px; 
+$min-grid-width-3el: 300px; 
+$min-grid-width-2el: 400px; 
+$min-grid-width-1el: 500px; 
 
-// ======================================================
-// =============== Additional Layout Variables ==========
-// ======================================================
-$main-hero-bg: $grey-extra-light;
-$main-offer-up-margin: $space-7;
-$border: 1px;
-$quantity-input-width: 150px;
-$slide-height: 400px;
-$color-table-background: $pure-white;
-$cart-image-size: 120px;
+//=========Z-index Scale================================
+$z-hover: 2;
+$z-filter-dropdown: 100;
+$z-sticky: 200;
+$z-notification: 1001;
+$z-modal-backdrop: 1000;
+$z-modal: 1010;
 
-// Footer variables
-$footer-benefits-bg: $grey-extra-light;
-$footer-benefits-icon-size: $space-6;
-$copyright-text-color: $grey;
-
-// ======================================================
-// =============== Form Variables =======================
-// ======================================================
-$input-font-size: $font-2;
-$min-height-textinput: 120px;
-$border-color: $grey-light;
-$color-muted: $grey;
-$input-text-color: $text-color;
-
-// ======================================================
-// =============== Border Radius ========================
-// ======================================================
-$radius-s: 4px;
-$radius-m: 8px;
-$radius-l: 12px;
-
-// ======================================================
-// =============== Z-index ==============================
-// ======================================================
-$z: (
-  base: 1,
-  hover: 2,
-  header: 100,
-  dropdown: 200,
-  sticky: 300,
-  modal-backdrop: 1000,
-  modal: 1010,
-  notification: 1100
-);
-
-// Z-index aliases for compatibility
-$z-filter-dropdown: map-get($z, dropdown);
-$z-notification: map-get($z, notification);
-
-@mixin z($key) {
-  z-index: map-get($z, $key);
-}
-
-// ======================================================
-// =============== Animations ===========================
-// ======================================================
+// Animation
+//=======================================================
 $animation-fast: 0.1s;
 $animation-medium: 0.3s;
 $animation-slow: 0.5s;
 $animation-ease: cubic-bezier(0.4, 0.0, 0.2, 1);
 
-// ======================================================
-// =============== Shadows ==============================
-// ======================================================
+// Shadows
+// =======================================================
 $shadow: 0px 20px 80px 0px $shadow-color;
+$shadow-filter-dropdown: 0.5rem, 2rem $shadow-color;
 $shadow-hover: 0px 0px 20px 10px $hover-shadow-color; 
-$shadow-filter-dropdown: 0.5rem 2rem $shadow-color;
 $shadow-form-focus: 0 0 0 3px rgba($accent-pink, 0.1);
-$shadow-modal: 0 4px 20px rgb(0 0 0 / 20%);
+$shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
-// ======================================================
-// =============== Maps for Components ==================
-// ======================================================
+//=======================================================
+//==== Page Specific Styles ================================
+//===================================================
+$main-hero-bg: $grey-extra-light;  
+$main-offer-bg: $pure-white;
+$main-offer-up-margin: -10rem; //  -96px
 
+//==== Slider ==================
+// $slider-height: auto;
+$slide-height: 600px;
+// $slide-flex: 300px;
+$slide-background: rgba(0,0,0,0.4); // background color for slides
+
+// Header Styles
+// ===============================================
+$counter-size: $space-dl; // 20px
+$counter-num-color: $accent-pink;
+
+// Modal & Overlays
+// ===============================================
+$modal-backdrop: rgba(0, 0, 0, 0.5);
+$modal-min-width: clamp(200px, 25vw, 300px);
+$modal-max-width: 500px;
+$modal-max-height: 90vh;
+
+// Hamburger Styles
+// ===============================================
+$hamburger-width: $space-lg; // 24px
+$hamburger-height: 0.125rem; // 2px
+$hamburger-bg-color: $accent-pink;
+
+// Footer Styles
+// ===============================================
+$footer-benefits-bg: $grey-dark; // Background color for footer benefits section
+$footer-icons-contacts-size: 20px; // Size for footer icons icons
+$footer-benefits-icon-size: 60px; // Size for footer benefits icons
+// Copyright
+$copyright-text-color: rgba(0, 0, 0, 0.35);
+
+// Catalog Styles
+// ===============================================
+$min-grid-height: 20rem;    // Minimum height for items grid 
+
+// Dropdowns and Forms
+// ===============================================
+$input-height: $space-2xl; // 40px
+$input-text-color: $grey;
+$input-font-size: $font-size-sm; // 20px
+$input-width: 15rem; // 192px
+$input-border-focus: $border solid $accent-pink;
+$color-muted: $grey;
+$min-height-textinput: 120px;
+
+// Cart Styles
+// ===============================================
+$color-table-background: $grey-dark;
+$quantity-input-width: $space-10xl;
+$cart-image-size: $space-10xl; // 160px
+
+// // Popup Styles
+// // ===============================================
+// $popup-border-radius: $radius-m;
+// $popup-margin: $space-xl 0;      // 32px 0
+// $popup-text-color: $accent-pink;
+// $popup-text-size: $font-size-md; // 20px
+// $popup-text-weight: $font-weight-bold;
+$notification-top: 20px;
+$notification-right: 20px;
+
+
+
+// ============================================================
+// =======Section styles map (doble sections styles) ========
+//===========================================================
+$section-style-map:(
+    "main-news": (
+        padding-top-bottom: $space-4xl, // 160px
+    ),
+    "offer-white": (
+        title-color: $pure-white,
+        text-color: $pure-white,
+    ),
+    "offer": (
+        title-color: $pure-white,
+        text-color: $pure-white,
+    ),  
+    "hero": (
+        padding-left: 0,
+        title-size: $font-size-3xl, // 48px
+    ),
+    "offer-banner": (
+        padding-top-bottom: $space-10xl, // 160px
+        padding-left: $space-10xl, // 160px
+        gap: 0,
+        title-size: $font-size-10xl, // 208px
+        title-color: $pure-white,
+        text-color: $pure-white,
+    ),
+		"about-offer": (
+        padding-left: 0, 
+		),
+);
+
+//==================================================================
+//=========== Universal hover effects map ========================
+//==================================================================
 $hover-effects-map: (
-  'header-icon': (transform: scale(1.1), color: $accent-pink),
-  'header-logo': (transform: scale(1.05), color: $accent-pink),
-  'footer': (color: $accent-pink),
-  'hero-image': (transform: scale(1.05), shadow: $shadow-hover),
-  'product-card': (transform: scale(1.02), shadow: $shadow-hover),
-  'sticky-element': (shadow: $shadow-hover),
-  'people-card': (transform: scale(1.02), shadow: $shadow-hover),
-  'dropdown-option': (color: $accent-pink),
-  'search-icon': (transform: scale(1.1), color: $accent-pink),
-  'feature-icon': (transform: scale(1.1)),
-  'table-row': (shadow: $shadow-hover),
-  'thumbnail': (transform: scale(1.05)),
-  'travel-slide': (transform: scale(1.05), shadow: $shadow-hover)
-);
-$button-styles-map: (
-  'btn-base': (
-    bg-color: $accent-pink,
-    text-color: $pure-white,
-    padding: $space-2 $space-4,
-    font-size: $font-2,
-    font-weight: $font-weight-normal,
-    border-radius: 4px,
-    hover-effect: 'header-icon'
-  ),
-  'btn-outline': (
-    bg-color: transparent,
-    text-color: $accent-pink,
-    padding: $space-2 $space-4,
-    font-size: $font-2,
-    font-weight: $font-weight-normal,
-    border: 2px solid $accent-pink,
-    border-radius: 4px,
-    hover-effect: 'header-icon'
-  ),
-  'btn-quantity': (
-    bg-color: transparent,
-    text-color: $grey,
-    padding: $space-2,
-    font-size: $font-4,
-    font-weight: $font-weight-bold,
-    border: none,
-    hover-effect: 'header-icon'
-  ),
-  'btn-scroll-page': (
-    bg-color: $grey-light,
-    text-color: $text-color,
-    padding: $space-2 $space-3,
-    font-size: $font-2,
-    font-weight: $font-weight-normal,
-    border-radius: 4px,
-    hover-effect: 'header-icon'
-  ),
-  'btn-page-number': (
-    bg-color: transparent,
-    text-color: $text-color,
-    padding: $space-2 $space-3,
-    font-size: $font-2,
-    font-weight: $font-weight-normal,
-    border: 1px solid $grey-light,
-    border-radius: 4px,
-    hover-effect: 'header-icon',
-    selected-effect: 'header-icon'
-  ),
-  'btn-tab': (
-    bg-color: transparent,
-    text-color: $grey,
-    padding: $space-2 $space-4,
-    font-size: $font-3,
-    font-weight: $font-weight-normal,
-    border-bottom: 2px solid transparent,
-    hover-effect: 'header-icon',
-    selected-effect: 'header-icon'
-  )
-);
-$section-styles-map: (
-  'hero': (
-    padding-top-bottom: $space-8,
-    padding-left: $space-5,
-    gap: $space-4,
-    title-color: $text-color,
-    text-color: $grey-dark
-  ),
-  'main-news': (
-    padding-top-bottom: $space-6,
-    padding-left: $space-5,
-    gap: $space-3
-  ),
-  'offer-white': (
-    padding-top-bottom: $space-6,
-    padding-left: $space-5,
-    gap: $space-4,
-    title-color: $accent-pink
-  ),
-  'offer-banner': (
-    padding-top-bottom: $space-6,
-    padding-left: $space-5,
-    gap: $space-4,
-    title-color: $pure-white,
-    text-color: $pure-white
-  ),
-  'about-offer': (
-    padding-top-bottom: $space-6,
-    padding-left: $space-5,
-    gap: $space-3,
-    title-color: $accent-pink
-  )
+    "header-icon": (
+        scale: 1.3,
+        lift: 2px,
+    ),
+    "header-logo": (
+        scale: 1.2,
+        lift: 2px,
+    ),
+    "footer": (
+        color: $accent-pink,
+    ),
+    "button-main": (
+        // background: map-get($btn-primary, 'bg-color'),
+        // hover-bg-adjust: (lightness: 10%)
+        // background: $accent-pink-light,
+        // scale: 1.1,
+        // lift: 2px,
+        background: $accent-pink-dark,
+        color: $text-color,
+    ),
+    "button-scroll":(
+        background: $accent-pink-dark,
+    ),
+    "button-page":(
+        background: $accent-pink-dark,
+        border: 1px solid $accent-pink,
+    ),
+		"button-quantity":(
+				background: $grey-light,
+				color: $text-color,
+		),
+    "product-card": (
+        lift: 3px,
+				scale: 1.05,
+        shadow: $shadow-hover,
+    ),
+    "header-menu": (
+        color: $accent-pink,
+    ),
+    "hero-image": (
+        lift: 20px,
+        rotate: 5deg,
+        transition: $animation-slow $animation-ease
+    ),
+    "people-card": (
+        lift: 15px,
+				scale: 1.1,
+				shadow: $shadow-hover,
+    ),
+    "sticky-element":(
+        scale: 1.2,
+    ),
+    "dropdown-option":(
+        background: $grey-extra-light,
+        color: $accent-pink,
+				font-weight: $font-weight-bold,
+    ),
+		"search-icon":(
+				scale: 1.5,
+		),
+		"travel-slide":(
+				scale: 1.1,
+				shadow: $shadow-hover,
+		),
+		"thumbnail":(
+				scale: 1.3,
+				lift: 10px,
+		),
+		"button-tab":(
+				text-decoration: underline,
+				text-decoration-color: $accent-pink, 
+		),
+		"feature-icon":(
+				scale: 1.2,
+				lift: 10px,
+		),
+		"table-row":(
+				background: $accent-pink-dark,
+		),
 );
 
-// ======================================================
-// =============== Compatibility Aliases (temp) =========
-// ======================================================
-$space-xs: $space-1;
-$space-sm: $space-2;
-$space-md: $space-3;
-$space-dl: $space-3;
-$space-lg: $space-4;
-$space-xl: $space-5;
-$space-2xl: $space-6;
-$space-3xl: $space-7;
-$space-4xl: $space-8;
-$space-5xl: $space-8;
-$space-10xl: $space-10;
-$font-size-xs: $font-1;
-$font-size-sm: $font-2;
-$font-size-md: $font-3;
-$font-size-lg: $font-4;
-$font-size-xl: $font-5;
-$font-size-2xl: $font-5;
-$font-size-3xl: $font-6;
-$breakpoint-mobile: map-get($breakpoints, md);
-$breakpoint-tablet: map-get($breakpoints, lg);
-$breakpoint-desktop: map-get($breakpoints, xl);
+//==============================================================
+//============== Selected effects map ===============================
+//=================================================================
+$selected-effects-map: (
+    "dropdown-option":(
+        background: $grey-extra-light,
+        color: $accent-pink,
+    ),
+    "button-page": (
+        background: $accent-pink,
+        color: $pure-white,
+    ),
+		"button-tab":(
+				text-decoration: underline,
+				text-decoration-color: $accent-pink, 
+		),
+		"header-menu": (
+        color: $accent-pink,
+    ),
+		// "travel-slide": (
+		// 		scale: 1.01,
+		// 		shadow: $shadow,
+		// 		// flex: 0 0 1.2 * $slide-flex,
+		// ),
+);
+
+// ============================================================================
+// =============Button Styles Map=============================================
+// ============================================================================	
+$button-styles-map: (
+    "btn-base": (
+        bg-color: $accent-pink,
+        text-color: $pure-white,
+        padding: $space-md $space-md,
+        font-size: $font-size-md,
+        font-weight: $font-weight-bold,
+        hover-effect: 'button-main',
+        ),
+    "btn-scroll-page": (
+        text-color: $text-color,
+        padding: $space-md $space-md,
+        font-size: $font-size-md,
+        font-weight: $font-weight-bold,
+        hover-effect: 'button-scroll',
+        border: 2px solid $accent-pink,
+        border-radius: $radius-s,
+        ),
+    "btn-page-number": (
+        text-color: $text-color,
+        padding: $space-sm $space-md,
+        font-size: $font-size-sm,
+        font-weight: $font-weight-bold,
+        border-radius: $radius-s,
+        hover-effect: 'button-page',
+        selected-effect: 'button-page',
+    ),
+		"btn-quantity": (
+				text-color: $grey,
+				padding: 0,
+				font-size: $font-size-xl,
+				font-weight: $font-weight-bold,
+				border-radius: 0,
+				hover-effect: 'button-quantity',
+		),
+		"btn-tab": (
+				text-color: $text-color,
+				padding: $space-md $space-lg,
+				font-size: $font-size-sm,
+				font-weight: $font-weight-bold,
+				hover-effect: 'button-tab',
+				selected-effect: 'button-tab',
+		),
+);

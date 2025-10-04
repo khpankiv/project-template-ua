@@ -9,7 +9,6 @@
 	align-items: center;
 	text-align: center;
 	cursor: pointer;
-
 	@include hover-effect('product-card');
 }
 
@@ -22,26 +21,18 @@
 	box-shadow: $shadow;
 	width: 100%;
 }
-
 .badge-sale {
 	position: absolute;
-
 	@include responsive-size(top, $space-md);
 	@include responsive-size(left, $space-md);
-
 	background: $accent-pink;
-
 	@include font-parameters(
 		$font-size-xs, 
 		$font-weight-bold,
 		$color: $pure-white);
-
 	text-transform: uppercase;
-
 	@include responsive-size(padding, $space-xs $space-sm);
-
 	z-index: 2;
-
 	// letter-spacing: 0.05em;
 }
 
@@ -69,7 +60,7 @@
 }
 
 // ===========================================================
-// ======== Sidebar Compact Product Card =========================
+//======== Sidebar Compact Product Card =========================
 // ===========================================================
 .sidebar-product-card {
 	display: flex;
@@ -78,13 +69,11 @@
 	padding: $space-md 0;
 	background: transparent;
 	transition: background-color $animation-medium $animation-ease;
-
 	@include hover-effect('product-card');
 }
 
 .sidebar-product-img {
 	@include responsive-size(width, $photo-icon-size);
-
 	height: auto;
 	object-fit: cover;
 	box-shadow: $shadow;

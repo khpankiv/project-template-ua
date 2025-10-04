@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <base href="/src/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Homepage</title>
-  <link rel="stylesheet" href="./../dist/main.css">
+  <link rel="stylesheet" href="/dist/main.css">
 </head>
 <body>
 
@@ -13,15 +14,15 @@
 <main class="main">
 
   <!-- Main Hero Section -->
-    <section class="hero-section" aria-label="Featured collection">
+    <section class="hero-section">
 			<div class="hero-content container">
 				<div class="hero-text-block">
 					<h2 class="hero-title">Smart Styles for<br>Every Destination</h2>
 					<p>I like this hover effect of picking up the suitcase.<br>It was not required, but it adds a nice touch!</p>
-					<button class="button-hero" data-href="/pages/catalog.html" aria-label="View all luggage items" tabindex="0">View All Items</button>
+					<button class="button-hero" onclick="location.href='pages/catalog.html'">View All Items</button>
 				</div>
 					<!-- <div class="hero-image-block"> -->
-						<img src="assets/images/news/hero1.png" alt="Premium smart luggage collection showcase" class="hero-suitcase">
+							<img src="assets/images/news/hero1.png" alt="Smart Luggage Collection" class="hero-suitcase">
 					<!-- </div> -->
 			</div>
     </section>
@@ -29,10 +30,10 @@
     <div class="container page-content">
 
 				<!-- Main Banner Section -->
-        <section class="main-banner offer-2-section" aria-label="Special offers">
+        <section class="main-banner offer-2-section">
             <div class="main-banner-1">
               <div class="profile">
-                <img src="assets/images/workers/profile.png" alt="Profile photo of Lillian Bennett" class="profile-icon">
+                <img src="assets/images/workers/profile.png" alt="Profile" class="profile-icon">
                 <div class ="profile-info">
                   <h4 class="profile-name">Lillian Bennett</h4>
                   <p>Chief Marketing Officer</p>  
@@ -46,31 +47,31 @@
             <div class="main-banner-2">
                 <h2>25 % Discount</h2>
                 <p>Curabitur vulputate arcu odio, ac facilisis diam<br>accumsan ut. Ut imperdiet et leo in vulputate.</p>
-                <button class="button" aria-label="Get 25% discount on selected items" tabindex="0">Get Discount</button>
+                <button class="button">Get Discount</button>
             </div>
         </section>
 
 				<!-- Travel Suitcases with image slider and hover effects -->
-				<section class="product-grid-section travel-suitcases" aria-label="Travel suitcases collection">
+				<section class="product-grid-section travel-suitcases">
 					<h2>Travel suitcases</h2>
 					<p>Duis vestibulum elit vel neque pharetra</p>
-					<div class="travel-slider-container" id="travel-slider" role="region" aria-label="Travel suitcases carousel"></div>
+					<div class="travel-slider-container" id="travel-slider"></div>
 				</section>
 
-<!-- <script type="module" src="src/js/travel-slider.js"></script> -->
+<!-- <script type="module" src="js/travel-slider.js"></script> -->
 
 
 				<!-- Selected Products -->
-				<section class="product-grid-section selected-products" aria-label="Selected products">
+				<section class="product-grid-section selected-products">
 					<h2>Selected Products</h2>
 					<p>Duis vestibulum elit vel neque pharetra</p>
-					<div class="product-grid-product-render" id="selected-products" role="list">
+					<div class="product-grid-product-render" id="selected-products">
 							<!-- Selected products will be dynamically inserted here -->
 					</div>
 				</section>
 
 				<!-- Main Offer Section -->
-				<section class="main-offer-section offer-2-section" aria-label="Special offer of the month">
+				<section class="main-offer-section offer-2-section">
 					<div class="main-offer-1">
 						<h2>50%</h2>
 						<p>Curabitur vulputate arcu odio, ac facilisis diam.</p>
@@ -78,39 +79,39 @@
 					<div class="main-offer-2">
 						<h2>Offer Of The Month</h2>
 						<p>Curabitur vulputate arcu odio, ac facilisis diam<br>accumsan ut. Ut imperdiet et leo in vulputate.</p>
-						<button class="button" aria-label="Get 50% off offer today" tabindex="0">Get Offer Today</button>
+						<button class="button">Get Offer Today</button>
 					</div>
 				</section>
 
 				<!-- New Products -->
-				<section class="product-grid-section new-products" aria-label="New arrivals">
+				<section class="product-grid-section new-products">
 						<h2>New Products Arrival</h2>
 						<p>Duis vestibulum elit vel neque pharetra</p>
-						<div class="product-grid-product-render" id="new-products" role="list">
+						<div class="product-grid-product-render" id="new-products">
 							<!-- New products will be dynamically inserted here -->
 						</div>
 				</section>
 
 				<!-- Testimonials Section -->
-				<section class="testimonials-section" aria-label="Customer testimonials">
+				<section class="testimonials-section">
 					<h2>Our Grateful Customers</h2>
 					<p>Duis vestibulum elit vel neque pharetra</p>
 					<div class="testimonials-grid">
-						<article class="testimonial-card">
-							<img class="profile-icon" src="assets/images/users/castomer1.png" alt="Ethan Wade customer photo">
+						<div class="testimonial-card">
+							<img class="profile-icon" src="assets/images/users/castomer1.png" alt="Ethan Wade - Happy Customer">
 							<p>"The quality of this luggage is exceptional. I've traveled extensively and this suitcase has held up beautifully through every journey."</p>
 							<p class="testimonial-author">Ethan Wade, New York</p>
-						</article>
-						<article class="testimonial-card">
-							<img class="profile-icon" src="assets/images/users/castomer2.png" alt="Jane Reyes customer photo">
+						</div>
+						<div class="testimonial-card">
+							<img class="profile-icon" src="assets/images/users/castomer2.png" alt="Jane Reyes - Satisfied Customer">
 							<p>"Stylish, durable, and practical. This luggage makes traveling a pleasure. The design is modern and the functionality is outstanding."</p>
 							<p class="testimonial-author">Jane Reyes, California</p>
-						</article>
-						<article class="testimonial-card">
-							<img class="profile-icon" src="assets/images/users/castomer3.png" alt="Erica Banks customer photo">
+						</div>
+						<div class="testimonial-card">
+							<img class="profile-icon" src="assets/images/users/castomer3.png" alt="Erica Banks - Delighted Customer">
 							<p>"I love the attention to detail and premium materials. This luggage is not just functional but also a fashion statement."</p>
 							<p class="testimonial-author">Erica Banks, Miami</p>
-						</article>
+						</div>
 					</div>
 				</section>
 
@@ -122,4 +123,3 @@
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
-

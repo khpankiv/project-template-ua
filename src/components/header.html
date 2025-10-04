@@ -1,88 +1,95 @@
-<header class="header">
-  <div class="header-top">
-    <!-- Social links -->
-    <nav class="socials" aria-label="Social media links">
-      <a href="#" class="social-link" aria-label="Visit our Facebook page" tabindex="0">
-        <img src="images/icons/facebook.svg" alt="Facebook icon">
-      </a>
-      <a href="#" class="social-link" aria-label="Visit our Instagram page" tabindex="0">
-        <img src="images/icons/instagram.svg" alt="Instagram icon">
-      </a>
-      <a href="#" class="social-link" aria-label="Visit our Twitter page" tabindex="0">
-        <img src="images/icons/twitter.svg" alt="Twitter icon">
-      </a>
-    </nav>
+<header class="header container">
 
+  <!-- Header Top Section -->
+  <div class="header-top">
+
+    <!-- Social Media Links -->
+    <div class="socials">
+      <a href="#" class="social-link">
+        <img src="assets/images/icons/facebook.svg" alt="Facebook">
+      </a>
+      <a href="#" class="social-link">
+        <img src="assets/images/icons/twitter.svg" alt="Twitter">
+      </a>
+      <a href="#" class="social-link">
+        <img src="assets/images/icons/instagram.svg" alt="Instagram">
+      </a>
+    </div>  
+    
     <!-- Logo -->
-    <a href="/index.html" class="logo" aria-label="MyShop - Home page" tabindex="0">
-      <span class="logo-bg">
-        <img src="images/icons/logo.svg" alt="MyShop logo">
-      </span>
-      MyShop
+    <a href="index.html" class="logo">
+      <div class="logo-bg">
+        <img src="assets/images/icons/logo.svg"/>
+      </div>
+      <span>BEST SHOP</span>
     </a>
 
-    <!-- Header icons: login, cart, hamburger -->
+    <!-- Header Icons -->
     <div class="header-icons">
-      <a href="#" class="login-link" id="login-icon" aria-label="Login to your account" tabindex="0">
-        <img src="images/icons/user.svg" alt="User account icon">
+      <a href="#" id="login-icon">
+        <img src="assets/images/icons/user.svg" alt="Login">
       </a>
-
-      <a href="/pages/cart.html" class="cart-link" id="cart-link" aria-label="Shopping cart with 0 items" tabindex="0">
-        <img src="images/icons/shopping-cart.svg" alt="Shopping cart icon">
-        <span class="cart-counter" id="cart-counter" aria-live="polite">0</span>
+      <a href="pages/cart.html" id="cart-icon" class="cart-link">
+        <img src="assets/images/icons/shopping-cart.svg" alt="Cart">
+        <span class="cart-counter" id="cart-counter">0</span>
       </a>
-
-      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
-        <span class="hamburger-line" aria-hidden="true"></span>
-        <span class="hamburger-line" aria-hidden="true"></span>
-        <span class="hamburger-line" aria-hidden="true"></span>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
       </button>
     </div>
   </div>
 
-  <!-- Main navigation -->
-  <nav class="nav" aria-label="Main navigation">
-    <ul class="nav-list" role="menubar">
-      <li role="none"><a href="/index.html" class="nav-link active" role="menuitem" tabindex="0">Home</a></li>
-      <li role="none"><a href="/pages/catalog.html" class="nav-link" role="menuitem" tabindex="0">Catalog</a></li>
-      <li role="none"><a href="/pages/about.html" class="nav-link" role="menuitem" tabindex="0">About Us</a></li>
-      <li role="none"><a href="/pages/contact.html" class="nav-link" role="menuitem" tabindex="0">Contacts</a></li>
-    </ul>
-  </nav>
+  <hr class="divider" />
 
-  <!-- Mobile navigation menu -->
-  <nav class="mobile-menu" aria-label="Mobile navigation" aria-hidden="true">
-    <ul class="nav-list" role="menubar">
-      <li role="none"><a href="/index.html" class="nav-link active" role="menuitem" tabindex="-1">Home</a></li>
-      <li role="none"><a href="/pages/catalog.html" class="nav-link" role="menuitem" tabindex="-1">Catalog</a></li>
-      <li role="none"><a href="/pages/about.html" class="nav-link" role="menuitem" tabindex="-1">About Us</a></li>
-      <li role="none"><a href="/pages/contact.html" class="nav-link" role="menuitem" tabindex="-1">Contacts</a></li>
-    </ul>
-  </nav>
-
-  <!-- Login Modal -->
-  <div class="modal is-hidden" id="login-modal" role="dialog" aria-labelledby="login-modal-title" aria-modal="true">
-    <div class="modal-content">
-      <button class="close-modal" id="close-modal" aria-label="Close login modal" tabindex="0">&times;</button>
-      <h2 id="login-modal-title">Account Log In</h2>
-      <form class="login-form" id="login-form" aria-label="Login form">
-        <div class="form-group">
-          <label for="email">Email Address<span aria-label="required">*</span></label>
-          <input type="email" id="email" name="email" required autocomplete="email" aria-required="true">
-          <span class="error-message" id="email-error" role="alert" aria-live="polite"></span>
-        </div>
-        <div class="form-group">
-          <label for="password">Password<span aria-label="required">*</span></label>
-          <div class="password-input-wrapper">
-            <input type="password" id="password" name="password" required autocomplete="current-password" aria-required="true">
-            <button type="button" class="password-toggle" id="password-toggle" aria-label="Toggle password visibility" tabindex="0">
-              <span class="eye-icon" aria-hidden="true">👁️</span>
-            </button>
-          </div>
-          <span class="error-message" id="password-error" role="alert" aria-live="polite"></span>
-        </div>
-        <button type="submit" class="button-submit" aria-label="Log in to your account" tabindex="0">LOG IN</button>
-      </form>
-    </div>
+  <!-- Navigation Menu -->
+  <nav class="nav">
+    <ul class="nav-list">
+      <li ><a href="index.html" class="nav-link active">Home</a></li>
+      <li ><a href="pages/catalog.html" class="nav-link">Catalog
+          <img src="assets/images/icons/arrow.svg" class="arrow">
+      </a></li>
+      <li><a href="pages/about.html" class="nav-link">About Us</a></li>
+      <li><a href="pages/contact.html" class="nav-link">Contact Us</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
+
+<!-- Login Modal -->
+<div id="login-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <!-- <div class="modal-header">
+      <h2 class="heading-md">Log In</h2>
+      <span class="close" id="close-modal">&times;</span>
+    </div> -->
+
+    <form id="login-form">
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required autocomplete="off">
+        <span class="error-message" id="email-error"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" name="password" required autocomplete="off">
+          <button type="button" class="password-toggle" id="password-toggle">
+            <span class="eye-icon">👁️</span>
+          </button>
+        </div>
+        <span class="error-message" id="password-error"></span>
+      </div>
+
+      <div class="form-line-group">
+				<input type="checkbox" id="remember-me" name="remember-me">
+				<p for="remember-me">Remember Me</p>
+				<span class="forgot"><a href="#">Forgot Your Password?</a></span>
+      </div>
+      <button type="submit" class="button" id="login-button">Log In</button>
+    </form>
+  </div>
+</div>

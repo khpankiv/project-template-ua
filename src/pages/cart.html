@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <base href="/src/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Cart</title>
-  <link rel="stylesheet" href="./../../dist/main.css">
+  <link rel="stylesheet" href="/dist/main.css">
 </head>
 <body>
 
@@ -12,23 +13,23 @@
 
   <main>
     
-		<section class="title-section">
+		<div class="title-section">
         <h1>Cart</h1>
-    </section>
+    </div>
     
     <div class="page-content container">
 
-				<div class="cart-message is-hidden" id="thank-you-message" role="alert" aria-live="polite">
+				<div class="cart-message" id="thank-you-message" style="display: none;">
           <p>Thank you for your purchase!</p>
         </div>
-        <div class="cart-message is-hidden" id="cart-empty-message" role="alert" aria-live="polite">
+        <div class="cart-message" id="cart-empty-message" style="display: none;">
           <p>Your cart is currently empty.<br>Use the catalog to add new items.</p>
         </div>			
 
-				<table class="cart-table" aria-label="Shopping cart items">
+				<table class="cart-table">
           <thead>
             <tr>
-              <th scope="col">IMAGE</th><th scope="col">PRODUCT NAME</th><th scope="col">PRICE</th><th scope="col">QUANTITY</th><th scope="col">TOTAL</th><th scope="col">DELETE</th>
+              <th>IMAGE</th><th>PRODUCT NAME</th><th>PRICE</th><th>QUANTITY</th><th>TOTAL</th><th>DELETE</th>
             </tr>
           </thead>
 					<!-- Cart Items Template -->
@@ -39,12 +40,12 @@
     
       <section class="cart-bottom">
 					<div class="cart-actions">
-						<button class="button" id="continue-shopping" onclick="window.location.href='/pages/catalog.html'" aria-label="Continue shopping in catalog" tabindex="0">CONTINUE SHOPPING</button>
-						<button class="button" id="clear-shopping-cart" aria-label="Clear all items from cart" tabindex="0">CLEAR SHOPPING CART</button>
+						<button class="button" id="continue-shopping" onclick="window.location.href='pages/catalog.html'">CONTINUE SHOPPING</button>
+						<button class="button" id="clear-shopping-cart">CLEAR SHOPPING CART</button>
 					</div>
-					<div class="cart-summary" aria-label="Cart summary">
+					<div class="cart-summary">
 					<!-- Total Table -->
-           <table class="cart-summary-table" id="cart-summary-table" aria-label="Order summary">
+           <table class="cart-summary-table" id="cart-summary-table">
               <tr>
                 <td class="cart-summary-label">Sub Total</td>
                 <td class="cart-summary-amount" id="cart-subtotal-amount">$0</td>
@@ -62,7 +63,7 @@
                 <td class="cart-summary-amount" id="cart-total-amount">$0</td>
               </tr>
            </table>
-					<button class="button" id="checkout-button" aria-label="Proceed to checkout" tabindex="0">CHECKOUT</button>
+					<button class="button" id="checkout-button">CHECKOUT</button>
 				</div>
 			</section>
 
@@ -71,6 +72,6 @@
 
   <div id="footer"></div>
 
-  <script type="module" src="../js/cart.js"></script>
+  <script type="module" src="js/cart.js"></script>
 </body>
 </html>

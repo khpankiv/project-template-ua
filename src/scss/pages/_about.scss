@@ -4,8 +4,7 @@
 
 // =========Title Banner===============================================
 .title-section {
-	@include banner("../assets/images/backgrounds/banner-about.png");
-
+	@include banner("/src/assets/images/backgrounds/banner-about.png");
 	padding-block: $space-10xl;
 }
 
@@ -22,7 +21,6 @@
   display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	justify-content: space-between;
-
 	@include responsive-size(gap, $space-4xl);
 }
 
@@ -32,13 +30,11 @@
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-
 	@include responsive-size(gap, $space-dl);
 	@include hover-effect('feature-icon');
 
 	.feature-icon {
 		@include responsive-size(width, $space-5xl);
-
 		height: auto;
 	}
 
@@ -84,9 +80,7 @@
 
 	.team-member {
 		width: 100%;
-
 		@include hover-effect('people-card');
-
 		// display: flex;
 		// flex-direction: column;
 		// align-items: center;

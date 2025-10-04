@@ -5,9 +5,10 @@
 @import './components/_buttons';
 @import './components/_product-card';
 @import './components/_forms';
-@import './components/_sliders';
+
 @import './layouts/_header';
 @import './layouts/_footer';
+
 @import './pages/_about';
 @import './pages/_catalog';
 @import './pages/_product-details';
@@ -17,7 +18,6 @@
 .container {
   max-width: $container-width;
   margin: 0 auto;
-
   @include responsive-size(padding-inline, $container-padding,$tablet-reduction:0.5, $mobile-reduction:0.75);
 }
 
@@ -28,6 +28,13 @@
 	text-align: center;
 	margin: 0 auto;
 	gap: $space-3xl;
+
+		h2 {
+		@include font-parameters(
+			$font-size-2xl,
+			$font-weight-black,
+			);
+	}
 }
 
 // =========Offer Section Grid===============================================
@@ -35,12 +42,13 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	position: relative;
-	
-	@media (width <= 768px) {
-		grid-template-columns: 1fr;
-		margin-top: $space-xl;
-		padding: $space-lg;
-	}
+
+	// @media (max-width: 768px) {
+	//     grid-template-columns: 1fr;
+	//     margin-top: $space-xl;
+	//     margin-left: $space-lg;
+	//     margin-right: $space-lg;
+	// }
 }
 
 // =========Product Grid Section===============================================
@@ -51,14 +59,6 @@
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: $space-3xl;
-	
-	@media (max-width: map-get($breakpoints, lg)) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-	
-	@media (max-width: map-get($breakpoints, md)) {
-		grid-template-columns: 1fr;
-	}
 }
 
 // =========Hero Section===============================================
@@ -69,10 +69,8 @@
 
 	.hero-content {
 		@include flex-responsive;
-
 		align-items: center;
 		justify-content: space-between;
-
 		@include responsive-size(gap, $space-dl);     
 	}
 
@@ -99,7 +97,6 @@
 		.profile {
 		@include flex-responsive;
 		@include responsive-size(gap, $space-lg);
-
 		align-items: center;
 
 			.profile-info {
@@ -114,7 +111,7 @@
 			
 	.main-banner-2 {
 		@include section-styles('offer-white');
-		@include shaded-background("../assets/images/backgrounds/offer1.png");
+		@include shaded-background("/src/assets/images/backgrounds/offer1.png");
 	}
 }
 
@@ -123,9 +120,34 @@
     height: auto;
 }
 
+// New slider styles
+
+.travel-slider-container {
+	padding-top: $space-3xl;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-grid-width-3el, 1fr));
+  align-items: center;
+  gap: $space-lg;
+  position: relative;
+}
+
+.travel-slide {
+	
+		height: $slide-height;
+		background-size: cover;
+		color: $pure-white;
+		transition: transform 10s $animation-ease, 
+								box-shadow 2s $animation-ease;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		padding-bottom: $space-2xl;
+		@include hover-effect('travel-slide');
+}
+
 // ========Main Offer Section===============================================
 .main-offer-section {
-	@include shaded-background("../assets/images/backgrounds/offer2.png");
+	@include shaded-background("/src/assets/images/backgrounds/offer2.png");
 		
 		.main-offer-1 {
 			@include section-styles('offer-banner');
@@ -139,13 +161,11 @@
 // ======Testimonials Section===============================================
 .testimonials-grid {
 	padding-top: $space-3xl;
-
 	@include grid-responsive($min-grid-width-3el);
 	@include responsive-size(gap, $space-3xl);
 
 	.testimonial-card {
 		@include flex-responsive;
-
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
@@ -153,8 +173,14 @@
 		padding: $space-2xl;
 		background: $pure-white;
 		box-shadow: $shadow;
-
 		@include hover-effect('people-card');
+																	
+		p {
+			@include font-parameters(
+				$font-size-md, 
+				$color: $grey-dark
+			);
+		}
 
 		.testimonial-author {
 			@include font-parameters(
@@ -164,3 +190,25 @@
 		}
 	}
 }
+
+
+// // Responsive styles using variables and mixins
+// @media (max-width: 768px) {
+//     .modal-content {
+//         min-width: 300px;
+//         width: 95%;
+//         margin: $space-md;
+//     }
+    
+//     .modal-header,
+//     #login-form {
+//         padding: $space-lg;
+//     }
+    
+//     .notification {
+//         top: 10px;
+//         right: 10px;
+//         left: 10px;
+//         text-align: center;
+//     }
+// }
