@@ -1414,7 +1414,6 @@
       "salesStatus": false,
       "rating": 4.5,
       "popularity": 79,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -1428,7 +1427,6 @@
       "salesStatus": true,
       "rating": 5.0,
       "popularity": 64,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": [
         "Selected Products"
       ]
@@ -1444,7 +1442,6 @@
       "salesStatus": false,
       "rating": 3.9,
       "popularity": 88,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -1458,7 +1455,6 @@
       "salesStatus": true,
       "rating": 4.9,
       "popularity": 66,
-      "description": "Lightweight design with reinforced corners and premium quality materials for long-lasting use.",
       "blocks": [
         "New Products Arrival"
       ]
@@ -1474,7 +1470,6 @@
       "salesStatus": true,
       "rating": 3.8,
       "popularity": 81,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": []
     },
     {
@@ -1488,7 +1483,6 @@
       "salesStatus": true,
       "rating": 4.9,
       "popularity": 63,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -1502,7 +1496,6 @@
       "salesStatus": false,
       "rating": 4.5,
       "popularity": 76,
-      "description": "Lightweight design with reinforced corners and premium quality materials for long-lasting use.",
       "blocks": []
     },
     {
@@ -1516,7 +1509,6 @@
       "salesStatus": false,
       "rating": 3.6,
       "popularity": 104,
-      "description": "Lightweight design with reinforced corners and premium quality materials for long-lasting use.",
       "blocks": []
     },
     {
@@ -1530,7 +1522,6 @@
       "salesStatus": true,
       "rating": 3.7,
       "popularity": 79,
-      "description": "Innovative design meets practical functionality for modern travelers who demand the best.",
       "blocks": []
     },
     {
@@ -1544,7 +1535,6 @@
       "salesStatus": true,
       "rating": 3.7,
       "popularity": 95,
-      "description": "Durable construction with water-resistant exterior and multiple interior pockets for organization.",
       "blocks": []
     },
     {
@@ -1558,7 +1548,6 @@
       "salesStatus": false,
       "rating": 3.5,
       "popularity": 81,
-      "description": "Durable construction with water-resistant exterior and multiple interior pockets for organization.",
       "blocks": []
     },
     {
@@ -1572,7 +1561,6 @@
       "salesStatus": false,
       "rating": 4.8,
       "popularity": 90,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": [
         "Selected Products"
       ]
@@ -1588,7 +1576,6 @@
       "salesStatus": true,
       "rating": 4.5,
       "popularity": 85,
-      "description": "Innovative design meets practical functionality for modern travelers who demand the best.",
       "blocks": [
         "New Products Arrival"
       ]
@@ -1604,7 +1591,6 @@
       "salesStatus": false,
       "rating": 4.0,
       "popularity": 61,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -1618,7 +1604,6 @@
       "salesStatus": false,
       "rating": 3.7,
       "popularity": 87,
-      "description": "Innovative design meets practical functionality for modern travelers who demand the best.",
       "blocks": []
     },
     {
@@ -1632,7 +1617,6 @@
       "salesStatus": true,
       "rating": 4.1,
       "popularity": 96,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": [
         "You May Also Like"
       ]
@@ -1648,7 +1632,6 @@
       "salesStatus": true,
       "rating": 4.0,
       "popularity": 64,
-      "description": "Innovative design meets practical functionality for modern travelers who demand the best.",
       "blocks": []
     },
     {
@@ -1662,7 +1645,6 @@
       "salesStatus": true,
       "rating": 4.0,
       "popularity": 104,
-      "description": "Crafted from high-quality materials with ergonomic handles and 360-degree spinner wheels.",
       "blocks": []
     },
     {
@@ -1676,7 +1658,6 @@
       "salesStatus": false,
       "rating": 4.4,
       "popularity": 85,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -1690,7 +1671,6 @@
       "salesStatus": false,
       "rating": 4.2,
       "popularity": 88,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": []
     },
     {
@@ -1704,7 +1684,6 @@
       "salesStatus": true,
       "rating": 4.4,
       "popularity": 81,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -1718,7 +1697,6 @@
       "salesStatus": true,
       "rating": 3.5,
       "popularity": 75,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -1732,7 +1710,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 84,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -1746,7 +1723,6 @@
       "salesStatus": false,
       "rating": 3.8,
       "popularity": 104,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -1760,7 +1736,6 @@
       "salesStatus": false,
       "rating": 4.7,
       "popularity": 102,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -1774,7 +1749,6 @@
       "salesStatus": true,
       "rating": 4.1,
       "popularity": 95,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -1788,7 +1762,6 @@
       "salesStatus": true,
       "rating": 4.5,
       "popularity": 93,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -1802,7 +1775,6 @@
       "salesStatus": false,
       "rating": 3.9,
       "popularity": 80,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": [
         "New Products Arrival"
       ]
@@ -1818,7 +1790,6 @@
       "salesStatus": true,
       "rating": 4.1,
       "popularity": 81,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -1832,7 +1803,6 @@
       "salesStatus": false,
       "rating": 4.8,
       "popularity": 96,
-      "description": "Durable construction with water-resistant exterior and multiple interior pockets for organization.",
       "blocks": []
     },
     {
@@ -1846,7 +1816,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 94,
-      "description": "Versatile travel solution with reinforced frame and scratch-resistant finish.",
       "blocks": []
     },
     {
@@ -1860,7 +1829,6 @@
       "salesStatus": false,
       "rating": 3.5,
       "popularity": 81,
-      "description": "Durable construction with water-resistant exterior and multiple interior pockets for organization.",
       "blocks": []
     },
     {
@@ -1874,7 +1842,6 @@
       "salesStatus": true,
       "rating": 4.9,
       "popularity": 97,
-      "description": "Versatile travel solution with reinforced frame and scratch-resistant finish.",
       "blocks": []
     },
     {
@@ -1888,7 +1855,6 @@
       "salesStatus": false,
       "rating": 3.6,
       "popularity": 84,
-      "description": "Innovative design meets practical functionality for modern travelers who demand the best.",
       "blocks": [
         "Selected Products"
       ]
@@ -1904,7 +1870,6 @@
       "salesStatus": true,
       "rating": 4.8,
       "popularity": 90,
-      "description": "Perfect for business trips and weekend getaways. Features durable construction and smooth-rolling wheels.",
       "blocks": []
     },
     {
@@ -1918,7 +1883,6 @@
       "salesStatus": true,
       "rating": 4.9,
       "popularity": 62,
-      "description": "Perfect for business trips and weekend getaways. Features durable construction and smooth-rolling wheels.",
       "blocks": []
     },
     {
@@ -1932,7 +1896,6 @@
       "salesStatus": true,
       "rating": 3.7,
       "popularity": 102,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -1946,7 +1909,6 @@
       "salesStatus": true,
       "rating": 4.4,
       "popularity": 105,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -1960,7 +1922,6 @@
       "salesStatus": false,
       "rating": 4.9,
       "popularity": 96,
-      "description": "Durable construction with water-resistant exterior and multiple interior pockets for organization.",
       "blocks": []
     },
     {
@@ -1974,7 +1935,6 @@
       "salesStatus": true,
       "rating": 4.5,
       "popularity": 79,
-      "description": "Versatile travel solution with reinforced frame and scratch-resistant finish.",
       "blocks": []
     },
     {
@@ -1988,7 +1948,6 @@
       "salesStatus": true,
       "rating": 4.5,
       "popularity": 64,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -2002,7 +1961,6 @@
       "salesStatus": false,
       "rating": 4.9,
       "popularity": 100,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -2016,7 +1974,6 @@
       "salesStatus": false,
       "rating": 4.7,
       "popularity": 94,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -2030,7 +1987,6 @@
       "salesStatus": true,
       "rating": 3.9,
       "popularity": 88,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": []
     },
     {
@@ -2044,7 +2000,6 @@
       "salesStatus": false,
       "rating": 4.2,
       "popularity": 80,
-      "description": "Lightweight design with reinforced corners and premium quality materials for long-lasting use.",
       "blocks": []
     },
     {
@@ -2058,7 +2013,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 77,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": [
         "New Products Arrival"
       ]
@@ -2074,7 +2028,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 104,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -2088,7 +2041,6 @@
       "salesStatus": false,
       "rating": 3.8,
       "popularity": 104,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": []
     },
     {
@@ -2102,7 +2054,6 @@
       "salesStatus": true,
       "rating": 4.0,
       "popularity": 95,
-      "description": "Innovative design meets practical functionality for modern travelers who demand the best.",
       "blocks": []
     },
     {
@@ -2116,7 +2067,6 @@
       "salesStatus": true,
       "rating": 3.7,
       "popularity": 72,
-      "description": "Innovative design meets practical functionality for modern travelers who demand the best.",
       "blocks": [
         "You May Also Like"
       ]
@@ -2132,7 +2082,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 93,
-      "description": "Versatile travel solution with reinforced frame and scratch-resistant finish.",
       "blocks": [
         "New Products Arrival"
       ]
@@ -2148,7 +2097,6 @@
       "salesStatus": false,
       "rating": 4.0,
       "popularity": 105,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": [
         "New Products Arrival"
       ]
@@ -2164,7 +2112,6 @@
       "salesStatus": true,
       "rating": 4.8,
       "popularity": 91,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -2178,7 +2125,6 @@
       "salesStatus": false,
       "rating": 4.0,
       "popularity": 63,
-      "description": "Crafted from high-quality materials with ergonomic handles and 360-degree spinner wheels.",
       "blocks": []
     },
     {
@@ -2192,7 +2138,6 @@
       "salesStatus": false,
       "rating": 3.6,
       "popularity": 100,
-      "description": "Perfect for business trips and weekend getaways. Features durable construction and smooth-rolling wheels.",
       "blocks": [
         "You May Also Like"
       ]
@@ -2208,7 +2153,6 @@
       "salesStatus": true,
       "rating": 4.4,
       "popularity": 99,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": []
     },
     {
@@ -2222,7 +2166,6 @@
       "salesStatus": true,
       "rating": 4.0,
       "popularity": 99,
-      "description": "Perfect for business trips and weekend getaways. Features durable construction and smooth-rolling wheels.",
       "blocks": []
     },
     {
@@ -2236,7 +2179,6 @@
       "salesStatus": true,
       "rating": 3.6,
       "popularity": 75,
-      "description": "Lightweight design with reinforced corners and premium quality materials for long-lasting use.",
       "blocks": []
     },
     {
@@ -2250,7 +2192,6 @@
       "salesStatus": true,
       "rating": 3.9,
       "popularity": 74,
-      "description": "Crafted from high-quality materials with ergonomic handles and 360-degree spinner wheels.",
       "blocks": []
     },
     {
@@ -2264,7 +2205,6 @@
       "salesStatus": true,
       "rating": 4.1,
       "popularity": 94,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": []
     },
     {
@@ -2278,7 +2218,6 @@
       "salesStatus": true,
       "rating": 4.7,
       "popularity": 98,
-      "description": "Versatile travel solution with reinforced frame and scratch-resistant finish.",
       "blocks": []
     },
     {
@@ -2292,7 +2231,6 @@
       "salesStatus": true,
       "rating": 4.9,
       "popularity": 92,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -2306,7 +2244,6 @@
       "salesStatus": true,
       "rating": 4.4,
       "popularity": 61,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": [
         "You May Also Like"
       ]
@@ -2322,7 +2259,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 71,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -2336,7 +2272,6 @@
       "salesStatus": false,
       "rating": 4.5,
       "popularity": 91,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -2350,7 +2285,6 @@
       "salesStatus": true,
       "rating": 3.7,
       "popularity": 86,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": [
         "Selected Products"
       ]
@@ -2366,7 +2300,6 @@
       "salesStatus": true,
       "rating": 3.9,
       "popularity": 67,
-      "description": "Durable construction with water-resistant exterior and multiple interior pockets for organization.",
       "blocks": []
     },
     {
@@ -2380,7 +2313,6 @@
       "salesStatus": true,
       "rating": 3.8,
       "popularity": 83,
-      "description": "Versatile travel solution with reinforced frame and scratch-resistant finish.",
       "blocks": []
     },
     {
@@ -2394,7 +2326,6 @@
       "salesStatus": false,
       "rating": 3.7,
       "popularity": 78,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -2408,7 +2339,6 @@
       "salesStatus": true,
       "rating": 3.9,
       "popularity": 70,
-      "description": "Crafted from high-quality materials with ergonomic handles and 360-degree spinner wheels.",
       "blocks": []
     },
     {
@@ -2422,7 +2352,6 @@
       "salesStatus": true,
       "rating": 4.9,
       "popularity": 89,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -2436,7 +2365,6 @@
       "salesStatus": false,
       "rating": 3.9,
       "popularity": 90,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": [
         "You May Also Like"
       ]
@@ -2452,7 +2380,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 68,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": [
         "Selected Products"
       ]
@@ -2468,7 +2395,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 97,
-      "description": "Versatile travel solution with reinforced frame and scratch-resistant finish.",
       "blocks": []
     },
     {
@@ -2482,7 +2408,6 @@
       "salesStatus": true,
       "rating": 4.0,
       "popularity": 95,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -2496,7 +2421,6 @@
       "salesStatus": true,
       "rating": 3.9,
       "popularity": 86,
-      "description": "Perfect for business trips and weekend getaways. Features durable construction and smooth-rolling wheels.",
       "blocks": []
     },
     {
@@ -2510,7 +2434,6 @@
       "salesStatus": false,
       "rating": 4.9,
       "popularity": 68,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -2524,7 +2447,6 @@
       "salesStatus": false,
       "rating": 4.9,
       "popularity": 60,
-      "description": "Lightweight design with reinforced corners and premium quality materials for long-lasting use.",
       "blocks": []
     },
     {
@@ -2538,7 +2460,6 @@
       "salesStatus": true,
       "rating": 4.4,
       "popularity": 85,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -2552,7 +2473,6 @@
       "salesStatus": true,
       "rating": 4.3,
       "popularity": 99,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": [
         "You May Also Like"
       ]
@@ -2568,7 +2488,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 105,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     },
     {
@@ -2582,7 +2501,6 @@
       "salesStatus": false,
       "rating": 3.9,
       "popularity": 83,
-      "description": "Durable construction with water-resistant exterior and multiple interior pockets for organization.",
       "blocks": [
         "You May Also Like"
       ]
@@ -2598,7 +2516,6 @@
       "salesStatus": false,
       "rating": 3.6,
       "popularity": 84,
-      "description": "Versatile travel solution with reinforced frame and scratch-resistant finish.",
       "blocks": []
     },
     {
@@ -2612,7 +2529,6 @@
       "salesStatus": false,
       "rating": 4.5,
       "popularity": 89,
-      "description": "Crafted from high-quality materials with ergonomic handles and 360-degree spinner wheels.",
       "blocks": []
     },
     {
@@ -2626,7 +2542,6 @@
       "salesStatus": true,
       "rating": 4.2,
       "popularity": 82,
-      "description": "Versatile travel solution with reinforced frame and scratch-resistant finish.",
       "blocks": [
         "Selected Products"
       ]
@@ -2642,7 +2557,6 @@
       "salesStatus": false,
       "rating": 4.8,
       "popularity": 66,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": []
     },
     {
@@ -2656,7 +2570,6 @@
       "salesStatus": true,
       "rating": 5.0,
       "popularity": 102,
-      "description": "Durable construction with water-resistant exterior and multiple interior pockets for organization.",
       "blocks": [
         "You May Also Like"
       ]
@@ -2672,7 +2585,6 @@
       "salesStatus": false,
       "rating": 4.4,
       "popularity": 82,
-      "description": "Stylish and functional luggage solution with TSA-approved locks and expandable capacity.",
       "blocks": []
     },
     {
@@ -2686,7 +2598,6 @@
       "salesStatus": true,
       "rating": 4.5,
       "popularity": 79,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": [
         "Selected Products"
       ]
@@ -2702,7 +2613,6 @@
       "salesStatus": true,
       "rating": 3.8,
       "popularity": 68,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -2716,7 +2626,6 @@
       "salesStatus": true,
       "rating": 3.9,
       "popularity": 90,
-      "description": "Crafted from high-quality materials with ergonomic handles and 360-degree spinner wheels.",
       "blocks": []
     },
     {
@@ -2730,7 +2639,6 @@
       "salesStatus": false,
       "rating": 4.6,
       "popularity": 74,
-      "description": "Durable construction with water-resistant exterior and multiple interior pockets for organization.",
       "blocks": []
     },
     {
@@ -2744,7 +2652,6 @@
       "salesStatus": true,
       "rating": 3.9,
       "popularity": 67,
-      "description": "Spacious interior with compression straps and zippered dividers for efficient packing.",
       "blocks": []
     },
     {
@@ -2758,7 +2665,6 @@
       "salesStatus": true,
       "rating": 4.5,
       "popularity": 90,
-      "description": "Perfect for business trips and weekend getaways. Features durable construction and smooth-rolling wheels.",
       "blocks": []
     },
     {
@@ -2772,7 +2678,6 @@
       "salesStatus": true,
       "rating": 3.6,
       "popularity": 89,
-      "description": "Crafted from high-quality materials with ergonomic handles and 360-degree spinner wheels.",
       "blocks": []
     },
     {
@@ -2786,7 +2691,6 @@
       "salesStatus": true,
       "rating": 5.0,
       "popularity": 67,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": [
         "You May Also Like"
       ]
@@ -2802,7 +2706,6 @@
       "salesStatus": false,
       "rating": 4.9,
       "popularity": 104,
-      "description": "Premium quality luggage designed for frequent travelers seeking comfort and reliability.",
       "blocks": []
     },
     {
@@ -2816,7 +2719,6 @@
       "salesStatus": false,
       "rating": 4.1,
       "popularity": 77,
-      "description": "Perfect for business trips and weekend getaways. Features durable construction and smooth-rolling wheels.",
       "blocks": []
     },
     {
@@ -2830,7 +2732,6 @@
       "salesStatus": false,
       "rating": 3.6,
       "popularity": 103,
-      "description": "Innovative design meets practical functionality for modern travelers who demand the best.",
       "blocks": []
     },
     {
@@ -2844,7 +2745,6 @@
       "salesStatus": true,
       "rating": 5.0,
       "popularity": 89,
-      "description": "Ideal travel companion with spacious interior and organized compartments for all your essentials.",
       "blocks": []
     }
   ]
