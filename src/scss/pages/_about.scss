@@ -4,7 +4,7 @@
 
 // =========Title Banner===============================================
 .title-section {
-	@include banner("../assets/images/backgrounds/banner-about.png");
+	@include banner("/src/assets/images/backgrounds/banner-about.png");
 	padding-block: $space-10xl;
 }
 
