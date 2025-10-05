@@ -5,6 +5,7 @@ import { updateCartCounter } from './header.js';
 import { dataFile } from './file_links.js';
 import { fetchProducts } from './utils.js';
 import { getProductsByField } from './utils.js';
+import notificationManager from './notifications.js';
 // import { renderProductsForPage } from './ui.js';
 
 /*************************************************************************************************
@@ -12,12 +13,35 @@ import { getProductsByField } from './utils.js';
  * @param {string} id - The ID of the product to add.
  * @param {number} quantity - The quantity to add (default is 1).
  ****************************************************************************************************/
-export function addToCart(id, quantity = 1) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || {};
-    cart[id] = (cart[id] || 0) + quantity;
-    localStorage.setItem('cart', JSON.stringify(cart));
+export async function addToCart(id, quantity = 1) {
+    // Get product details to create smart cart key
+    const allProducts = await fetchProducts(dataFile);
+    const product = allProducts.find(p => p.id === id);
+    
+    if (!product) return;
+    
+    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || {};
+    
+    // Create unique key based on name, size, and color
+    const cartKey = `${product.name}|${product.size}|${product.color}`;
+    
+    // If entry exists, add to quantity, otherwise create new entry
+    if (cart[cartKey]) {
+        cart[cartKey].quantity += quantity;
+    } else {
+        cart[cartKey] = {
+            id: product.id,
+            name: product.name,
+            size: product.size,
+            color: product.color,
+            price: product.price,
+            quantity: quantity,
+            imageUrl: product.imageUrl
+        };
+    }
+    
+    localStorage.setItem('shoppingCart', JSON.stringify(cart));
     updateCartCounter();
-    showMessage('Product added to cart!', 'success', '#cart-counter');
 }
 
 /*************************************************************************************************
@@ -25,30 +49,35 @@ export function addToCart(id, quantity = 1) {
  * @param {string} id - The ID of the product to remove.
  * @param {number} quantity - The quantity to remove (default is 1).
  ****************************************************************************************************/
-export function removeFromCart(id, quantity = 1) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || {};
-    if (cart[id]) {
-        cart[id] -= quantity;
-        if (cart[id] <= 0) {
-            delete cart[id];
+export function removeFromCart(cartKey, quantity = 1) {
+    let cart = JSON.parse(localStorage.getItem('shoppingCart')) || {};
+    
+    if (cart[cartKey]) {
+        if (quantity === Infinity) {
+            // Remove entire entry
+            delete cart[cartKey];
+        } else {
+            cart[cartKey].quantity -= quantity;
+            if (cart[cartKey].quantity <= 0) {
+                delete cart[cartKey];
+            }
         }
     }
-    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    localStorage.setItem('shoppingCart', JSON.stringify(cart));
     updateCartCounter();
-    showMessage('Product removed from cart!', 'info', '#cart-counter');
 }
 
 /*************************************************************************************************
  * @name clearCart - Clears all items from the cart.
  ****************************************************************************************************/
 export function clearCart() {
-    localStorage.removeItem('cart');
+    localStorage.removeItem('shoppingCart');
     updateCartCounter();
-		document.querySelector('#cart-empty-message').style.display = 'block'; // #cart-empty-message
+		document.querySelector('#cart-empty-message').style.display = 'block';
 		document.querySelector('.cart-table').style.display = 'none';
 		document.querySelector('.cart-summary').style.display = 'none';
 		document.querySelector('#clear-shopping-cart').style.display = 'none';
-		// document.querySelector('#checkout-button').style.display = 'none';
 }
 
 /*************************************************************************************************
@@ -153,12 +182,26 @@ export function handleSort(products, sortValue) {
  *****************************************************************************************************/
 export function doSearch (products, searchInput) {
 		const query = searchInput.trim().toLowerCase();
-		// First matched product by name
-		const exactMatch = products.find(product => product.name.toLowerCase().includes(query));
+		
+		// Check if search query is entered
+		if (!query) {
+			notificationManager.showToast('warning', 'Enter product name to search');
+			return;
+		}
+		
+		// Search product by name
+		const exactMatch = products.find(product => 
+			product.name.toLowerCase().includes(query)
+		);
+		
 		if (!exactMatch) {
-			showNotFoundPopup( 'Product not found', 'error', '#search-input');
+			notificationManager.showCartNotification('product-not-found');
 			return;
 		} else {		
-			window.location.href = `pages/product-details-template.html?id=${exactMatch.id}`;
+			// Show quick notification about found product
+			notificationManager.showToast('success', `Found: ${exactMatch.name}`);
+			setTimeout(() => {
+				window.location.href = `pages/product-details-template.html?id=${exactMatch.id}`;
+			}, 500);
 		}
 }

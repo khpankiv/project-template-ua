@@ -10,6 +10,7 @@ export function initHeader() {
     initLoginModal();
     updateCartCounter();
     initMobileMenu();
+    setActiveNavLink();
 }
 // =============================================================
 // Login Modal functionality
@@ -113,11 +114,13 @@ function initLoginModal() {
  * @name updateCartCounter - Updates the cart item counter in the header based on localStorage data.
  *******************************************************************************************************/
 export function updateCartCounter() {
-    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItems = JSON.parse(localStorage.getItem('shoppingCart')) || {};
     const cartCounter = document.querySelector('#cart-counter');
 		let totalItems = 0;
-		for (const qty of Object.values(cartItems)) {
-			totalItems += qty;
+		
+		// Sum quantities from all cart entries
+		for (const item of Object.values(cartItems)) {
+			totalItems += item.quantity || 0;
 		} 
     
     if (totalItems > 0) {
@@ -166,6 +169,37 @@ function initMobileMenu() {
             nav.classList.remove('mobile-menu-open');
             mobileMenuToggle.classList.remove('active');
             body.style.overflow = '';
+        }
+    });
+}
+
+// =============================================================
+// Active Navigation Link Highlighting
+// ============================================================
+
+/*********************************************************************************
+ * @name setActiveNavLink - Sets the active navigation link based on current page.
+ ************************************************************************************/
+function setActiveNavLink() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const currentPath = window.location.pathname;
+    
+    // Remove active class from all links
+    navLinks.forEach(link => link.classList.remove('active', 'selected'));
+    
+    // Set active class based on current page
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        
+        if (href) {
+            // Handle root/index page
+            if ((currentPath === '/' || currentPath.includes('index.html')) && href.includes('index.html')) {
+                link.classList.add('active', 'selected');
+            }
+            // Handle other pages
+            else if (currentPath.includes(href.replace('pages/', '')) && !href.includes('index.html')) {
+                link.classList.add('active', 'selected');
+            }
         }
     });
 }

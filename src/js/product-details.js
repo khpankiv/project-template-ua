@@ -5,8 +5,8 @@ import { fetchProducts, getRandomItems, getProductIdFromURL, getInfoById } from 
 import { renderProductDetailsPage, populateProducts, loadComponent} from './ui.js';
 import { initHeader } from './header.js';
 import { dataFile, headerPath, footerPath } from './file_links.js';
-import { initAddQuantity, initQuantityControls, initTabs } from './interractions.js';
-import { initFilterDropdown } from './forms.js';
+import { initAddQuantity, initQuantityControls, initTabs, initClickCard, initAddToCartButtons } from './interractions.js';
+import { initFilterDropdown, initReviewForm } from './forms.js';
 
 /***********************************************************************
  * @name initProductDetails - Initializes the product details page.
@@ -30,6 +30,9 @@ function initProductDetailsEventListeners() {
 	initFilterDropdown();
 	initAddQuantity();
 	initTabs();
+	initReviewForm();
+	initClickCard();
+	initAddToCartButtons();
 }
 
 // =====================================================================

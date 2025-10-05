@@ -7,7 +7,7 @@ import { loadComponent, renderProductsForPage, renderRandomSetsSidebar } from '.
 import { fetchProducts} from './utils.js';
 import { initHeader } from './header.js';//to check
 import { initAddToCartButtons, initClickCard, initPaginationButtons} from './interractions.js';
-import { initApplyFilters, initFilterDropdown, initSortDropdown, initSearch, initResetFilters  } from './forms.js';
+import { initFilterDropdown, initSortDropdown, initSearch, initResetFilters, initSalesFilter, initFilterToggle  } from './forms.js';
 
 /******************************************************************************
  * @name initCatalog - Initializes the product catalog.
@@ -37,13 +37,13 @@ async function initCatalog() {
 function initAllCatalogInteractions(products, currentPage) {
   // updatePagination(products, currentPage);
   initFilterDropdown();
-	// initSalesFilter();
+	initSalesFilter();
   initSortDropdown(products);
   initAddToCartButtons();
   initClickCard();
   initSearch(products);
   initResetFilters();
-	initApplyFilters();
+	initFilterToggle();
   }
 
 // ==========================================================================

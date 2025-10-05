@@ -1,11 +1,41 @@
 // =======================================================================
 // Filters and Sorting Functionality
 // =======================================================================
+
+/*******************************************************************************
+ * @name initFilterToggle - Initialize Hide/Show Filters functionality
+ *********************************************************************************/
+export function initFilterToggle() {
+	const filterSection = document.querySelector('.filter-section');
+	const hideFiltersBtn = document.querySelector('#hide-filters-btn');
+	const showFiltersBtn = document.querySelector('#show-filters-btn');
+	
+	if (hideFiltersBtn && showFiltersBtn && filterSection) {
+		// Hide filters functionality
+		hideFiltersBtn.addEventListener('click', () => {
+			filterSection.style.display = 'none';
+			showFiltersBtn.style.display = 'inline-block';
+		});
+		
+		// Show filters functionality  
+		showFiltersBtn.addEventListener('click', () => {
+			filterSection.style.display = 'block';
+			showFiltersBtn.style.display = 'none';
+		});
+	}
+}
+
+/****************************************************************************
+ * @name initResetFilters - Initialize Reset Filters button
+ ***************************************************************************/
+
+// =======================================================================
 import { dataFile } from './file_links.js';
 import { fetchProducts } from './utils.js';
 import { renderStars } from './ui.js';
 import { renderProductsForPage } from './ui.js';
 import { handleSort, doSearch, applyFilters } from './logic.js';
+import notificationManager from './notifications.js';
 
 // ===========================================================================
 // ========Dropdowns, Search, Filters=================================
@@ -16,14 +46,30 @@ import { handleSort, doSearch, applyFilters } from './logic.js';
  *****************************************************************************/
 export async function initSortDropdown(products) {
 		const dropdown = document.querySelector('#sort-dropdown');
-		const sortButton = document.querySelector('#sort-selected');
-		const sortOptions = document.querySelector('#sort-options');
-		const sortOptionItems = sortOptions.querySelectorAll('li');
+		const sortButton = dropdown?.querySelector('.sort-btn') || document.querySelector('#sort-selected');
+		const sortOptions = dropdown?.querySelector('.sort-options') || document.querySelector('#sort-options');
+		const sortOptionItems = sortOptions?.querySelectorAll('li');
+		
+		if (!dropdown || !sortButton || !sortOptions || !sortOptionItems) return;
+		
 		let antiHover = false;
+		
+		// Toggle dropdown on button click
+		sortButton.addEventListener('click', (e) => {
+			e.stopPropagation();
+			sortOptions.classList.toggle('show');
+			sortButton.classList.toggle('active');
+		});
+		
 		sortOptionItems.forEach(option => {
 				option.addEventListener('click',async (e) => {
 					e.stopPropagation();
 					antiHover = true;
+					
+					// Close dropdown
+					sortOptions.classList.remove('show');
+					sortButton.classList.remove('active');
+					
 					dropdown.classList.add('closed');
 					document.body.classList.add('anti-hover');
 					setTimeout(() => {
@@ -31,16 +77,33 @@ export async function initSortDropdown(products) {
 						document.body.classList.remove('anti-hover');
 						antiHover = false;
 					}, 300);
-					sortButton.childNodes[0].textContent = option.textContent + ' ';
+					
+					// Update selected option
+					sortOptionItems.forEach(opt => opt.classList.remove('selected'));
+					option.classList.add('selected');
+					
+					// Update button text
+					if (sortButton.querySelector('span')) {
+						sortButton.querySelector('span').textContent = option.textContent;
+					} else {
+						sortButton.childNodes[0].textContent = option.textContent + ' ';
+					}
+					
 					const currentSort = option.dataset.value;
 					products = handleSort(products, currentSort);
 					await renderProductsForPage(products, 1);
 				});
 		});
+		
+		// Close dropdown when clicking outside
+		document.addEventListener('click', () => {
+			sortOptions.classList.remove('show');
+			sortButton.classList.remove('active');
+		});
 };
 
 /*******************************************************************************
- * @name initFilterDropdown - Initialize Filter Dropdown functionality.
+ * @name initFilterDropdown - Initialize Filter Dropdown functionality with auto-apply.
  *********************************************************************************/
 export function initFilterDropdown() {
 
@@ -50,10 +113,34 @@ export function initFilterDropdown() {
 			const filterOptions = dropdown.querySelector('.filter-options');
 			const filterOptionItems = filterOptions.querySelectorAll('li');
 			let antiHover = false;
+			
+			// Toggle dropdown on button click
+			filterButton.addEventListener('click', (e) => {
+				e.stopPropagation();
+				
+				// Close all other dropdowns first
+				document.querySelectorAll('.filter-dropdown .filter-options.show').forEach(otherOptions => {
+					if (otherOptions !== filterOptions) {
+						otherOptions.classList.remove('show');
+						const otherBtn = otherOptions.closest('.filter-dropdown').querySelector('.filter-btn');
+						otherBtn.classList.remove('active');
+					}
+				});
+				
+				// Toggle current dropdown
+				filterOptions.classList.toggle('show');
+				filterButton.classList.toggle('active');
+			});
+			
 			filterOptionItems.forEach(option => {
 				option.addEventListener('click', async (e) => {
 					e.stopPropagation();
 					antiHover = true;
+					
+					// Close dropdown
+					filterOptions.classList.remove('show');
+					filterButton.classList.remove('active');
+					
         	dropdown.classList.add('closed');
 					document.body.classList.remove('anti-hover');
 					setTimeout(() => {
@@ -61,13 +148,44 @@ export function initFilterDropdown() {
 						document.body.classList.remove('anti-hover');
 						antiHover = false;
 					}, 300);
+					
+					// Update selected option
+					filterOptionItems.forEach(opt => opt.classList.remove('selected'));
+					option.classList.add('selected');
+					
 					if (filterButton.querySelector('span')) {
 						filterButton.querySelector('span').textContent = option.textContent;
 					}
+					
+					// Auto-apply filters after selection (only on catalog page)
+					if (document.querySelector('.product-grid')) {
+						const products = await applyFilters();
+						await renderProductsForPage(products, 1);
+					}
 				});
+		});
+		
+		// Close dropdown when clicking outside
+		document.addEventListener('click', () => {
+			filterOptions.classList.remove('show');
+			filterButton.classList.remove('active');
 		});
 })
 };
+
+/*******************************************************************************
+ * @name initSalesFilter - Initialize Sales checkbox auto-apply functionality.
+ *********************************************************************************/
+export function initSalesFilter() {
+	const salesCheckbox = document.querySelector('#filter-salesStatus input');
+	if (salesCheckbox) {
+		salesCheckbox.addEventListener('change', async () => {
+			// Auto-apply filters when checkbox is toggled
+			const products = await applyFilters();
+			await renderProductsForPage(products, 1);
+		});
+	}
+}
 
  /********************************************************************************************
  * @name initSearch	- Initialize Search functionality (on press Enter or click search icon).
@@ -160,10 +278,47 @@ export function updateStarDisplay(rating) {
 }
 
 /****************************************************************************
+ * @name initFloatingLabels - Initialize floating label functionality
+ *****************************************************************************/
+export function initFloatingLabels() {
+	const floatingInputs = document.querySelectorAll('.floating-input');
+	
+	floatingInputs.forEach(input => {
+		// Function to check if input has value
+		const checkValue = () => {
+			if (input.value.trim() !== '') {
+				input.classList.add('has-value');
+			} else {
+				input.classList.remove('has-value');
+			}
+		};
+		
+		// Check initial value
+		checkValue();
+		
+		// Listen for input changes
+		input.addEventListener('input', checkValue);
+		input.addEventListener('blur', checkValue);
+		
+		// Handle focus states
+		input.addEventListener('focus', () => {
+			input.parentElement.querySelector('.floating-label').classList.add('active');
+		});
+		
+		input.addEventListener('blur', () => {
+			if (input.value.trim() === '') {
+				input.parentElement.querySelector('.floating-label').classList.remove('active');
+			}
+		});
+	});
+}
+
+/****************************************************************************
  * @name initReviewForm - Initialize review form functionality
  *****************************************************************************/
 export function initReviewForm() {
 	initForm('#review-form');
+	initFloatingLabels();
 	renderStars(3, document.querySelector('.review-rating'));
 	let productName = document.querySelector('#product-name').textContent;
 	document.querySelector('#number-of-reviews').textContent = '1 review for ' + productName;
@@ -279,11 +434,25 @@ export function initForm(formId) {
  ***************************************************************************/
 function handleFormSubmit(e) {
 		e.preventDefault();
-		// Process form submission (e.g., send data to server)
-			showMessage('success', 'Thank you for your feedback!', 'body');
-			const fields = ['name', 'email', 'topic',  'message'];
-			fields.forEach(field => clearError(field));
-			updateStarDisplay(0);
+		
+		// Show success submission notification
+		notificationManager.showPopup(
+				'success',
+				'Thank you for your feedback!',
+				'Your message has been successfully sent. We will contact you shortly.',
+				5000
+		);
+		
+		// Clear form
+		e.target.reset();
+		updateStarDisplay(0);
+		
+		// Clear all validation notifications
+		const inputs = e.target.querySelectorAll('input, textarea, select');
+		inputs.forEach(input => {
+				notificationManager.hideInlineNotification(input);
+				input.classList.remove('error', 'valid');
+		});
 }
 
 /****************************************************************************
@@ -292,21 +461,22 @@ function handleFormSubmit(e) {
  * @returns {boolean} True if valid, false otherwise
  ***************************************************************************/
 function validateName(nameInput) {
-	console.log(nameInput);
 		const value = nameInput.value.trim();
+		
 		if (!value) {
-				showMessage('error', 'Name is required');
+				notificationManager.showFormValidation(nameInput, false, 'Name is required');
 				return false;
 		}
 		if (value.length < 2) {
-				showMessage('error', 'Name must be at least 2 characters', nameInput);
+				notificationManager.showFormValidation(nameInput, false, 'Name must contain at least 2 characters');
 				return false;
 		}
-		if (!/^[a-zA-Z\s]+$/.test(value)) {
-				showMessage('error', 'Name can only contain letters and spaces', nameInput);
+		if (!/^[a-zA-ZА-Яа-я\s''`-]+$/u.test(value)) {
+				notificationManager.showFormValidation(nameInput, false, 'Name can contain only letters and spaces');
 				return false;
 		}
-		clearError('name');
+		
+		notificationManager.showFormValidation(nameInput, true);
 		return true;
 }
 
@@ -317,16 +487,19 @@ function validateName(nameInput) {
  ***************************************************************************/
 export function validateEmail(emailInput) {
 		const value = emailInput.value.trim();
+		
 		if (!value) {
-				showMessage('error', 'Email is required');
+				notificationManager.showFormValidation(emailInput, false, 'Email is required');
 				return false;
 		}
+		
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		if (!emailRegex.test(value)) {
-				showMessage('error', 'Please enter a valid email address', '#email');
+				notificationManager.showFormValidation(emailInput, false, 'Enter a valid email address');
 				return false;
 		}
-		clearError('email');
+		
+		notificationManager.showFormValidation(emailInput, true);
 		return true;
 }
 
@@ -336,13 +509,14 @@ export function validateEmail(emailInput) {
  * @returns {boolean} True if valid, false otherwise
  ***************************************************************************/
 function validateTopic(topicInput) {
-		console.log(topicInput);
 		const value = topicInput.value;
-		if (!value) {
-				showError('topic', 'Please select a topic');
+		
+		if (!value || value === '') {
+				notificationManager.showFormValidation(topicInput, false, 'Please select a topic');
 				return false;
 		}
-		clearError('topic');
+		
+		notificationManager.showFormValidation(topicInput, true);
 		return true;
 }
 
@@ -352,17 +526,22 @@ function validateTopic(topicInput) {
  * @returns {boolean} True if valid, false otherwise
  ***************************************************************************/
 function validatePassword(passwordInput) {
-		console.log(passwordInput);
 		const value = passwordInput.value.trim();
+		
 		if (!value) {
-				showError('password', 'Password is required');
+				notificationManager.showFormValidation(passwordInput, false, 'Password is required');
 				return false;
 		}
 		if (value.length < 6) {
-				showError('password', 'Password must be at least 6 characters');
+				notificationManager.showFormValidation(passwordInput, false, 'Password must contain at least 6 characters');
 				return false;
 		}
-		clearError('password');
+		if (!/(?=.*[a-zA-Z])(?=.*\d)/.test(value)) {
+				notificationManager.showFormValidation(passwordInput, false, 'Password must contain letters and numbers');
+				return false;
+		}
+		
+		notificationManager.showFormValidation(passwordInput, true);
 		return true;
 }
 
@@ -372,21 +551,22 @@ function validatePassword(passwordInput) {
  * @returns {boolean} True if valid, false otherwise
  ***************************************************************************/
 function validateMessage(messageInput) {
-		console.log(messageInput);
 		const value = messageInput.value.trim();
+		
 		if (!value) {
-				showError('message', 'Message is required');
+				notificationManager.showFormValidation(messageInput, false, 'Message is required');
 				return false;
 		}
 		if (value.length < 10) {
-				showError('message', 'Message must be at least 10 characters');
+				notificationManager.showFormValidation(messageInput, false, 'Message must contain at least 10 characters');
 				return false;
 		}
 		if (value.length > 1000) {
-				showError('message', 'Message must be less than 1000 characters');
+				notificationManager.showFormValidation(messageInput, false, 'Message must be shorter than 1000 characters');
 				return false;
 		}
-		clearError('message');
+		
+		notificationManager.showFormValidation(messageInput, true);
 		return true;
 }
 

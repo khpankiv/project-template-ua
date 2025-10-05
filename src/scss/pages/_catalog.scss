@@ -1,83 +1,122 @@
 // ================Catalog Page Styles===============
 // =================================================
+
+// OnSale checkbox - square design according to mockup
+#salesStatus {
+	@include checkbox-round($checkbox-size, 'square');
+}
+
 // ==========Filters Section========================
-.divider {@include divider($accent-pink );};
+.divider {
+	@include divider($accent-pink);
+}
 
 body.anti-hover {
 	pointer-events: none;
 }
 
 .filters-grid {
-    @include responsive-size(padding, $space-lg 0);
-    @include responsive-size(gap, $space-lg);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax($min-grid-width-4el, 1fr));
+	@include filters-grid-layout;
 
-    .filter-labeled {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; // Виправлено з flex-beetween на flex-start
-        @include responsive-size(gap, $space-sm);
+	.filter-labeled {
+		@include flex-responsive(column, $space-sm);
+		justify-content: flex-start;
 
-        label {
-            @include font-parameters(
-                $font-size-sm, 
-                $font-weight-bold, 
-                $color: $grey-dark);
-        }
-    }
+		label {
+			font-size: $font-size-sm;
+			font-weight: $font-weight-bold;
+			color: $form-label-color;
+		}
+
+		// Special alignment for checkbox containers
+		&:has(#salesStatus) {
+			justify-content: flex-start;
+			align-items: flex-start;
+			
+			#salesStatus {
+				margin-top: $space-xs;
+			}
+		}
+	}
 }
 
 .filter-buttons {
-    display: flex;
-    @include responsive-size(gap, $space-md);
-    justify-content: flex-start;
-    @include responsive-size(margin, $space-xl 0);
+	@include flex-responsive(row, $space-md);
+	justify-content: flex-start;
+	margin: $space-xl 0;
 
-    .filter-resume-btn {
-        @include button('btn-base');
-    }
+	.filter-resume-btn {
+		@include button('btn-base');
+	}
+}
+
+// Filter toggle button in sort line
+.filter-toggle-btn {
+	@include button('btn-base');
+	margin-right: $space-md;
 }
 
 // =============== Page Layout=======================
 .catalog-page-container {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    @include responsive-size(gap, $space-lg);
+	@include catalog-layout;
 }
 
 // ================Main Products Area=======================
 .product-grid {
-		display: grid;
-		grid-template-columns: repeat(3, minmax($space-3xl, 1fr));
-		@include responsive-size(gap, $space-xl $space-lg);
-		@include responsive-size(margin-bottom, $space-lg);
-		width: 100%;
-		min-width: 0;
-		transition: opacity $animation-medium $animation-ease;
-		&.loading {
-				opacity: 0.5;
-		}
+	@include product-grid-layout;
 }
 
 // ==========Sort and Search Line========================
 .sort-search-line {
-		color: $grey-dark;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
+	color: $form-label-color;
+	@include flex-responsive(row);
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: $space-md;
+	
+	.sort-dropdown {
+		@include dropdown-container($dropdown-max-width, $dropdown-min-width);
+	}
+}
+
+// Ensure both search and sort are on same baseline
+.sort-search-line,
+.search-field {
+	align-items: stretch; // Make all elements same height
+	
+	.catalog-search,
+	.sort-btn {
+		height: $input-height; // Force same height
+		box-sizing: border-box;
+	}
+}
+
+// ==========Search Field========================
+.search-field {
+	@include search-field-container;
+	
+	.catalog-search {
+		@include compact-input-styles;
+		padding-right: $space-xl;
+	}
+	
+	.search-icon {
+		@include search-icon-position;
+	}
 }
 
 //============= Sidebar===============================
-.sidebar h3 {
-		@include font-parameters($font-size-md, $font-weight-black);
-		@include responsive-size(margin-bottom, $space-md);
+.sidebar {
+	h3 {
+		font-size: $font-size-md;
+		font-weight: $font-weight-black;
+		margin-bottom: $space-md;
+		color: $form-label-color;
+	}
 }
 
 .random-products-list {
-		display: flex;
-		flex-direction: column;
-		@include responsive-size(gap, $space-lg);
+	@include flex-responsive(column, $space-lg);
 }
 
 

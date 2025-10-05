@@ -162,9 +162,24 @@
 								</div>
 							</div>
 							<div class="form-grid">
-								<textarea id="text-review" class="review-textarea" placeholder="Your Review*" required autocomplete="off"></textarea>
-								<input id="name-review" class="review-input" placeholder="Your Name*" required autocomplete="off">
-								<input id="email-review" class="review-input" placeholder="Your Email*" required autocomplete="off">
+								<div class="floating-input-group">
+									<textarea id="text-review" class="floating-input" required autocomplete="off"></textarea>
+									<label for="text-review" class="floating-label">
+										Your Review<span class="required-star">*</span>
+									</label>
+								</div>
+								<div class="floating-input-group">
+									<input id="name-review" class="floating-input" type="text" required autocomplete="off">
+									<label for="name-review" class="floating-label">
+										Your Name<span class="required-star">*</span>
+									</label>
+								</div>
+								<div class="floating-input-group">
+									<input id="email-review" class="floating-input" type="email" required autocomplete="off">
+									<label for="email-review" class="floating-label">
+										Your Email<span class="required-star">*</span>
+									</label>
+								</div>
 							</div>
 							<div class="form-checkbox-row">
 								<input type="checkbox" id="agree-checkbox" class="review-checkbox" required>

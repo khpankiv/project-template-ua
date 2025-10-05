@@ -6,6 +6,14 @@
 .title-section {
 	@include banner("/src/assets/images/backgrounds/banner-about.png");
 	padding-block: $space-10xl;
+	
+	@media (max-width: 1024px) {
+		padding-block: $space-5xl;
+	}
+	
+	@media (max-width: 768px) {
+		padding-block: $space-5xl;
+	}
 }
 
 .page-content {
@@ -19,9 +27,23 @@
 // ========Features Section===============================================
 .features-details {
   display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	justify-content: space-between;
-	@include responsive-size(gap, $space-4xl);
+	gap: $space-4xl;
+	
+	@media (min-width: 1440px) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+	
+	@media (max-width: 1024px) {
+		gap: $space-2xl;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	}
+	
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr 1fr;
+		gap: $space-xl;
+	}
 }
 
 .feature-item {
@@ -30,26 +52,36 @@
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-	@include responsive-size(gap, $space-dl);
+	gap: $space-dl;
 	@include hover-effect('feature-icon');
 
 	.feature-icon {
-		@include responsive-size(width, $space-5xl);
+		width: $space-5xl;
 		height: auto;
 	}
 
 	.feature-title {
-		@include font-parameters($font-size-md, $font-weight-bold, $color: $grey-dark);
+		font-size: $font-size-md;
+		font-weight: $font-weight-bold;
+		color: $grey-dark;
 	}
 
 	.feature-text {
-		@include font-parameters($font-size-sm, $font-weight-normal, $color: $grey-dark);
+		font-size: $font-size-sm;
+		font-weight: $font-weight-normal;
+		color: $grey-dark;
 	}
 }
 
 // ========Offer Section===============================================
 .offer-banner {
 	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .offer-text-about {
@@ -73,31 +105,26 @@
 
 .team-grid {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 	gap: $space-3xl;
 	text-align: center;
 	width: 100%;
+	
+	@media (min-width: 1440px) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	
+	@media (max-width: 1024px) {
+		gap: $space-2xl;
+	}
+	
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+		gap: $space-xl;
+	}
 
 	.team-member {
 		width: 100%;
 		@include hover-effect('people-card');
-		// display: flex;
-		// flex-direction: column;
-		// align-items: center;
-		// gap: $space-md;
-
-		// img {
-		// 	width: $space-7xl;
-		// 	height: auto;
-		// 	border-radius: 50%;
-		// }
-
-		// .member-name {
-		// 	@include font-parameters($font-size-md, $font-weight-bold, $color: $grey-dark);
-		// }
-
-		// .member-role {
-		// 	@include font-parameters($font-size-sm, $font-weight-normal, $color: $grey-dark);
-		// }
 	}
 }

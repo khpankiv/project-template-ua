@@ -9,49 +9,78 @@
 	text-align: center;
 	align-items: center;
 	table-layout: fixed;
-
-		thead {
-			background-color: $color-table-background;
-		}
-
-		th, td {
-			border-bottom: $border solid $accent-pink;
-			width: 16.66%; 
-			overflow: hidden;
-			white-space: normal;
- 		  word-break: break-word; 
-		}
-
-		th {
-			@include font-parameters($font-size-md, $font-weight-bold);
-			color: $pure-white;
-			padding-block: $space-lg;
-		}
+	
+	@media (max-width: 768px) {
+		font-size: $font-size-sm;
 		
-		tbody tr:hover {
-			@include hover-effect('table-row');
+		// Hide less important columns on mobile
+		th:nth-child(2), 
+		td:nth-child(2) {
+			display: none; // Hide image column
 		}
-
-		.quantity-controls {
-			justify-content: center;
-			gap: $space-sm;
-			margin: 0 auto;
-		}
-		
-		.cart-item-image {
-			@include responsive-size(width, $cart-image-size);
-			height: auto;
-		}
-
 	}
+
+	thead {
+		background-color: $color-table-background;
+	}
+
+	th, td {
+		border-bottom: $border solid $accent-pink;
+		width: 16.66%; 
+		overflow: hidden;
+		white-space: normal;
+		word-break: break-word;
+		
+		@media (max-width: 768px) {
+			padding: $space-sm;
+			font-size: $font-size-xs;
+		}
+	}
+
+	th {
+		font-size: $font-size-md;
+		font-weight: $font-weight-bold;
+		color: $pure-white;
+		padding-block: $space-lg;
+		
+		@media (max-width: 768px) {
+			padding-block: $space-md;
+			font-size: $font-size-sm;
+		}
+	}
+	
+	.quantity-controls {
+		justify-content: center;
+		gap: $space-sm;
+		margin: 0 auto;
+	}
+	
+	.cart-item-image {
+		width: $cart-image-size;
+		height: auto;
+		
+		@media (max-width: 768px) {
+			width: calc($cart-image-size * 0.8);
+		}
+	}
+
+}
 
 //===================Bottom part of the cart=========================
 .cart-bottom {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	align-items: center;
-	gap: $space-5xl;
 	align-items: start;
+	gap: $space-5xl;
+	
+	@media (max-width: 1024px) {
+		gap: $space-3xl;
+	}
+	
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+		gap: $space-2xl;
+	}
 
 	.button {
 		font-size: $font-size-xs;
@@ -110,4 +139,20 @@
 	font-size: $font-size-2xl;
 	font-weight: $font-weight-black;
 	color: $accent-pink;
+}
+
+// ==================Product Details in Cart=========================
+.product-details {
+	text-align: left;
+	
+	.product-name {
+		font-weight: $font-weight-bold;
+		margin-bottom: $space-xs;
+	}
+	
+	.product-variant {
+		font-size: $font-size-sm;
+		font-weight: $font-weight-normal;
+		color: $grey;
+	}
 }

@@ -1,29 +1,48 @@
 // ======================================================================
 // Button styles using a map for different button types
 // ======================================================================
+@use 'sass:map';
 
 // ===========================================================
 // ====Button universal mixin================================
 // =========================================================
 @mixin button($key) {
     $btn-map: map-get($button-styles-map, $key);
-    background-color: if(map-get($btn-map, bg-color), map-get($btn-map, bg-color), null);
-    color: if(map-get($btn-map, text-color), map-get($btn-map, text-color), null);
-    border: if(map-get($btn-map, border), map-get($btn-map, border), null);
-    @include responsive-size(padding, if(map-get($btn-map, padding), map-get($btn-map, padding), null));
-    @include font-parameters(
-			if(map-get($btn-map, font-size), map-get($btn-map, font-size), null),
-			if(map-get($btn-map, font-weight), map-get($btn-map, font-weight), null),
-			$line-height: $line-height-single,
-			$color: if(map-get($btn-map, text-color), map-get($btn-map, text-color), null)
-    	);
+    
+    @if map.has-key($btn-map, bg-color) {
+        background-color: map-get($btn-map, bg-color);
+    }
+    @if map.has-key($btn-map, text-color) {
+        color: map-get($btn-map, text-color);
+    }
+    @if map.has-key($btn-map, border) {
+        border: map-get($btn-map, border);
+    }
+    @if map.has-key($btn-map, padding) {
+        padding: map-get($btn-map, padding);
+    }
+    @if map.has-key($btn-map, font-size) {
+        font-size: map-get($btn-map, font-size);
+    }
+    @if map.has-key($btn-map, font-weight) {
+        font-weight: map-get($btn-map, font-weight);
+    }
+    @if map.has-key($btn-map, border-radius) {
+        border-radius: map-get($btn-map, border-radius);
+    }
+    
+    line-height: $line-height-single;
     text-align: center;
-    border-radius: if(map-get($btn-map, border-radius), map-get($btn-map, border-radius), null);
+    cursor: pointer;
+    
     @if (map-get($btn-map, hover-effect)) {
 			@include hover-effect(map-get($btn-map, hover-effect));
     }
     @if (map-get($btn-map, selected-effect)) {
 			@include selected-effect(map-get($btn-map, selected-effect));
+    }
+    @if (map-get($btn-map, press-effect)) {
+			@include press-effect(map-get($btn-map, press-effect));
     }
 		&.disabled {
 			opacity: 0;
@@ -37,6 +56,13 @@
 
 .button-add {
 	@extend .button;
+	
+	// In product cards, limit button width
+	.product-card & {
+		max-width: $product-card-button-max-width;
+		width: auto;
+		align-self: center;
+	}
 }
 
 // =======================================================================
@@ -67,11 +93,10 @@
 	padding: 0;
   border: none;
 	cursor: pointer;
-	@include font-parameters (
-		$font-size-lg, 
-		$font-weight-bold,
-		$line-height-single, 
-		$color: $grey);
+	font-size: $font-size-lg;
+	font-weight: $font-weight-bold;
+	line-height: $line-height-single;
+	color: $grey;
 }
 
 .button-quantity {
@@ -82,21 +107,47 @@
 // Pagination styles
 // ==========================================================================
 .page-buttons {
-    @include responsive-size(margin-top, $space-xl);
-    @include responsive-size(margin-bottom, $space-3xl);
+    margin-top: $space-xl;
+    margin-bottom: $space-3xl;
     display: flex;
     justify-content: center;
-    @include responsive-size(gap, $space-lg);
+    gap: $space-sm;
     align-items: center;
-		@include responsive-size(height, $space-2xl);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0 $space-md;
+    
+    @media (max-width: 768px) {
+        gap: $space-xs;
+        padding: 0 $space-sm;
+    }
 }
 
 .button-scroll-page {
-		@include button('btn-scroll-page');
+    @include button('btn-scroll-page');
+    white-space: nowrap;
+    min-width: fit-content;
+    flex-shrink: 0;
+}
+
+.page-number {
+    display: flex;
+    gap: $space-xs;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 50vw;
+    
+    @media (max-width: 768px) {
+        max-width: 40vw;
+    }
 }
 
 .button-page-number {
-		@include button('btn-page-number');
+    @include button('btn-page-number');
+    white-space: nowrap;
+    min-width: clamp(2.5rem, 2rem + 2vw, 3rem); // 40px → 48px
+    flex-shrink: 0;
 }
 
 // ==================================================================
@@ -114,7 +165,7 @@
 .tab-buttons {
 	display: flex;
 	justify-content: center;
-	@include responsive-size(gap, $space-2xl);
+	gap: $space-2xl;
 }
 
 // ===================================================================

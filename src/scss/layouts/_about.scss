@@ -1,0 +1,36 @@
+// About page specific styles
+.about-wrapper {
+    .offer-2-section {
+        @include split-section(left); // Текст зліва, картинка справа
+        
+        .offer-text-about {
+            padding: $space-2xl;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            
+            h2 {
+                color: $text-primary;
+                font-size: $font-size-2xl;
+                font-weight: $font-weight-semibold;
+                margin-bottom: $space-lg;
+                line-height: $line-height-tight;
+            }
+            
+            p {
+                color: $text-secondary;
+                font-size: $font-size-base;
+                line-height: $line-height-relaxed;
+                margin-bottom: $space-md;
+                
+                &:last-of-type {
+                    margin-bottom: $space-lg;
+                }
+            }
+        }
+    }
+    
+    .main-offer-section.offer-2-section {
+        @include split-section(right); // В головній секції картинка справа
+    }
+}

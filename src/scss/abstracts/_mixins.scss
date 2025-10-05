@@ -1,63 +1,40 @@
+@use 'sass:string';
 // @use 'sass:color';
 // =============================================================================
 // ================ Mixins =====================================================
 // =============================================================================
-
-// Universal responsive size mixin (works with 1, 2, or 4 values like padding/margin)
-@mixin responsive-size($property, $base-size, $mobile-reduction: 0.15, $tablet-reduction: 0.05) {
-    #{$property}: $base-size;
-
-        @media (max-width: $breakpoint-tablet) {
-            @if type-of($base-size) == 'list' {
-                $result: ();
-                @for $i from 1 through length($base-size) {
-                    $val: nth($base-size, $i);
-                    $result: append($result, if($val != null, $val * (1 - $tablet-reduction), null));
-                }
-                #{$property}: $result;
-            } @else {
-                #{$property}: $base-size * (1 - $tablet-reduction);
-            }
-        }
-
-        @media (max-width: $breakpoint-mobile) {
-            @if type-of($base-size) == 'list' {
-                $result: ();
-                @for $i from 1 through length($base-size) {
-                    $val: nth($base-size, $i);
-                    $result: append($result, if($val != null, $val * (1 - $mobile-reduction), null));
-                }
-                #{$property}: $result;
-            } @else {
-                #{$property}: $base-size * (1 - $mobile-reduction);
-            }
-        }
-}
+// 
+// MODERNIZED:
+// - Removed responsive-size mixin → using clamp() in variables
+// - Removed font-parameters mixin → using direct CSS properties with clamp() variables
+// - Updated grid and flex mixins for modern approach and simplicity
+//
+// =============================================================================
 
 
-@mixin grid-responsive($min-width: $min-grid-width-4el) {
+// Modern adaptive grid with flexible settings
+@mixin grid-responsive($min-width: $min-grid-width-4el, $gap: $space-lg, $items-center: false) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+    gap: $gap;
+    @if $items-center {
+        justify-items: center;
+        align-items: center;
+    }
 }
 
-@mixin flex-responsive(
-        $direction-desktop: row,
-        $direction-tablet: null,
-        $direction-mobile: null,
-        ) {
-            display: flex;
-            flex-direction: $direction-desktop;
-
-            @if $direction-tablet != null {
-                @media (max-width: $breakpoint-tablet) {
-                flex-direction: $direction-tablet;
-                }
-            }
-            @if $direction-mobile != null {
-                @media (max-width: $breakpoint-mobile) {
-                flex-direction: $direction-mobile;
-                }
-            }
+// Simplified adaptive flex container
+@mixin flex-responsive($direction: row, $gap: null, $wrap: null, $mobile-direction: null) {
+    display: flex;
+    flex-direction: $direction;
+    @if $gap { gap: $gap; }
+    @if $wrap { flex-wrap: $wrap; }
+    
+    @if $mobile-direction {
+        @media (max-width: $breakpoint-mobile) {
+            flex-direction: $mobile-direction;
+        }
+    }
 }
 // ==========================================================================
 // Sticky element mixin
@@ -97,32 +74,28 @@
     align-items: flex-start;
 		text-align: start;
 
-    @include responsive-size(padding, $padding-top-bottom $padding-left); 
-    @include responsive-size(gap, $gap);
+    padding: $padding-top-bottom $padding-left;
+    gap: $gap;
 
     h2 {
 			$title-color: if(map-has-key($params, title-color), 
 											map-get($params, title-color), $text-color);
 			$title-size: if(map-has-key($params, title-size), 
 											map-get($params, title-size), $font-size-2xl);    
-			@include font-parameters(            
-				$title-size,
-				$font-weight-black,
-				$line-height-single,
-				$title-color
-			);
+			font-size: $title-size;
+			font-weight: $font-weight-black;
+			line-height: $line-height-single;
+			color: $title-color;
 				margin: 0;
     }
 
     p {
 			$text-color: if(map-has-key($params, text-color), map-get($params, text-color), $grey-dark);
 			$text-size: if(map-has-key($params, text-size), map-get($params, text-size), $font-size-sm);
-			@include font-parameters(
-				$text-size,
-				$font-weight-normal,
-				$line-height-base,
-				$text-color
-			);
+			font-size: $text-size;
+			font-weight: $font-weight-normal;
+			line-height: $line-height-base;
+			color: $text-color;
     }
 
     button {
@@ -136,22 +109,25 @@
 @mixin banner ($path) {
 	@include shaded-background($path);
 	width: 100%;
-  @include font-parameters(
-    $font-size-sm,
-    $font-weight-normal,
-    $line-height-base,
-    $pure-white
-  );
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: $font-size-sm;
+	font-weight: $font-weight-normal;
+	line-height: $line-height-base;
+	color: $pure-white;
+	text-align: center;
+	padding: 0; // Remove any default padding
 
-  text-align: center;
-
-		h1 {
-				@include font-parameters(
-					$font-size-3xl,
-					$font-weight-bold,
-					$line-height-base,
-					$pure-white
-				);}
+	h1 {
+		font-size: $font-size-3xl;
+		font-weight: $font-weight-bold;
+		line-height: $line-height-base;
+		color: $pure-white;
+		margin: 0;
+	}
 }
 
 // =============================================================================
@@ -187,6 +163,28 @@
 			@if $text-decoration {text-decoration: $text-decoration;}
 			@if $text-decoration-color {text-decoration-color: $text-decoration-color;}
 			@if $z-index {z-index: $z-index;}
+    }
+}
+
+// ===============================================================================
+// Press effect mixin for :active states
+// ===============================================================================
+@mixin press-effect($type, $transition: $animation-fast $animation-ease) {
+    $params: map-get($press-effects-map, $type);
+    $background: if(map-has-key($params, background), map-get($params, background), null);
+    $color: if(map-has-key($params, color), map-get($params, color), null);
+    $shadow: if(map-has-key($params, shadow), map-get($params, shadow), null);
+    $scale: if(map-has-key($params, scale), map-get($params, scale), null);
+    $custom-transition: if(map-has-key($params, transition), map-get($params, transition), $transition);
+
+    &:active, &:focus:active {
+        $transform: '';
+        @if $scale { $transform: $transform + ' scale(' + $scale + ')'; }
+        @if $transform != '' { transform: string.unquote($transform); }
+        @if $background { background: $background; }
+        @if $color { color: $color; }
+        @if $shadow { box-shadow: $shadow; }
+        transition: #{$custom-transition};
     }
 }
 
@@ -273,23 +271,13 @@
 		color: $input-text-color;
 		font-family: 'Montserrat', Arial, sans-serif;
 		transition: border-color $animation-fast, box-shadow $animation-fast;
+}
 
-		&:focus {
-				outline: none;
-				border-color: $accent-pink;
-				box-shadow: $input-border-focus;
-		}
-
-		&::placeholder {
-				color: $input-text-color;
-				opacity: 1; // Override default opacity
-		}
-
-		&:disabled {
-				background: $grey-extra-light;
-				cursor: not-allowed;
-				// color: $color-muted;
-		}
+// Compact input styles for filters and dropdowns
+@mixin compact-input-styles() {
+	@include base-input;
+	padding: $space-md;
+	height: $input-height;
 }
 // ==================================================================
 //     @media (max-width: $breakpoint-tablet) {
@@ -336,46 +324,7 @@
 }
 
 
-// // Animation for slide in from right
-// @keyframes slideInRight {
-//   from {
-//     transform: translateX(100%);
-//     opacity: 0;
-//   }
-//   to {
-//     transform: translateX(0);
-//     opacity: 1;
-//   }
-// }
-
-
-
-// @mixin slide-in-up($duration: $animation-medium, $distance: 30px) {
-//     animation: slideInUp $duration $animation-ease;
-    
-//     @keyframes slideInUp {
-//         from {
-//             transform: translateY($distance);
-//             opacity: 0;
-//         }
-//         to {
-//             transform: translateY(0);
-//             opacity: 1;
-//         }
-//     }
-// }
-
-
-// @keyframes slideInRight {
-//     from {
-//         transform: translateX(100%);
-//         opacity: 0;
-//     }
-//     to {
-//         transform: translateX(0);
-//         opacity: 1;
-//     }
-// }
+// Additional animation mixins removed - using active animations above
 
 
 // ======================================================
@@ -450,6 +399,54 @@
 //     white-space: nowrap;
 // }
 
+// =============Checkbox mixin for consistent styling=====================
+@mixin checkbox-round($size: $checkbox-size, $type: 'round') {
+    width: $size;
+    height: $size;
+    margin: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: $checkbox-border-width solid $checkbox-border-color;
+    background: $checkbox-bg-color;
+    cursor: pointer;
+    position: relative;
+    transition: all $animation-medium $animation-ease;
+    
+    @if $type == 'round' {
+        border-radius: 50%;
+    } @else {
+        border-radius: $radius-s;
+    }
+    
+    &:checked {
+        background: $checkbox-bg-color-checked;
+        border-color: $checkbox-bg-color-checked;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            width: $checkbox-dot-size;
+            height: $checkbox-dot-size;
+            background: $checkbox-dot-color;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    
+    &:hover {
+        border-color: $checkbox-border-color-hover;
+        box-shadow: 0 0 0 2px rgba($checkbox-border-color-hover, 0.1);
+    }
+    
+    &:focus {
+        outline: 2px solid $checkbox-focus-shadow;
+        outline-offset: 2px;
+    }
+}
+
 // =============Horizontal line divider mixin=====================
 @mixin divider($color:$accent-pink, $border: $border) {
     border: $border solid $color;
@@ -464,4 +461,339 @@
     background-repeat: no-repeat;
     position: relative;
 		width: 100%;
+}
+
+// ===================================================
+// Form Mixins
+// ===================================================
+
+// Base input field styling
+@mixin base-input {
+    width: 100%;
+    padding: $space-md;
+    border: $border solid $form-input-border-color;
+    border-radius: $radius-s;
+    background: $form-input-bg-color;
+    color: $form-input-text-color;
+    font-size: $input-font-size;
+    font-family: inherit;
+    min-height: $input-height;
+    transition: border-color $animation-fast $animation-ease;
+    
+    &:focus {
+        outline: none;
+        border-color: $form-input-border-color-focused;
+        box-shadow: $shadow-form-focus;
+    }
+    
+    &::placeholder {
+        color: $input-text-color;
+        opacity: 1;
+    }
+    
+    &.error {
+        border-color: $form-input-border-color-error;
+        animation: shake 0.3s ease-in-out;
+    }
+    
+    &:disabled {
+        background: $grey-extra-light;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
+
+// Floating label styling
+@mixin floating-label {
+    position: absolute;
+    left: $space-md;
+    top: 50%;
+    transform: translateY(-50%);
+    background: $form-input-bg-color;
+    padding: $floating-label-padding;
+    color: $form-label-color;
+    font-size: $font-size-sm;
+    pointer-events: none;
+    transition: all $animation-fast $animation-ease;
+    z-index: 1;
+    
+    .required-star {
+        color: $form-label-required-color;
+    }
+}
+
+// Floating label active state
+@mixin floating-label-active {
+    top: 0;
+    transform: translateY($floating-label-offset) scale($floating-label-scale);
+    color: $form-label-color-focused;
+    
+    .required-star {
+        color: $form-label-required-color;
+    }
+}
+
+// Form group container
+@mixin form-group {
+    position: relative;
+    margin-bottom: $form-gap;
+}
+
+// Form grid layout
+@mixin form-grid($columns: 2, $gap: $form-gap) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+    
+    @include mobile {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Responsive media query mixin
+@mixin mobile {
+    @media (max-width: $breakpoint-mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: $breakpoint-tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $breakpoint-desktop) {
+        @content;
+    }
+}
+
+// Split section (dual layout for image + content)
+@mixin split-section($image-side: left) {
+    display: grid;
+    grid-template-columns: if($image-side == left, 1fr 1fr, 1fr 1fr);
+    min-height: clamp(25rem, 20rem + 20vw, 40rem); // 400px → 640px
+    gap: 0;
+    
+    @include tablet {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        
+        .offer-banner {
+            @if $image-side == right {
+                order: 2;
+            }
+        }
+    }
+    
+    .offer-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $grey-extra-light;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    
+    .review-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: $space-2xl;
+        background: $pure-white;
+    }
+}
+
+// ===================================================
+// Catalog Page Mixins
+// ===================================================
+
+// Dropdown container styling
+@mixin dropdown-container($max-width: $dropdown-max-width, $min-width: $dropdown-min-width) {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: $max-width;
+    min-width: $min-width;
+    flex-shrink: 0;
+}
+
+// Dropdown button styling
+@mixin dropdown-button {
+    @include compact-input-styles;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    
+    span {
+        flex: 1;
+        text-align: left;
+        color: $form-input-text-color;
+    }
+    
+    img {
+        width: $dropdown-arrow-size;
+        height: $dropdown-arrow-size;
+        transition: transform $animation-fast $animation-ease;
+        flex-shrink: 0;
+    }
+    
+    &.active img {
+        transform: rotate(180deg);
+    }
+    
+    &:hover {
+        border-color: $form-input-border-color-focused;
+        @include hover-effect('dropdown-option');
+    }
+}
+
+// Dropdown options list styling
+@mixin dropdown-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: $form-input-bg-color;
+    border: 2px solid $form-input-border-color;
+    border-top: none;
+    border-radius: 0;
+    z-index: $dropdown-z-index;
+    max-height: $dropdown-max-height;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-$space-sm);
+    transition: all $animation-fast $animation-ease;
+    
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    li {
+        list-style: none;
+        padding: $space-sm $space-md;
+        cursor: pointer;
+        color: $form-input-text-color;
+        font-size: $font-size-sm;
+        transition: all $animation-fast $animation-ease;
+        
+        &:hover {
+            @include hover-effect('dropdown-option');
+        }
+        
+        &.selected {
+            @include selected-effect('dropdown-option');
+        }
+    }
+}
+
+// Search field container styling
+@mixin search-field-container {
+    position: relative;
+    margin-bottom: $space-lg;
+    max-width: $search-field-max-width;
+    width: 100%;
+}
+
+// Search icon positioning
+@mixin search-icon-position {
+    position: absolute;
+    right: $space-md;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $search-icon-container-size;
+    height: $search-icon-container-size;
+    transition: all $animation-fast $animation-ease;
+    
+    &:hover {
+        @include hover-effect('search-icon');
+    }
+    
+    img {
+        width: $search-icon-size;
+        height: $search-icon-size;
+    }
+}
+
+// Product grid responsive layout
+@mixin product-grid-layout {
+    display: grid;
+    gap: $space-lg;
+    margin-bottom: $space-lg;
+    width: 100%;
+    min-width: 0;
+    align-items: start;
+    align-content: start;
+    transition: opacity $animation-medium $animation-ease;
+    
+    // Desktop first approach
+    grid-template-columns: repeat(auto-fit, minmax($product-grid-min-width-md, 1fr));
+    
+    @media (min-width: $breakpoint-desktop) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: $space-xl $space-lg;
+    }
+    
+    @media (max-width: $breakpoint-tablet) {
+        grid-template-columns: repeat(auto-fit, minmax($product-grid-min-width-sm, 1fr));
+        gap: $space-md;
+    }
+    
+    @media (max-width: $breakpoint-mobile) {
+        grid-template-columns: repeat(auto-fit, minmax($product-grid-min-width-lg, 1fr));
+        gap: $space-md;
+    }
+    
+    &.loading {
+        opacity: 0.5;
+    }
+}
+
+// Filters grid layout
+@mixin filters-grid-layout {
+    padding: $space-lg 0;
+    gap: $space-lg;
+    @include grid-responsive($min-grid-width-4el, $space-lg);
+    
+    @media (max-width: $breakpoint-tablet) {
+        padding: $space-md 0;
+        gap: $space-md;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    
+    @media (max-width: $breakpoint-mobile) {
+        grid-template-columns: 1fr;
+        gap: $space-sm;
+        padding: $space-md 0;
+    }
+}
+
+// Catalog page layout container
+@mixin catalog-layout {
+    display: grid;
+    grid-template-columns: $catalog-sidebar-ratio;
+    gap: $catalog-main-gap;
+    
+    @media (max-width: $breakpoint-tablet) {
+        grid-template-columns: 1fr;
+        gap: $space-md;
+        
+        .sidebar {
+            order: -1;
+            margin-bottom: $space-md;
+        }
+    }
 }

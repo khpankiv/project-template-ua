@@ -8,6 +8,8 @@
 
 @import './layouts/_header';
 @import './layouts/_footer';
+@import './layouts/_contact';
+@import './layouts/_about';
 
 @import './pages/_about';
 @import './pages/_catalog';
@@ -18,7 +20,7 @@
 .container {
   max-width: $container-width;
   margin: 0 auto;
-  @include responsive-size(padding-inline, $container-padding,$tablet-reduction:0.5, $mobile-reduction:0.75);
+  padding-inline: $container-padding;
 }
 
 .page-content {
@@ -30,35 +32,38 @@
 	gap: $space-3xl;
 
 		h2 {
-		@include font-parameters(
-			$font-size-2xl,
-			$font-weight-black,
-			);
+		font-size: $font-size-2xl;
+		font-weight: $font-weight-black;
 	}
 }
 
-// =========Offer Section Grid===============================================
-.offer-2-section {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	position: relative;
 
-	// @media (max-width: 768px) {
-	//     grid-template-columns: 1fr;
-	//     margin-top: $space-xl;
-	//     margin-left: $space-lg;
-	//     margin-right: $space-lg;
-	// }
-}
 
 // =========Product Grid Section===============================================
 .product-grid-product-render {
-	padding-top: $space-3xl;
+	padding-top: $space-xl;
 	cursor: pointer;
 	align-self: center;
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: $space-3xl;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: $space-lg;
+	
+	@media (min-width: 1440px) {
+		grid-template-columns: repeat(4, 1fr);
+		gap: $space-xl;
+	}
+	
+	@media (max-width: 1024px) {
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: $space-md;
+		padding-top: $space-lg;
+	}
+	
+	@media (max-width: 768px) {
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: $space-md;
+		padding: $space-md;
+	}
 }
 
 // =========Hero Section===============================================
@@ -66,21 +71,58 @@
 	position: relative;
 	background-color: $main-hero-bg;
 	cursor: pointer;
+	min-height: 60vh;
 
 	.hero-content {
-		@include flex-responsive;
+		@include flex-responsive($mobile-direction: column);
 		align-items: center;
 		justify-content: space-between;
-		@include responsive-size(gap, $space-dl);     
+		gap: $space-lg;
+		padding: $space-lg;
+		
+		@media (max-width: 768px) {
+			text-align: center;
+			gap: $space-md;
+		}
 	}
 
 	.hero-text-block {
 		@include section-styles('hero');
+		flex: 1;
+		min-width: 0;
+		
+		@media (max-width: 768px) {
+			order: 2;
+			padding: $space-md;
+		}
+		
+		h2 {
+			@media (max-width: 768px) {
+				font-size: $font-size-xl;
+				line-height: $line-height-tight;
+			}
+		}
+		
+		button {
+			@media (max-width: 768px) {
+				width: 100%;
+				max-width: 300px;
+			}
+		}
 	}
 
 	.hero-suitcase {
-		@include responsive-size(padding-block, $space-5xl);
+		padding-block: $space-lg;
 		@include hover-effect('hero-image');
+		max-width: 100%;
+		height: auto;
+		flex-shrink: 0;
+		
+		@media (max-width: 768px) {
+			order: 1;
+			max-width: 80%;
+			padding-block: $space-md;
+		}
 	}
 }
 
@@ -90,21 +132,77 @@
 	margin-top: $main-offer-up-margin;
 	z-index: 3;
 	box-shadow: $shadow;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0;
+	min-height: 400px;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+		gap: 0;
+		min-height: auto;
+	}
+	
+	@media (max-width: 768px) {
+		margin-top: $space-lg;
+	}
 
 	.main-banner-1 {
 		@include section-styles('main-news');
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: $space-xl;
+		
+		@media (max-width: 1024px) {
+			padding: $space-lg;
+		}
+		
+		@media (max-width: 768px) {
+			padding: $space-md;
+			text-align: center;
+		}
 
 		.profile {
-		@include flex-responsive;
-		@include responsive-size(gap, $space-lg);
-		align-items: center;
+			@include flex-responsive;
+			gap: $space-md;
+			align-items: center;
+			margin-bottom: $space-lg;
+			
+			@media (max-width: 768px) {
+				justify-content: center;
+				gap: $space-sm;
+			}
 
 			.profile-info {
-					// @include font-parameters($main-offer-athor-title);
-
 				.profile-name {
-						@include font-parameters($font-size-md, $font-weight-bold);
+					font-size: $font-size-md;
+					font-weight: $font-weight-bold;
+					
+					@media (max-width: 768px) {
+						font-size: $font-size-sm;
 					}
+				}
+				
+				p {
+					@media (max-width: 768px) {
+						font-size: $font-size-xs;
+					}
+				}
+			}
+		}
+		
+		h2 {
+			@media (max-width: 768px) {
+				font-size: $font-size-lg;
+			}
+		}
+		
+		p {
+			@media (max-width: 768px) {
+				font-size: $font-size-sm;
+				line-height: $line-height-base;
 			}
 		}
 	}
@@ -112,6 +210,62 @@
 	.main-banner-2 {
 		@include section-styles('offer-white');
 		@include shaded-background("/src/assets/images/backgrounds/offer1.png");
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: $space-xl;
+		position: relative;
+		overflow: hidden;
+
+		@media (max-width: 1024px) {
+			padding: $space-lg;
+		}
+		
+		@media (max-width: 768px) {
+			padding: $space-md;
+			text-align: center;
+			min-height: 300px;
+		}
+
+		h2 {
+			word-wrap: break-word;
+			
+			@media (max-width: 1024px) {
+				font-size: $font-size-xl;
+			}
+			
+			@media (max-width: 768px) {
+				font-size: $font-size-lg;
+				margin-bottom: $space-md;
+			}
+		}
+		
+		p {
+			word-wrap: break-word;
+			
+			@media (max-width: 768px) {
+				font-size: $font-size-sm;
+				margin-bottom: $space-md;
+				br {
+					display: none;
+				}
+			}
+		}
+
+		button {
+			@media (max-width: 1024px) {
+				align-self: flex-start;
+			}
+			
+			@media (max-width: 768px) {
+				align-self: center;
+				width: 100%;
+				max-width: 200px;
+				padding: $space-sm $space-md;
+				font-size: $font-size-sm;
+			}
+		}
 	}
 }
 
@@ -123,12 +277,38 @@
 // New slider styles
 
 .travel-slider-container {
-	padding-top: $space-3xl;
+	padding-top: $space-xl;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax($min-grid-width-3el, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   align-items: center;
   gap: $space-lg;
   position: relative;
+  
+  @media (min-width: 1440px) {
+  	grid-template-columns: repeat(4, 1fr);
+  }
+  
+  @media (max-width: 1024px) {
+  	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  	gap: $space-md;
+  	padding-top: $space-lg;
+  }
+  
+  @media (max-width: 768px) {
+  	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  	gap: $space-md;
+  	padding: $space-md;
+  	
+  	// На мобільних показуємо тільки 2 елементи і додаємо горизонтальний скрол
+  	overflow-x: auto;
+  	scroll-snap-type: x mandatory;
+  	-webkit-overflow-scrolling: touch;
+  	
+  	.travel-slide {
+  		scroll-snap-align: start;
+  		min-width: 250px;
+  	}
+  }
 }
 
 .travel-slide {
@@ -158,11 +338,168 @@
 		}
 }
 
+// Universal offer-banner class for all pages
+.offer-banner {
+	@include banner("/src/assets/images/backgrounds/offer1.png");
+}
+
+// ========Notification System===============================================
+// Popup notifications
+.popup-notification {
+	position: fixed;
+	top: $notification-top;
+	right: $notification-right;
+	z-index: $z-notification;
+	max-width: 400px;
+	background: $pure-white;
+	border-radius: 0;
+	box-shadow: $shadow-modal;
+	opacity: 0;
+	transform: translateX(100%);
+	transition: all $animation-medium $animation-ease;
+	
+	&.show {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	
+	&.success { border-left: 4px solid $success-color; }
+	&.error { border-left: 4px solid $error-color; }
+	&.warning { border-left: 4px solid $accent-pink; }
+	&.info { border-left: 4px solid $info-color; }
+	
+	.popup-content {
+		@include flex-responsive(row, $space-md);
+		align-items: flex-start;
+		padding: $space-lg;
+	}
+	
+	.popup-icon {
+		font-size: $font-size-lg;
+		flex-shrink: 0;
+	}
+	
+	.popup-text {
+		flex: 1;
+	}
+	
+	.popup-title {
+		font-size: $font-size-md;
+		font-weight: $font-weight-bold;
+		color: $text-color;
+		margin-bottom: $space-xs;
+	}
+	
+	.popup-message {
+		font-size: $font-size-sm;
+		color: $grey-dark;
+		line-height: $line-height-base;
+	}
+	
+	.popup-close {
+		position: absolute;
+		top: $space-sm;
+		right: $space-sm;
+		background: none;
+		border: none;
+		font-size: $font-size-lg;
+		color: $grey;
+		cursor: pointer;
+		padding: $space-xs;
+		
+		&:hover {
+			color: $text-color;
+		}
+	}
+}
+
+// Toast notifications
+.toast-notification {
+	position: fixed;
+	bottom: $space-xl;
+	left: 50%;
+	transform: translateX(-50%) translateY(100px);
+	z-index: $z-notification;
+	background: $grey-dark;
+	color: $pure-white;
+	padding: $space-md $space-lg;
+	border-radius: 0;
+	font-size: $font-size-sm;
+	opacity: 0;
+	transition: all $animation-medium $animation-ease;
+	
+	&.show {
+		opacity: 1;
+		transform: translateX(-50%) translateY(0);
+	}
+	
+	&.success { background: $success-color; }
+	&.error { background: $error-color; }
+	&.warning { background: $accent-pink; }
+	&.info { background: $info-color; }
+}
+
+// Inline notifications for forms
+.notification {
+	position: absolute;
+	bottom: -$space-lg;
+	left: 0;
+	font-size: $font-size-xs;
+	color: $error-color;
+	background: rgba($error-color, 0.1);
+	padding: $space-xs $space-sm;
+	border-radius: 0;
+	border: 1px solid $error-color;
+	
+	&.error {
+		color: $error-color;
+		background: rgba($error-color, 0.1);
+		border-color: $error-color;
+	}
+	
+	&.success {
+		color: $success-color;
+		background: rgba($success-color, 0.1);
+		border-color: $success-color;
+	}
+}
+
+// ========Modal System===============================================
+.modal {
+	@include modal-backdrop;
+	display: none;
+	
+	&.show {
+		display: flex;
+	}
+}
+
+.modal-content {
+	@include modal-content;
+	padding: $space-xl;
+	
+	// Close button
+	.close {
+		position: absolute;
+		top: $space-md;
+		right: $space-lg;
+		font-size: $font-size-xl;
+		color: $grey;
+		cursor: pointer;
+		background: none;
+		border: none;
+		
+		&:hover {
+			color: $text-color;
+		}
+	}
+}
+
 // ======Testimonials Section===============================================
 .testimonials-grid {
 	padding-top: $space-3xl;
-	@include grid-responsive($min-grid-width-3el);
-	@include responsive-size(gap, $space-3xl);
+	@include grid-responsive($min-grid-width-3el, $space-lg, true);
+	gap: $space-3xl;
 
 	.testimonial-card {
 		@include flex-responsive;
@@ -176,39 +513,18 @@
 		@include hover-effect('people-card');
 																	
 		p {
-			@include font-parameters(
-				$font-size-md, 
-				$color: $grey-dark
-			);
+			font-size: $font-size-md;
+			color: $grey-dark;
 		}
 
 		.testimonial-author {
-			@include font-parameters(
-				$font-size-md, 
-				$font-weight-bold,
-				$color: $accent-pink);
+			font-size: $font-size-md;
+			font-weight: $font-weight-bold;
+			color: $accent-pink;
 		}
 	}
 }
 
 
-// // Responsive styles using variables and mixins
-// @media (max-width: 768px) {
-//     .modal-content {
-//         min-width: 300px;
-//         width: 95%;
-//         margin: $space-md;
-//     }
-    
-//     .modal-header,
-//     #login-form {
-//         padding: $space-lg;
-//     }
-    
-//     .notification {
-//         top: 10px;
-//         right: 10px;
-//         left: 10px;
-//         text-align: center;
-//     }
-// }
+
+

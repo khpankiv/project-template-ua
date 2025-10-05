@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест адаптивності з clamp()</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <style>
+        .test-container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 2px solid #B92770;
+            border-radius: 8px;
+        }
+        .test-typography h1 { font-size: var(--font-size-3xl); }
+        .test-typography h2 { font-size: var(--font-size-2xl); }
+        .test-typography h3 { font-size: var(--font-size-xl); }
+        .test-typography p { font-size: var(--font-size-sm); }
+        
+        .test-spacing { gap: var(--space-lg); }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+        }
+        .test-card {
+            background: #f5f5f5;
+            padding: var(--space-lg);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-section">
+            <h1>🎯 Тест адаптивної типографії з clamp()</h1>
+            <div class="test-typography">
+                <h1>Заголовок H1 (clamp)</h1>
+                <h2>Заголовок H2 (clamp)</h2>
+                <h3>Заголовок H3 (clamp)</h3>
+                <p>Звичайний текст параграфу з адаптивним розміром через clamp(). Цей текст автоматично змінює розмір залежно від ширини екрана.</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔄 Тест адаптивних відступів</h2>
+            <div style="display: flex; flex-direction: column; gap: var(--space-lg); padding: var(--space-xl);">
+                <div style="background: #e0e0e0; padding: var(--space-sm);">Малий відступ (space-sm)</div>
+                <div style="background: #e0e0e0; padding: var(--space-md);">Середній відступ (space-md)</div>
+                <div style="background: #e0e0e0; padding: var(--space-lg);">Великий відступ (space-lg)</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📱 Тест адаптивного грід</h2>
+            <div class="test-grid">
+                <div class="test-card">
+                    <h3>Картка 1</h3>
+                    <p>Адаптивний грід з clamp() мінімальною шириною</p>
+                </div>
+                <div class="test-card">
+                    <h3>Картка 2</h3>
+                    <p>Автоматично перебудовується на різних екранах</p>
+                </div>
+                <div class="test-card">
+                    <h3>Картка 3</h3>
+                    <p>Без медіа-запитів, тільки CSS clamp()</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>✨ Резюме модернізації</h2>
+            <ul style="font-size: var(--font-size-sm); line-height: 1.6;">
+                <li>✅ Видалено міксин <code>responsive-size</code></li>
+                <li>✅ Видалено міксин <code>font-parameters</code></li>
+                <li>✅ Всі розміри тепер використовують <code>clamp()</code></li>
+                <li>✅ Мінімум медіа-запитів, максимум гнучкості</li>
+                <li>✅ Сучасні CSS техніки замість Sass міксинів</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

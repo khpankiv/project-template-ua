@@ -4,11 +4,17 @@
 .product-main {
   display: grid;
 	grid-template-columns: 1fr 1fr;
-	@include responsive-size(gap, $space-2xl);
-	@include responsive-size(padding, $space-2xl 0);
-  @media (max-width: $breakpoint-tablet) {
-    flex-direction: column;
-    gap: $space-2xl;
+	gap: $space-2xl;
+	padding: $space-2xl 0;
+  
+  @media (max-width: 1024px) {
+    gap: $space-xl;
+    padding: $space-xl 0;
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: $space-xl;
   }
 }
 
@@ -16,7 +22,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-	@include responsive-size(gap, $space-md);
+	gap: $space-md;
 }
 // =================Product Image=================
 #product-main-image {
@@ -26,7 +32,7 @@
 #image-thumbnails {
   display: grid;
 	grid-template-columns: repeat(4, 1fr);
- 	@include responsive-size(gap, $space-md);
+ 	gap: $space-md;
 	
 	img {
 		@include hover-effect('thumbnail');
@@ -38,25 +44,21 @@
   display: flex;
   flex-direction: column;
 	text-align: start;
-	@include responsive-size(gap, $space-xl);
+	gap: $space-xl;
 }
 
 .product-price {
-  @include font-parameters(
-		$font-size-md, 
-		$font-weight-bold, 
-		$line-height-base, 
-		$text-color
-	);
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-base;
+  color: $text-color;
 }
 
 .product-description {
-  @include font-parameters(
-		$font-size-sm, 
-		$font-weight-normal, 
-		$line-height-base, 
-		$grey-dark
-	);
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-base;
+  color: $grey-dark;
 
 	p {
 		margin-bottom: $space-md;
@@ -64,41 +66,49 @@
 }
 // ==========Product Filters=================
 .filter-label {
-	@include font-parameters(
-		$font-size-sm, 
-		$font-weight-bold, 
-		$line-height-base, 
-		$grey-dark);
+	font-size: $font-size-sm;
+	font-weight: $font-weight-bold;
+	line-height: $line-height-base;
+	color: $grey-dark;
 }
 
 .product-buttons-section {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
 	height: fit-content;
-	@include responsive-size(gap, $space-xl);
+	gap: $space-xl;
 }
 
 // ===========Tabs Section======================
 .tab-pane {
-  @include font-parameters(
-		$font-size-sm, 
-		$font-weight-normal, 
-		$line-height-loose, 
-		$text-color);
-		padding-block: $space-2xl;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-loose;
+  color: $text-color;
+	padding-block: $space-2xl;
 }
 
 .review-form-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	@include responsive-size(gap, $space-2xl);
+	gap: $space-2xl;
+	
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+		gap: $space-xl;
+	}
 }
 
 .review-item {
 	padding: $space-2xl 0;
 	display: grid;
 	grid-template-columns: 1fr 5fr;
-	// gap: $space-lg;
+	
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+		gap: $space-md;
+		padding: $space-xl 0;
+	}
 }
 
 .review-meta {

@@ -1,5 +1,5 @@
 
-// ==================================================================================
+// Font-parameters mixin removed - now using direct CSS properties with adaptive variables
 // Font Face Declarations
 // ===================================================================================
 // @font-face {
@@ -30,7 +30,7 @@
                        $mobile-reduction: 0.2, 
                        $tablet-reduction: 0.1) {
     @if $responsive {
-        @include responsive-size(font-size, $size, $mobile-reduction, $tablet-reduction);
+        font-size: $size, $mobile-reduction, $tablet-reduction;
     } @else {
         font-size: $size;
     }

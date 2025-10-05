@@ -13,21 +13,18 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: $space-2xl;
-	@include responsive-size(padding, $space-2xl 0);
+	padding: $space-lg 0;
+	position: relative;
 
-	// @media (max-width: $breakpoint-tablet) {
-	//     display: grid;
-	//     grid-template-columns: 1fr auto 1fr;
-	//     gap: $space-md;
-	// }
+	@media (max-width: 1024px) {
+	    padding: $space-md 0;
+	}
 
-	// @media (max-width: $breakpoint-mobile) {
-	//     display: flex;
-	//     flex-direction: column;
-	//     gap: $space-lg;
-	//     padding: $space-lg;
-	// }
+	@media (max-width: 768px) {
+	    flex-wrap: wrap;
+	    gap: $space-md;
+	    padding: $space-sm 0;
+	}
 }
 
 .socials {
@@ -41,14 +38,17 @@
 
 .logo-bg {
 	background: $accent-pink;
-	@include responsive-size(width, $font-size-2xl, 0.1, 0.05);
+	width: $font-size-2xl, 0.1, 0.05;
 	height: auto; 
-	@include responsive-size(border-radius, $radius-s);
-	@include responsive-size(padding, $space-xs);
+	border-radius: $radius-s;
+	padding: $space-xs;
 }
 
 	span {
-		@include font-parameters($font-size-xl, $font-weight-bold, $line-height-tight, $accent-pink);
+		font-size: $font-size-xl;
+		font-weight: $font-weight-bold;
+		line-height: $line-height-tight;
+		color: $accent-pink;
 	}
 }
 
@@ -65,13 +65,12 @@
 
     .cart-counter {
         position: absolute;
-        top: -$space-xs;
-        right: -$space-xs;
-        @include font-parameters(
-            $font-size-xs, 
-            600, 
-            $line-height-single, 
-            $accent-pink);
+        top: -2px;
+        right: -6px;
+        font-size: $font-size-xs;
+        font-weight: 600;
+        line-height: $line-height-single;
+        color: $accent-pink;
         background: $pure-white;
         color: $counter-num-color;
         border: $border solid $counter-num-color;
@@ -81,7 +80,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-				text-align: center;
+        text-align: center;
+        z-index: 10;
     }
 }
 
@@ -89,63 +89,82 @@
 //==============Navigation styles===================================
 // =============================================================
 .nav {
-    @media (max-width: $breakpoint-mobile) {
-        // position: absolute;
-        // top: 100%;
-        // left: 0;
-        // right: 0;
-        // background: $pure-white;
-        // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        // transform: translateY(-100%);
-        // opacity: 0;
-        // visibility: hidden;
-        // transition: all $animation-medium ease;
-        // z-index: 50;
+    @media (max-width: 768px) {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: $pure-white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all $animation-medium ease;
+        z-index: 50;
+        width: 100%;
 
-        // &.mobile-menu-open {
-        //     transform: translateY(0);
-        //     opacity: 1;
-        //     visibility: visible;
-        // }
+        &.mobile-menu-open {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
     }
 
     .nav-list {
 			display: flex;
 			justify-content: center;
-			gap: $space-2xl;
+			gap: $space-xl;
 			list-style: none;
 			padding: $space-lg 0;
 			margin: 0;
+			
+			@media (max-width: 1024px) {
+				gap: $space-lg;
+			}
+			
+			@media (max-width: 768px) {
+				flex-direction: column;
+				gap: 0;
+				padding: 0;
+			}
     }
 
     .nav-link {
-        @include font-parameters($font-size-lg, $font-weight-bold);
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
         padding: $space-sm $space-md;
         @include hover-effect('header-menu');
 				@include selected-effect('header-menu');
+				white-space: nowrap;
 
         .arrow {
 					display: inline-block;
 					vertical-align: middle;
 					margin-left: $space-xs;
         }
+        
+        @media (max-width: 1024px) {
+        	font-size: $font-size-md;
+        	padding: $space-xs $space-sm;
+        }
 
-        // @media (max-width: $breakpoint-mobile) {
-        //     display: block;
-        //     width: 100%;
-        //     text-align: center;
-        //     padding: $space-lg $space-md;
-        //     border-radius: 0;
-        //     border-bottom: 1px solid rgba($grey-light, 0.3);
+        @media (max-width: 768px) {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: $space-lg $space-md;
+            border-radius: 0;
+            border-bottom: 1px solid rgba($grey-light, 0.3);
+            font-size: $font-size-md;
 
-        //     &:last-child {
-        //         border-bottom: none;
-        //     }
+            &:last-child {
+                border-bottom: none;
+            }
 
-        //     &:hover {
-        //         background: rgba($accent-pink, 0.05);
-        //     }
-        // }
+            &:hover {
+                background: rgba($accent-pink, 0.05);
+            }
+        }
     }
 }
 

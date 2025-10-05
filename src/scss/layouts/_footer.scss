@@ -19,17 +19,19 @@ text-align: left;
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
-@include responsive-size(gap, $space-lg);
+gap: $space-lg;
 }
 
 .benefits-header {
-	@include font-parameters($font-size-md, $font-weight-bold, $color: $pure-white);
+	font-size: $font-size-md;
+	font-weight: $font-weight-bold;
+	color: $pure-white;
 }
 
 .benefits-list {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	@include responsive-size(gap, $space-xl);
+	gap: $space-xl;
 
 	@media (max-width: $breakpoint-tablet) {
 	grid-template-columns: repeat(2, 1fr);
@@ -43,13 +45,14 @@ justify-content: space-evenly;
 .benefits-item {
 	display: flex;
 	align-items: center; 
-	@include responsive-size(gap, $space-xl);
-	@include font-parameters(
-		$font-size-sm, $font-weight-normal, $color: $pure-white);
+	gap: $space-xl;
+	font-size: $font-size-sm;
+	font-weight: $font-weight-normal;
+	color: $pure-white;
 }
 
 .benefits-icon {
-	@include responsive-size(width, $footer-benefits-icon-size);
+	width: $footer-benefits-icon-size;
 	height: auto;
 }
 
@@ -57,24 +60,21 @@ justify-content: space-evenly;
 .footer-main {
 		display: grid;
 		grid-template-columns: 3fr 2fr; 
-		@include responsive-size(gap, $space-xl $space-10xl);
-		@include responsive-size(padding-block, $space-5xl $space-4xl);
-		@include font-parameters (
-				$font-size-sm, 
-				$font-weight-normal, 
-				$line-height-loose,
-				$color: $text-color
-		);
+		gap: $space-xl $space-10xl;
+		padding-block: $space-5xl $space-4xl;
+		font-size: $font-size-sm;
+		font-weight: $font-weight-normal;
+		line-height: $line-height-loose;
+		color: $text-color;
 
 		 a { @include hover-effect('footer'); }
 }
 
 .footer-heading {
-	@include font-parameters(
-		$font-size-sm, 
-		$font-weight-bold,
-		$line-height-loose);
-	@include responsive-size(margin-bottom, $space-md);
+	font-size: $font-size-sm;
+	font-weight: $font-weight-bold;
+	line-height: $line-height-loose;
+	margin-bottom: $space-md;
 	@include hover-effect('footer');
 }
 
@@ -108,10 +108,10 @@ gap: $space-lg;
 	// }
 
 	.contact-info {
-		@include responsive-size(margin-top, $space-4xl);
+		margin-top: $space-4xl;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		@include responsive-size(gap, $space-lg);
+		gap: $space-lg;
 		
 		// @media (max-width: $breakpoint-mobile) {
 		//     grid-template-columns: 1fr;
@@ -121,17 +121,16 @@ gap: $space-lg;
 		.contact-item {
 			display: flex;       
 			align-items: center;
-			@include responsive-size(gap, $space-md);
+			gap: $space-md;
 			
 			// @media (max-width: $breakpoint-mobile) {
 			//     gap: $space-sm;
 			// }
 
 			span {
-				@include font-parameters(
-				$font-size-sm, 
-				$font-weight-normal, 
-				$line-height-loose);   
+				font-size: $font-size-sm;
+				font-weight: $font-weight-normal;
+				line-height: $line-height-loose;
 			}
 		}
 	}
@@ -140,11 +139,10 @@ gap: $space-lg;
 // Copyright text utility
 .copyright-text {
 	letter-spacing: 0;
-	@include font-parameters(
-		$font-size-xs, 
-		$font-weight-normal, 
-		$line-height-single, 
-		$copyright-text-color);
-	@include responsive-size(padding-block, $space-md);
+	font-size: $font-size-xs;
+	font-weight: $font-weight-normal;
+	line-height: $line-height-single;
+	color: $copyright-text-color;
+	padding-block: $space-md;
 	text-align: center;
 }

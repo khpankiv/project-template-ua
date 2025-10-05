@@ -1,11 +1,13 @@
 // ===========================================================
 // ================== UI Functions ============================
-// ============================================================
-
+// ===========================================================
 import { updatePagination } from "./interractions.js";
 import { productCardTemplatePath, productsPerPage, numberOfRandomProducts, numberOfRandomSets, imageCount, imageFolder} from "./file_links.js";
 import { getProductsByField, getInfoById, getRandomItems, generateLoremIpsumParagraphs } from "./utils.js";
 import { getCartTotal, clearCart } from "./logic.js";
+
+// Duplicate function removed - using exported version below
+
 
 // ===========================================================
 // ================= Load Header and Footer =========================
@@ -175,11 +177,15 @@ export async function loadProductsMain(products, field, fieldValue, id) {
  * @param {Array} products - The array of products to render.
  * @param {number} currentPage - The current page number.
  **********************************************************************************/
-export async function renderProductsForPage(products,  currentPage) {
+export async function renderProductsForPage(products, currentPage) {
 	const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const productsToDisplay = products.slice(startIndex, endIndex);
   const grid = document.querySelector('.product-grid');
+  if (!grid) {
+    console.error('Product grid container not found');
+    return;
+  }
   grid.innerHTML = '';
   await populateProducts(productsToDisplay, '.product-grid', '#product-card-template');
   // Update product count display
@@ -187,7 +193,7 @@ export async function renderProductsForPage(products,  currentPage) {
   if (productCountElement) {
     productCountElement.textContent = `Showing ${productsToDisplay.length ? (startIndex + 1) : 0}-${Math.min(endIndex, products.length)} of ${products.length} products`;
   }
-	 updatePagination(products, currentPage);
+  updatePagination(products, currentPage);
 }
 
 // ===========================================================
@@ -266,32 +272,38 @@ export function createSlides(imageCount, numSlides, imageFolder) {
  * @name displayCartItems - Displays cart items on the cart page.
  ***************************************************************************************************/
 export async function displayCartItems() {
-  const allCart = JSON.parse(localStorage.getItem('cart')) || [];
+  const allCart = JSON.parse(localStorage.getItem('shoppingCart')) || {};
 		if (!allCart || Object.keys(allCart).length === 0) {
 			// Show empty cart message
 			clearCart();
 		} else {
-			let allCartProducts = JSON.parse(localStorage.getItem('cart')) || [];
-			let items = await getInfoById(allCartProducts);
+			// Cart items are already in the right format
+			let items = Object.values(allCart);
 			const cartTableBody = document.querySelector('#cart-tbody');
 			cartTableBody.innerHTML = '';
 			items.forEach(item => {
+				const cartKey = `${item.name}|${item.size}|${item.color}`;
 				const row = document.createElement('tr');
 				row.innerHTML = `
 				<td><img class="cart-item-image" src="${item.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png')}" alt="Product Image"></td>
-				<td class="cart-item-name">${item.name}</td>
+				<td class="cart-item-name">
+					<div class="product-details">
+						<div class="product-name">${item.name}</div>
+						<div class="product-variant">Size: ${item.size} | Color: ${item.color}</div>
+					</div>
+				</td>
 				<td class="cart-item-price">$${item.price}</td>
 				<td class="cart-item-quantity">
 					<div class="quantity-controls">
-						<button type="button" class="button-quantity minus" data-id="${item.id}">-</button>
+						<button type="button" class="button-quantity minus" data-cart-key="${cartKey}">-</button>
 						<input class="quantity" value="${item.quantity}" min="1" readonly>
-						<button type="button" class="button-quantity plus" data-id="${item.id}">+</button>
+						<button type="button" class="button-quantity plus" data-cart-key="${cartKey}">+</button>
 					</div>
 				</td>
 				<td class="cart-item-total">$${item.price * item.quantity}</td>
 				<td>
 					<button class="delete-item-button">
-						<img class="delete-icon" src="assets/images/icons/trash.svg" alt="Delete"data-id="${item.id}">
+						<img class="delete-icon" src="assets/images/icons/trash.svg" alt="Delete" data-cart-key="${cartKey}">
 					</button>
 				</td>
 			`;

@@ -4,11 +4,15 @@
 .product-card {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	background-color: $pure-white;
-	align-items: center;
-	text-align: center;
 	cursor: pointer;
+	height: auto;
+	min-height: clamp(20rem, 18rem + 8vw, 28rem); // 320px → 448px
+	max-height: $product-card-max-height;
+	padding: $space-lg;
+	box-sizing: border-box;
+	border-radius: 0;
+	transition: all $animation-medium $animation-ease;
 	@include hover-effect('product-card');
 }
 
@@ -23,15 +27,14 @@
 }
 .badge-sale {
 	position: absolute;
-	@include responsive-size(top, $space-md);
-	@include responsive-size(left, $space-md);
+	top: $space-md;
+	left: $space-md;
 	background: $accent-pink;
-	@include font-parameters(
-		$font-size-xs, 
-		$font-weight-bold,
-		$color: $pure-white);
+	font-size: $font-size-xs;
+	font-weight: $font-weight-bold;
+	color: $pure-white;
 	text-transform: uppercase;
-	@include responsive-size(padding, $space-xs $space-sm);
+	padding: $space-xs $space-sm;
 	z-index: 2;
 	// letter-spacing: 0.05em;
 }
@@ -40,23 +43,24 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	gap: $space-dl;
-	padding-block: $space-dl;
+	gap: $space-sm;
+	padding: $space-md $space-sm $space-lg;
 	align-items: center;
+	flex-grow: 1;
+	justify-content: space-between;
+	text-align: center;
 }
 
 .product-card-name {
-	@include font-parameters(
-		$font-size-md, 
-		$font-weight-bold,
-		$color: $text-color);
+	font-size: $font-size-md;
+	font-weight: $font-weight-bold;
+	color: $text-color;
 }
 
 .product-card-price {
-	@include font-parameters(
-		$font-size-md, 
-		$font-weight-bold, 
-		$color: $grey-dark);
+	font-size: $font-size-md;
+	font-weight: $font-weight-bold;
+	color: $grey-dark;
 }
 
 // ===========================================================
@@ -73,7 +77,7 @@
 }
 
 .sidebar-product-img {
-	@include responsive-size(width, $photo-icon-size);
+	width: $photo-icon-size;
 	height: auto;
 	object-fit: cover;
 	box-shadow: $shadow;
@@ -89,7 +93,8 @@
 }
 
 .sidebar-product-name {
-	@include font-parameters($font-size-sm, $font-weight-normal);
+	font-size: $font-size-sm;
+	font-weight: $font-weight-normal;
 }
 
 .sidebar-product-rating {
@@ -100,6 +105,7 @@
 }
 
 .sidebar-product-price {
-	@include font-parameters($font-size-sm, $font-weight-normal);
+	font-size: $font-size-sm;
+	font-weight: $font-weight-normal;
 }
 

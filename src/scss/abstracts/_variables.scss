@@ -1,3 +1,5 @@
+@use 'sass:string';
+
 // ======================================================
 // ===============Colors=================================
 //=======================================================
@@ -9,6 +11,7 @@ $pure-white: #FFFFFF; // pure white
 $text-color: #000000; // main text color
 $accent-pink: #B92770; // main accent from Figma
 $accent-pink-dark: #cfadbeee; // dark pink background
+$accent-pink-darker: #931f5b; // darker pink for active/press states
 $accent-pink-light: #c2a0b1; // light pink - buttons, highlights
 
 $shadow-color: rgba(193, 199, 212, 0.7); // shadow color
@@ -23,39 +26,45 @@ $info-color: $text-color; // Amber color for info messages
 // ====================================================
 //==========Sizes and Scales==========================
 //===================================================
-$radius-s: 8px; 
+$radius-s: 0; 
+$radius-m: 0;
+$radius-l: 0;
 $border: 2px;
 
-// Spacing Scale (rem based)
-$space-xs: 0.25rem;  // 4px
-$space-sm: 0.5rem;   // 8px
-$space-md: 1rem;     // 16px
-$space-dl: 1.25rem;  // 20px
-$space-lg: 1.5rem;   // 24px
-$space-xl: 2rem;     // 32px
-$space-2xl: 2.5rem;  // 40px
-$space-3xl: 3rem;    // 48px
-$space-4xl: 4rem;    // 64px
-$space-5xl: 5rem;    // 80px
-$space-10xl: 10rem;    // 160px
+// Responsive Spacing Scale with clamp()
+// Mobile → Desktop
+$space-xs: string.unquote("clamp(0.25rem, 0.2rem + 0.2vw, 0.375rem)");    // 4px → 6px
+$space-sm: string.unquote("clamp(0.5rem, 0.4rem + 0.4vw, 0.75rem)");      // 8px → 12px
+$space-md: string.unquote("clamp(0.75rem, 0.6rem + 0.8vw, 1rem)");        // 12px → 16px
+$space-dl: string.unquote("clamp(1rem, 0.8rem + 1vw, 1.25rem)");          // 16px → 20px
+$space-lg: string.unquote("clamp(1.25rem, 1rem + 1.2vw, 1.5rem)");        // 20px → 24px
+$space-xl: string.unquote("clamp(1.5rem, 1.2rem + 1.5vw, 2rem)");         // 24px → 32px
+$space-2xl: string.unquote("clamp(2rem, 1.6rem + 2vw, 2.5rem)");          // 32px → 40px
+$space-3xl: string.unquote("clamp(2.5rem, 2rem + 2.5vw, 3rem)");          // 40px → 48px
+$space-4xl: string.unquote("clamp(3rem, 2.5rem + 3vw, 4rem)");            // 48px → 64px
+$space-5xl: string.unquote("clamp(4rem, 3rem + 4vw, 5rem)");              // 64px → 80px
+$space-xxl: string.unquote("clamp(2rem, 1.6rem + 2vw, 2.5rem)");          // 32px → 40px
+$space-10xl: unquote("clamp(6rem, 5rem + 8vw, 10rem)");            // 96px → 160px
 
 $photo-icon-size: $space-5xl; // 80px
 
 // =======================================================
 // ================Typography Scale ====================== 
-// Optimized to 7 sizes: 12, 16, 20, 24, 32, 40, 48
+// Responsive typography with clamp()
+// Mobile → Tablet → Desktop
 // =======================================================
-$font-size-xs: 0.75rem;   // 12px - Small text, captions
-$font-size-sm: 1rem;      // 16px - Base body text
-$font-size-md: 1.25rem;   // 20px - Large text, subheadings  
-$font-size-lg: 1.5rem;    // 24px - Section headings
-$font-size-xl: 2rem;      // 32px - Page headings
-$font-size-2xl: 2.5rem;   // 40px - Large headings
-$font-size-3xl: 3rem;     // 48px - Extra large headings
-$font-size-10xl: 13rem;   // 208px - Very large headings (offer banner)
+$font-size-xs: string.unquote("clamp(0.625rem, 0.6rem + 0.2vw, 0.75rem)");   // 10px → 12px
+$font-size-sm: string.unquote("clamp(0.875rem, 0.8rem + 0.4vw, 1rem)");      // 14px → 16px  
+$font-size-md: string.unquote("clamp(1rem, 0.9rem + 0.6vw, 1.25rem)");       // 16px → 20px
+$font-size-lg: string.unquote("clamp(1.25rem, 1.1rem + 0.8vw, 1.5rem)");     // 20px → 24px
+$font-size-xl: string.unquote("clamp(1.5rem, 1.3rem + 1.2vw, 2rem)");        // 24px → 32px
+$font-size-2xl: string.unquote("clamp(2rem, 1.7rem + 1.5vw, 2.5rem)");       // 32px → 40px
+$font-size-3xl: string.unquote("clamp(2.25rem, 1.9rem + 2vw, 3rem)");        // 36px → 48px
+$font-size-10xl: string.unquote("clamp(6rem, 5rem + 8vw, 13rem)");           // 96px → 208px
 
 //============Font Weights===============================
 $font-weight-normal: 400;
+$font-weight-medium: 500;
 $font-weight-bold: 700;
 $font-weight-black: 900;
 
@@ -75,13 +84,13 @@ $breakpoint-desktop: 1440px; // large desktop breakpoint
 
 // ========Containers sizes and paddings =========
 $container-width: $breakpoint-desktop; 
-$container-padding: $space-4xl; // 64px padding for desktop
+$container-padding: string.unquote("clamp(1rem, 2vw + 1rem, 4rem)"); // 16px → 64px
 
 // ========Grid min-widths for responsive layouts========
-$min-grid-width-4el: 250px; 
-$min-grid-width-3el: 300px; 
-$min-grid-width-2el: 400px; 
-$min-grid-width-1el: 500px; 
+$min-grid-width-4el: string.unquote("clamp(200px, 15vw + 150px, 250px)"); 
+$min-grid-width-3el: string.unquote("clamp(250px, 18vw + 200px, 300px)"); 
+$min-grid-width-2el: string.unquote("clamp(300px, 20vw + 250px, 400px)"); 
+$min-grid-width-1el: string.unquote("clamp(350px, 25vw + 300px, 500px)"); 
 
 //=========Z-index Scale================================
 $z-hover: 2;
@@ -103,6 +112,7 @@ $animation-ease: cubic-bezier(0.4, 0.0, 0.2, 1);
 $shadow: 0px 20px 80px 0px $shadow-color;
 $shadow-filter-dropdown: 0.5rem, 2rem $shadow-color;
 $shadow-hover: 0px 0px 20px 10px $hover-shadow-color; 
+$shadow-inset: inset 0 2px 4px rgba($shadow-color, 0.6);
 $shadow-form-focus: 0 0 0 3px rgba($accent-pink, 0.1);
 $shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
@@ -151,19 +161,78 @@ $min-grid-height: 20rem;    // Minimum height for items grid
 
 // Dropdowns and Forms
 // ===============================================
-$input-height: $space-2xl; // 40px
+$input-height: unquote("clamp(2rem, 1.6rem + 2vw, 2.5rem)"); // 32px → 40px
 $input-text-color: $grey;
-$input-font-size: $font-size-sm; // 20px
-$input-width: 15rem; // 192px
+$input-font-size: $font-size-sm;
+$input-width: unquote("clamp(12rem, 10rem + 8vw, 15rem)"); // 192px → 240px
 $input-border-focus: $border solid $accent-pink;
 $color-muted: $grey;
-$min-height-textinput: 120px;
+$min-height-textinput: string.unquote("clamp(80px, 60px + 8vw, 120px)");
+
+// Dropdown specific variables
+$dropdown-max-width: string.unquote("clamp(12rem, 10rem + 8vw, 15rem)"); // 192px → 240px
+$dropdown-min-width: string.unquote("clamp(10rem, 8rem + 6vw, 12rem)"); // 160px → 192px
+$dropdown-sort-max-width: string.unquote("clamp(10rem, 8rem + 6vw, 12.5rem)"); // 160px → 200px
+$dropdown-sort-min-width: string.unquote("clamp(8rem, 6rem + 4vw, 10rem)"); // 128px → 160px
+$dropdown-max-height: string.unquote("clamp(8rem, 6rem + 8vw, 12.5rem)"); // 128px → 200px
+$dropdown-z-index: $z-filter-dropdown;
+
+// Search field variables  
+$search-field-max-width: string.unquote("clamp(18rem, 15rem + 12vw, 25rem)"); // 288px → 400px
+$search-icon-size: string.unquote("clamp(1rem, 0.8rem + 1vw, 1.25rem)"); // 16px → 20px
+$search-icon-container-size: string.unquote("clamp(1.25rem, 1rem + 1.5vw, 1.5rem)"); // 20px → 24px
+
+// Dropdown arrow icon size
+$dropdown-arrow-size: string.unquote("clamp(0.75rem, 0.6rem + 0.8vw, 1rem)"); // 12px → 16px
+
+// Product grid variables
+$product-grid-min-width-sm: string.unquote("clamp(13.75rem, 12rem + 7vw, 17.5rem)"); // 220px → 280px
+$product-grid-min-width-md: string.unquote("clamp(15.625rem, 14rem + 8vw, 20rem)"); // 250px → 320px
+$product-grid-min-width-lg: string.unquote("clamp(17.5rem, 15rem + 10vw, 22.5rem)"); // 280px → 360px
+
+// Catalog layout variables
+$catalog-sidebar-ratio: 3fr 1fr;
+$catalog-main-gap: $space-lg;
+
+// Checkbox Variables
+$checkbox-size: 18px;
+$checkbox-border-width: 2px;
+$checkbox-border-color: $grey-light;
+$checkbox-border-color-hover: $grey;
+$checkbox-bg-color: $pure-white;
+$checkbox-bg-color-checked: $grey;
+$checkbox-dot-size: 6px;
+$checkbox-dot-color: $pure-white;
+$checkbox-focus-shadow: rgba(114, 113, 116, 0.3);
+
+// Form Styles
+// ===============================================
+$form-label-color: $grey-dark;
+$form-label-color-focused: $grey;
+$form-label-required-color: $accent-pink;
+$form-input-border-color: $grey-light;
+$form-input-border-color-focused: $accent-pink;
+$form-input-border-color-error: #e74c3c;
+$form-input-bg-color: $pure-white;
+$form-input-text-color: $text-color;
+$form-gap: $space-md;
+$form-gap-small: $space-sm;
+
+// Floating Label Variables
+$floating-label-scale: 0.85;
+$floating-label-offset: -16px;
+$floating-label-padding: 0 $space-xs;
 
 // Cart Styles
 // ===============================================
 $color-table-background: $grey-dark;
-$quantity-input-width: $space-10xl;
-$cart-image-size: $space-10xl; // 160px
+$quantity-input-width: clamp(6rem, 5rem + 4vw, 8rem);
+$cart-image-size: clamp(6rem, 5rem + 8vw, 10rem); // 96px → 160px
+
+// Product Card Styles
+// ===============================================
+$product-card-max-height: string.unquote("clamp(400px, 30vw + 300px, 500px)"); // 400px → 500px
+$product-card-button-max-width: string.unquote("clamp(8rem, 6rem + 10vw, 12rem)"); // 128px → 192px
 
 // // Popup Styles
 // // ===============================================
@@ -225,13 +294,11 @@ $hover-effects-map: (
         color: $accent-pink,
     ),
     "button-main": (
-        // background: map-get($btn-primary, 'bg-color'),
-        // hover-bg-adjust: (lightness: 10%)
-        // background: $accent-pink-light,
-        // scale: 1.1,
-        // lift: 2px,
         background: $accent-pink-dark,
         color: $text-color,
+        scale: 1.01,
+        lift: 1px,
+        transition: all 0.2s ease,
     ),
     "button-scroll":(
         background: $accent-pink-dark,
@@ -290,7 +357,7 @@ $hover-effects-map: (
 				lift: 10px,
 		),
 		"table-row":(
-				background: $accent-pink-dark,
+				background: $accent-pink-light,
 		),
 );
 
@@ -321,6 +388,31 @@ $selected-effects-map: (
 );
 
 // ============================================================================
+// =============Press Effects Map (for :active states)======================
+// ============================================================================
+$press-effects-map: (
+    "button-main": (
+        background: $accent-pink-darker,
+        color: $pure-white,
+        scale: 0.98,
+        shadow: $shadow-inset,
+        transition: all 0.1s ease,
+    ),
+    "button-scroll": (
+        background: $accent-pink-darker,
+        scale: 0.95,
+    ),
+    "button-page": (
+        background: $accent-pink-darker,
+        scale: 0.95,
+    ),
+    "button-quantity": (
+        background: $grey,
+        scale: 0.95,
+    ),
+);
+
+// ============================================================================
 // =============Button Styles Map=============================================
 // ============================================================================	
 $button-styles-map: (
@@ -331,6 +423,7 @@ $button-styles-map: (
         font-size: $font-size-md,
         font-weight: $font-weight-bold,
         hover-effect: 'button-main',
+        press-effect: 'button-main',
         ),
     "btn-scroll-page": (
         text-color: $text-color,
@@ -338,6 +431,7 @@ $button-styles-map: (
         font-size: $font-size-md,
         font-weight: $font-weight-bold,
         hover-effect: 'button-scroll',
+        press-effect: 'button-scroll',
         border: 2px solid $accent-pink,
         border-radius: $radius-s,
         ),
@@ -348,6 +442,7 @@ $button-styles-map: (
         font-weight: $font-weight-bold,
         border-radius: $radius-s,
         hover-effect: 'button-page',
+        press-effect: 'button-page',
         selected-effect: 'button-page',
     ),
 		"btn-quantity": (
@@ -357,6 +452,7 @@ $button-styles-map: (
 				font-weight: $font-weight-bold,
 				border-radius: 0,
 				hover-effect: 'button-quantity',
+				press-effect: 'button-quantity',
 		),
 		"btn-tab": (
 				text-color: $text-color,
