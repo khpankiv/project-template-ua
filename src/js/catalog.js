@@ -18,7 +18,7 @@ async function initCatalog() {
   try {
     // Fetch all products
     const allProducts = await fetchProducts(dataFile);
-    if (allProducts) {
+    if (allProducts && allProducts.length > 0) {
 			await renderRandomSetsSidebar(allProducts);
       await renderProductsForPage(allProducts, 1);
       initAllCatalogInteractions(allProducts);
@@ -34,10 +34,9 @@ async function initCatalog() {
  * @param {number} currentPage - The current page number.
  ******************************************************************************/
 function initAllCatalogInteractions(products) {
-  // updatePagination(products, currentPage);
   initFilterDropdown();
 	initSalesFilter();
-  initSortDropdown(products);
+  initSortDropdown();
   initAddToCartButtons();
   initClickCard();
   initSearch(products);

@@ -4,9 +4,9 @@
 import { displayCartItems, renderProductsForPage } from './ui.js';
 import { productsPerPage} from "./file_links.js";
 import { addToCart, removeFromCart, clearCart } from './logic.js';
+import notificationManager from './notifications.js';
 import { initReviewForm, initStarRating } from './forms.js';
 import { updateCartCounter } from './header.js';
-import notificationManager from './notifications.js';
 
 // =================================================================
 // ===================Product Card Interactions=====================
@@ -182,11 +182,24 @@ export function initQuantityControls() {
  *********************************************************************************/
 export function initAddQuantity() {
   const addToCartButton = document.querySelector('#add-multiple-products');
-  addToCartButton.addEventListener('click', () => {
-		const productId = new URLSearchParams(window.location.search).get('id');
-		const quantity = parseInt(document.querySelector('.quantity').value);
-		addToCart(productId, quantity);
-  });
+  if (addToCartButton) {
+    addToCartButton.addEventListener('click', () => {
+      const productId = new URLSearchParams(window.location.search).get('id');
+      const quantity = parseInt(document.querySelector('.quantity').value) || 1;
+      
+      // Get product name for notification
+      const productName = document.querySelector('#product-name')?.textContent || 'Product';
+      
+      // Add to cart
+      addToCart(productId, quantity);
+      
+      // Show success notification
+      notificationManager.showCartNotification(
+        'product-added', 
+        `${quantity} × ${productName} added to cart`
+      );
+    });
+  }
 }
 
 /*************************************************************************************
