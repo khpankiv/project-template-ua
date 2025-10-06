@@ -7,7 +7,8 @@ import { headerPath, footerPath } from './file_links.js';
 import { FormValidator } from './forms.js';
 
 function initContactForm() {
-	new FormValidator('#contact-form'); // Auto-initializes form validation on instantiation
+	const contactFormValidator = new FormValidator('#contact-form');
+	return contactFormValidator;
 }
 
 // =====================================================================

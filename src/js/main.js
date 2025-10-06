@@ -19,10 +19,7 @@ async function initHomepage() {
 		initAddToCartButtons();
 		// === Init Slider ===
 		createSlides(8, 4, 'assets/images/slider-img/');
-
 	}
-
-
 
 //==========Initialize homepage when DOM is loaded=========================
 document.addEventListener('DOMContentLoaded', async () => {

@@ -444,19 +444,12 @@
 	z-index: $z-notification;
 	font-size: $font-size-xs;
 	color: $pure-white;
-	background: rgba($error-color, 0.95);
 	padding: $space-xs $space-sm;
 	border-radius: $radius-s;
 	border: 1px solid $error-color;
-	
-	&.error {
-		color: $pure-white;
-		background: rgba($error-color, 0.95);
-		border-color: $error-color;
-	}
+	background: rgba($error-color, 0.95);
 	
 	&.success {
-		color: $pure-white;
 		background: rgba($success-color, 0.95);
 		border-color: $success-color;
 	}

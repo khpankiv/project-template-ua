@@ -13,7 +13,6 @@
   box-sizing: border-box;
   border-radius: 0;
   box-shadow: $shadow;
-  transition: all $animation-medium $animation-ease;
 
   @include hover-effect('product-card');
 }
@@ -78,7 +77,6 @@
 	gap: $space-lg;
 	padding: $space-md 0;
 	background: transparent;
-	transition: background-color $animation-medium $animation-ease;
 
 	@include hover-effect('product-card');
 }

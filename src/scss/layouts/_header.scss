@@ -37,15 +37,14 @@
 
 .logo {
 	@include icon-container('header-logo', center, center, $space-md);
-	@include hover-effect('header-logo');
 
-.logo-bg {
-	background: $accent-pink;
-	width: $font-size-2xl, 0.1, 0.05;
-	height: auto; 
-	border-radius: $radius-logo;
-	padding: $space-xs;
-}
+	.logo-bg {
+		background: $accent-pink;
+		width: $font-size-2xl, 0.1, 0.05;
+		height: auto; 
+		border-radius: $radius-logo;
+		padding: $space-xs;
+	}
 
 	span {
 		font-size: $font-size-xl;
@@ -229,11 +228,13 @@
     @extend %modal-backdrop;
     
     .login-form-container {
-        @include modal-content;
+        @include modal-content(
+            $min-width: auto,
+            $max-width: clamp(20rem, 18rem + 8vw, 28rem),
+            $max-height: calc(100vh - #{$space-2xl})
+        );
 
-        max-width: clamp(20rem, 18rem + 8vw, 28rem); // 320px → 448px
         margin: $space-lg; // Add margin to prevent viewport overflow
-        max-height: calc(100vh - #{$space-2xl}); // Prevent vertical overflow
         overflow-y: auto; // Allow scrolling if content is too tall
         padding: $space-2xl;
         

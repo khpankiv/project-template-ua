@@ -285,49 +285,71 @@ export function initCheckoutButton() {
 }
 
 /*************************************************************************************
+ * @name handleMinusClick - Handle minus button click in cart
+ *************************************************************************************/
+function handleMinusClick(cartKey, productId) {
+	if (cartKey) {
+		removeFromCart(cartKey, 1);
+	} else if (productId) {
+		addToCart(productId, -1);
+	}
+	updateCartCounter();
+	displayCartItems();
+}
+
+/*************************************************************************************
+ * @name handlePlusClick - Handle plus button click in cart
+ *************************************************************************************/
+function handlePlusClick(cartKey, productId) {
+	if (cartKey) {
+		const cart = JSON.parse(localStorage.getItem('shoppingCart')) || {};
+		if (cart[cartKey]) {
+			cart[cartKey].quantity += 1;
+			localStorage.setItem('shoppingCart', JSON.stringify(cart));
+			updateCartCounter();
+		}
+	} else if (productId) {
+		addToCart(productId, 1);
+	}
+	displayCartItems();
+}
+
+/*************************************************************************************
+ * @name handleDeleteClick - Handle delete button click in cart
+ *************************************************************************************/
+function handleDeleteClick(cartKey, productId) {
+	if (cartKey) {
+		removeFromCart(cartKey, Infinity);
+	} else if (productId) {
+		removeFromCart(productId, Infinity);
+	}
+	updateCartCounter();
+	displayCartItems();
+}
+
+/*************************************************************************************
  * @name initCartRowsControls - Initialize cart row controls (plus, minus, delete)
  *************************************************************************************/
 export function initCartRowsControls() {
 	const cartTableBody = document.querySelector('#cart-tbody');
 	if (!cartTableBody) return;
-	cartTableBody.addEventListener('click', async (e) => {
+	
+	cartTableBody.addEventListener('click', (e) => {
 		const cartKey = e.target.getAttribute('data-cart-key');
-		const productId = e.target.getAttribute('data-id'); // fallback for old format
+		const productId = e.target.getAttribute('data-id');
 		
-		if (e.target.classList.contains('minus') || e.target.classList.contains('button-quantity') && e.target.textContent === '-') {
-			if (cartKey) {
-				removeFromCart(cartKey, 1);
-			} else if (productId) {
-				await addToCart(productId, -1); // legacy support
-			}
-			// Update header cart counter
-			updateCartCounter();
-			displayCartItems();
-		}
-		if (e.target.classList.contains('plus') || e.target.classList.contains('button-quantity') && e.target.textContent === '+') {
-			if (cartKey) {
-				// Get cart items and find the matching one to add more
-				const cart = JSON.parse(localStorage.getItem('shoppingCart')) || {};
-				if (cart[cartKey]) {
-					cart[cartKey].quantity += 1;
-					localStorage.setItem('shoppingCart', JSON.stringify(cart));
-					// Update header cart counter
-					updateCartCounter();
-				}
-			} else if (productId) {
-				await addToCart(productId, 1); // legacy support
-			}
-			displayCartItems();
-		}
-		if (e.target.classList.contains('delete-icon')) {
-			if (cartKey) {
-				removeFromCart(cartKey, Infinity);
-			} else if (productId) {
-				removeFromCart(productId, Infinity); // legacy support
-			}
-			// Update header cart counter
-			updateCartCounter();
-			displayCartItems();
+		const isMinus = e.target.classList.contains('minus') || 
+			(e.target.classList.contains('button-quantity') && e.target.textContent === '-');
+		const isPlus = e.target.classList.contains('plus') || 
+			(e.target.classList.contains('button-quantity') && e.target.textContent === '+');
+		const isDelete = e.target.classList.contains('delete-icon');
+		
+		if (isMinus) {
+			handleMinusClick(cartKey, productId);
+		} else if (isPlus) {
+			handlePlusClick(cartKey, productId);
+		} else if (isDelete) {
+			handleDeleteClick(cartKey, productId);
 		}
 	});
 }
