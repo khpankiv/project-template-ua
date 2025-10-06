@@ -61,9 +61,7 @@ export async function populateProducts(products, containerSelector, templateId, 
   const container = document.querySelector(containerSelector);
 	if (!container || !template) return;
   // Clear the container before adding new products
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
+  container.replaceChildren();
 	if (isSidebar) {
 		products.forEach(product => {
 		const card = createSidebarProductCard(product, template);

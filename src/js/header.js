@@ -45,7 +45,7 @@ function initLoginModal() {
 			passwordToggle.querySelector('.eye-icon').textContent = type === 'password' ? '👁️' : '🙈';
     });
 
-		const loginFormValidator = new FormValidator('#login-form');
+		new FormValidator('#login-form');
 }
 
 // ==========================================================================================
@@ -134,12 +134,10 @@ function setActiveNavLink() {
         const href = link.getAttribute('href');
         
         if (href) {
-            // Handle root/index page
-            if ((currentPath === '/' || currentPath.includes('index.html')) && href.includes('index.html')) {
-                link.classList.add('active', 'selected');
-            }
-            // Handle other pages
-            else if (currentPath.includes(href.replace('pages/', '')) && !href.includes('index.html')) {
+            const isIndexPage = (currentPath === '/' || currentPath.includes('index.html')) && href.includes('index.html');
+            const isOtherPage = currentPath.includes(href.replace('pages/', '')) && !href.includes('index.html');
+            
+            if (isIndexPage || isOtherPage) {
                 link.classList.add('active', 'selected');
             }
         }
