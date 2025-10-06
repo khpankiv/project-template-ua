@@ -1,18 +1,18 @@
-@import './abstracts/_variables';
-@import './abstracts/_mixins';
-@import './base/_fonts';
-@import './base/_reset';
-@import './components/_buttons';
-@import './components/_product-card';
-@import './components/_forms';
+@use './abstracts/variables' as *;
+@use './abstracts/mixins' as *;
+@use './base/fonts';
+@use './base/reset';
+@use './components/buttons';
+@use './components/product-card';
+@use './components/forms';
 
-@import './layouts/_header';
-@import './layouts/_footer';
+@use './layouts/header';
+@use './layouts/footer';
 
-@import './pages/_about';
-@import './pages/_catalog';
-@import './pages/_product-details';
-@import './pages/_cart';
+@use './pages/about';
+@use './pages/catalog';
+@use './pages/product-details';
+@use './pages/cart';
 
 // =========Page Layout===============================================
 .container {

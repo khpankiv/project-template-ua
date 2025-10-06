@@ -44,7 +44,14 @@ async function initProductDetails() {
 		// Show error message to user
 		const container = document.querySelector('.main');
 		if (container) {
-			container.innerHTML = '<div class="error-message">Sorry, there was an error loading the product details. Please try again later.</div>';
+			// Clear container safely
+			while (container.firstChild) {
+				container.removeChild(container.firstChild);
+			}
+			const errorDiv = document.createElement('div');
+			errorDiv.className = 'error-message';
+			errorDiv.textContent = 'Sorry, there was an error loading the product details. Please try again later.';
+			container.appendChild(errorDiv);
 		}
 	}
 }
@@ -73,7 +80,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         await initProductDetails();
     } catch (error) {
         console.error('Error initializing product details page:', error);
-        // Basic critical error handling
-        document.body.innerHTML = '<div style="text-align: center; padding: 50px; color: #666;">Sorry, there was an error loading the page. Please refresh and try again.</div>';
+        // Basic critical error handling - clear and show error
+        while (document.body.firstChild) {
+            document.body.removeChild(document.body.firstChild);
+        }
+        const errorDiv = document.createElement('div');
+        errorDiv.style.cssText = 'text-align: center; padding: 50px; color: #666;';
+        errorDiv.textContent = 'Sorry, there was an error loading the page. Please refresh and try again.';
+        document.body.appendChild(errorDiv);
     }
 })

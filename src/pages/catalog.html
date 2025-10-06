@@ -24,15 +24,15 @@
 				<div class="filter-labeled">
 					<label class="filter-label" for="size">Size</label>
 					<div class="filter-dropdown" id="filter-size">
-						<button class="filter-btn" id="size"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
-						<ul class="filter-options">
-							<li class="filter-option" data-value="all">All</li>
-							<li class="filter-option" data-value="M">M</li>
-							<li class="filter-option" data-value="L">L</li>
-							<li class="filter-option" data-value="XL">XL</li>
-							<li class="filter-option" data-value="S">S</li>
-							<li class="filter-option" data-value="S, M, XL">S, M, XL</li>
-							<li class="filter-option" data-value="S-L">S-L</li>
+						<button class="filter-btn" id="size" aria-haspopup="true" aria-expanded="false"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
+						<ul class="filter-options" role="listbox" aria-label="Size options">
+							<li class="filter-option" data-value="all" role="option">All</li>
+							<li class="filter-option" data-value="M" role="option">M</li>
+							<li class="filter-option" data-value="L" role="option">L</li>
+							<li class="filter-option" data-value="XL" role="option">XL</li>
+							<li class="filter-option" data-value="S" role="option">S</li>
+							<li class="filter-option" data-value="S, M, XL" role="option">S, M, XL</li>
+							<li class="filter-option" data-value="S-L" role="option">S-L</li>
 						</ul>
 					</div>
 				</div>
@@ -40,8 +40,8 @@
 				<div class="filter-labeled">
 					<label class="filter-label" for="category">Category</label>
 					<div class="filter-dropdown" id="filter-category">
-						<button class="filter-btn" id="category"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
-						<ul class="filter-options">
+						<button class="filter-btn" id="category" aria-haspopup="true" aria-expanded="false"><span>Choose option</span><img src="assets/images/icons/arrow.svg" alt="Arrow down"></button>
+						<ul class="filter-options" role="listbox" aria-label="Category options">
 							<li class="filter-option" data-value="all">All</li>
 							<li class="filter-option" data-value="suitcases">Suitcases</li>
 							<li class="filter-option" data-value="kids' luggage">Kids' luggage</li>

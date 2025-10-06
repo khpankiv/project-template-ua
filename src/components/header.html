@@ -19,21 +19,21 @@
     <!-- Logo -->
     <a href="index.html" class="logo">
       <div class="logo-bg">
-        <img src="assets/images/icons/logo.svg"/>
+        <img src="assets/images/icons/logo.svg" alt="Best Shop Logo"/>
       </div>
       <span>BEST SHOP</span>
     </a>
 
     <!-- Header Icons -->
     <div class="header-icons">
-      <a href="#" id="login-icon">
+      <a href="#" id="login-icon" aria-label="Login">
         <img src="assets/images/icons/user.svg" alt="Login">
       </a>
-      <a href="pages/cart.html" id="cart-icon" class="cart-link">
+      <a href="pages/cart.html" id="cart-icon" class="cart-link" aria-label="Shopping Cart">
         <img src="assets/images/icons/shopping-cart.svg" alt="Cart">
-        <span class="cart-counter" id="cart-counter">0</span>
+        <span class="cart-counter" id="cart-counter" aria-live="polite">0</span>
       </a>
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
@@ -44,11 +44,11 @@
   <hr class="divider" />
 
   <!-- Navigation Menu -->
-  <nav class="nav">
+  <nav class="nav" role="navigation" aria-label="Main navigation">
     <ul class="nav-list">
-      <li ><a href="index.html" class="nav-link active">Home</a></li>
-      <li ><a href="pages/catalog.html" class="nav-link">Catalog
-          <img src="assets/images/icons/arrow.svg" class="arrow">
+      <li><a href="index.html" class="nav-link active">Home</a></li>
+      <li><a href="pages/catalog.html" class="nav-link">Catalog
+          <img src="assets/images/icons/arrow.svg" class="arrow" alt="">
       </a></li>
       <li><a href="pages/about.html" class="nav-link">About Us</a></li>
       <li><a href="pages/contact.html" class="nav-link">Contact Us</a></li>
@@ -58,9 +58,9 @@
 </header>
 
 <!-- Login Modal -->
-<div id="login-modal" class="login-modal" style="display: none;">
+<div id="login-modal" class="login-modal" style="display: none;" role="dialog" aria-labelledby="login-modal-title" aria-modal="true">
   <div class="login-form-container">
-    <form id="login-form" class="login-form" novalidate>
+    <form id="login-form" class="login-form" novalidate aria-label="Login form">
 
       <div class="form-group">
         <label for="email">Email:</label>
