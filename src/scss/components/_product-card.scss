@@ -2,29 +2,30 @@
 // ======= Product Card ====================================
 // ===========================================================
 .product-card {
-	display: flex;
-	flex-direction: column;
-	background-color: $pure-white;
-	cursor: pointer;
-	height: auto;
-	min-height: clamp(20rem, 18rem + 8vw, 28rem); // 320px → 448px
-	max-height: $product-card-max-height;
-	padding: $space-lg;
-	box-sizing: border-box;
-	border-radius: 0;
-	transition: all $animation-medium $animation-ease;
-	@include hover-effect('product-card');
+  display: flex;
+  flex-direction: column;
+  background-color: $pure-white;
+  cursor: pointer;
+  height: 100%; // або фіксована висота, якщо треба
+  box-sizing: border-box;
+  border-radius: 0;
+  box-shadow: $shadow;
+  transition: all $animation-medium $animation-ease;
+  @include hover-effect('product-card');
 }
 
 .product-card-img-wrapper {
-	position: relative;
-	width: 100%;
+  position: relative;
+  width: 100%;
+  // якщо треба фіксована висота — додай тут
 }
 
 .product-card-img {
-	box-shadow: $shadow;
 	width: 100%;
+	height: auto; 
+	display: block;
 }
+
 .badge-sale {
 	position: absolute;
 	top: $space-md;
@@ -36,19 +37,20 @@
 	text-transform: uppercase;
 	padding: $space-xs $space-sm;
 	z-index: 2;
-	// letter-spacing: 0.05em;
 }
 
 .product-card-info {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	gap: $space-sm;
+	gap: $space-md;
 	padding: $space-md $space-sm $space-lg;
 	align-items: center;
-	flex-grow: 1;
-	justify-content: space-between;
+	// flex-grow: 1;
+	// justify-content: space-between; 
 	text-align: center;
+	// flex-grow: 1;
+	margin-top: auto;
 }
 
 .product-card-name {

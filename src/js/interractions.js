@@ -232,6 +232,10 @@ const clearCartButton = document.querySelector('#clear-shopping-cart');
 	if (clearCartButton) {
 		clearCartButton.addEventListener('click', () => {
 			clearCart();
+			
+			// Show cart cleared notification
+			notificationManager.showCartNotification('cart-cleared');
+			
 			// Update header cart counter
 			updateCartCounter();
 			// Update display to show empty cart message
@@ -249,7 +253,7 @@ export function initCheckoutButton() {
 			const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
 			
 			if (cart.length === 0) {
-				notificationManager.showCartNotification('cart-cleared');
+				notificationManager.showCartNotification('cart-empty');
 				return;
 			}
 			

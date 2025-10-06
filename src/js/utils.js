@@ -10,9 +10,27 @@ import { dataFile } from "./file_links.js";
  * @returns {Array} A new array with random unique items.
  ***********************************************************/
 export function getRandomItems(array, count) {
-  if (!Array.isArray(array)) return [];
-  const shuffled = array.slice().sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
+  try {
+    // Валідація параметрів
+    if (!Array.isArray(array)) {
+      console.warn('getRandomItems: array parameter is not an array');
+      return [];
+    }
+    if (typeof count !== 'number' || count < 0) {
+      console.warn('getRandomItems: count parameter must be a non-negative number');
+      return [];
+    }
+    if (array.length === 0) {
+      console.warn('getRandomItems: empty array provided');
+      return [];
+    }
+    
+    const shuffled = array.slice().sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, Math.min(count, array.length));
+  } catch (error) {
+    console.error('Error in getRandomItems:', error);
+    return [];
+  }
 }
 
 /***************************************************************************
@@ -23,16 +41,53 @@ export function getRandomItems(array, count) {
  * @returns {Array} The filtered array of products.
  ****************************************************************************/
 export function getProductsByField(products, field, value) {
-	return products.filter(function(product) {
-		let fieldValue = product[field];
-		let match = false;
-		if (Array.isArray(fieldValue)) {
-			match = fieldValue.some(v => v.toLowerCase() === value.toLowerCase());
-		} else {
-			match = fieldValue.toLowerCase() === value.toLowerCase();
+	try {
+		// Валідація параметрів
+		if (!Array.isArray(products)) {
+			console.warn('getProductsByField: products parameter is not an array');
+			return [];
 		}
-		return match;
-	});
+		if (typeof field !== 'string' || !field.trim()) {
+			console.warn('getProductsByField: field parameter must be a non-empty string');
+			return [];
+		}
+		if (value === null || value === undefined) {
+			console.warn('getProductsByField: value parameter cannot be null or undefined');
+			return [];
+		}
+		
+		return products.filter(function(product) {
+			try {
+				if (!product || typeof product !== 'object') {
+					return false;
+				}
+				
+				let fieldValue = product[field];
+				if (fieldValue === null || fieldValue === undefined) {
+					return false;
+				}
+				
+				let match = false;
+				if (Array.isArray(fieldValue)) {
+					match = fieldValue.some(v => {
+						return v && typeof v.toLowerCase === 'function' && 
+							   v.toLowerCase() === String(value).toLowerCase();
+					});
+				} else if (typeof fieldValue.toLowerCase === 'function') {
+					match = fieldValue.toLowerCase() === String(value).toLowerCase();
+				} else {
+					match = String(fieldValue) === String(value);
+				}
+				return match;
+			} catch (itemError) {
+				console.warn('Error filtering product item:', itemError);
+				return false;
+			}
+		});
+	} catch (error) {
+		console.error('Error in getProductsByField:', error);
+		return [];
+	}
 }
 
 /****************************************************************************
@@ -42,15 +97,44 @@ export function getProductsByField(products, field, value) {
  ****************************************************************************/
 export async function fetchProducts(dataFile) {
   try {
+    // Валідація параметрів
+    if (!dataFile || typeof dataFile !== 'string') {
+      throw new Error('Invalid dataFile parameter: must be a non-empty string');
+    }
+    
     const data = await fetch(dataFile);
+    
+    // Перевірка статусу відповіді
+    if (!data.ok) {
+      throw new Error(`HTTP error! status: ${data.status} - ${data.statusText}`);
+    }
+    
+    const contentType = data.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      console.warn('Response is not JSON format');
+    }
+    
     const allProducts = await data.json();
-    if (allProducts && allProducts.data) {
-      console.log('Data fetched successfully.');
+    
+    // Валідація структури даних
+    if (!allProducts) {
+      throw new Error('No data received from server');
+    }
+    
+    if (allProducts && allProducts.data && Array.isArray(allProducts.data)) {
+      console.log(`Data fetched successfully. Loaded ${allProducts.data.length} products.`);
       return allProducts.data;
+    } else if (Array.isArray(allProducts)) {
+      console.log(`Data fetched successfully. Loaded ${allProducts.length} products.`);
+      return allProducts;
+    } else {
+      console.warn('Unexpected data structure received:', allProducts);
+      return [];
     }
   } catch (error) {
-    console.error('Failed to fetch data:', error);
-    return null;
+    console.error('Failed to fetch data from', dataFile, ':', error.message);
+    // Повернемо порожній масив замість кидання помилки
+    return [];
   }
 }
 

@@ -4,10 +4,10 @@
 import { loadComponent } from './ui.js';
 import { initHeader } from './header.js';	
 import { headerPath, footerPath } from './file_links.js';
-import { initForm } from './forms.js';
+import { FormValidator } from './forms.js';
 
 function initContactForm() {
-	initForm('#contact-form', null);
+	new FormValidator('#contact-form');
 }
 
 // =====================================================================

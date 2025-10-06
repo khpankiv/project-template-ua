@@ -84,7 +84,7 @@
 				<div class="product-buttons-section">
 					<div class="quantity-controls">
 						<button type="button" class="button-quantity minus" id="quantity-minus">-</button>
-						<input class="quantity" value="1" min="1" readonly>
+						<input class="quantity" value="1" min="1" readonly autocomplete="off">
 						<button type="button" class="button-quantity plus" id="quantity-plus">+</button>
 					</div>
 					<button class="button" id="add-multiple-products">Add to Cart</button>
@@ -148,7 +148,7 @@
 							</div>
 						</div>
 						<!-- Review Form -->
-						<form id="review-form" class="review-form"> 
+						<form id="review-form" class="review-form" novalidate> 
 							<h4>Add Review</h4>
 							<p>Your email address won't be shared with anybody. Required fields have the symbol *</p>
 							<div class="rate-product-section">
@@ -182,7 +182,7 @@
 								</div>
 							</div>
 							<div class="form-checkbox-row">
-								<input type="checkbox" id="agree-checkbox" class="review-checkbox" required>
+								<input type="checkbox" id="agree-checkbox" class="review-checkbox" required autocomplete="off">
 								<p>Save my name, email, and website in this browser for when I leave another comment.</p>
 							</div>
 							<button class="button-submit">SUBMIT</button>

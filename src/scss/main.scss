@@ -71,14 +71,14 @@
 	position: relative;
 	background-color: $main-hero-bg;
 	cursor: pointer;
-	min-height: 60vh;
+	// min-height: 60vh;
 
 	.hero-content {
 		@include flex-responsive($mobile-direction: column);
 		align-items: center;
 		justify-content: space-between;
 		gap: $space-lg;
-		padding: $space-lg;
+		padding: $space-5xl $container-padding;
 		
 		@media (max-width: 768px) {
 			text-align: center;
@@ -90,10 +90,12 @@
 		@include section-styles('hero');
 		flex: 1;
 		min-width: 0;
+		max-width: 50%; // Обмежуємо текст, щоб не вилазив
 		
 		@media (max-width: 768px) {
 			order: 2;
 			padding: $space-md;
+			max-width: 100%;
 		}
 		
 		h2 {
@@ -274,60 +276,212 @@
     height: auto;
 }
 
-// New slider styles
+// ===========================================================
+// ================= Slider Styles ===========================
+// ===========================================================
 
+// Travel Suitcases Slider Container
 .travel-slider-container {
-	padding-top: $space-xl;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  align-items: center;
-  gap: $space-lg;
-  position: relative;
-  
-  @media (min-width: 1440px) {
-  	grid-template-columns: repeat(4, 1fr);
-  }
-  
-  @media (max-width: 1024px) {
-  	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  	gap: $space-md;
-  	padding-top: $space-lg;
-  }
-  
-  @media (max-width: 768px) {
-  	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  	gap: $space-md;
-  	padding: $space-md;
-  	
-  	// На мобільних показуємо тільки 2 елементи і додаємо горизонтальний скрол
-  	overflow-x: auto;
-  	scroll-snap-type: x mandatory;
-  	-webkit-overflow-scrolling: touch;
-  	
-  	.travel-slide {
-  		scroll-snap-align: start;
-  		min-width: 250px;
-  	}
-  }
-}
-
-.travel-slide {
+	position: relative;
+	overflow: hidden;
+	height: $slide-height;
+	border-radius: $radius-m;
+	box-shadow: $shadow;
 	
-		height: $slide-height;
-		background-size: cover;
-		color: $pure-white;
-		transition: transform 10s $animation-ease, 
-								box-shadow 2s $animation-ease;
-		display: flex;
-		align-items: flex-end;
-		justify-content: center;
-		padding-bottom: $space-2xl;
-		@include hover-effect('travel-slide');
+	// Responsive height
+	@media (max-width: $breakpoint-tablet) {
+		height: clamp(20rem, 15rem + 20vw, 30rem); // 320px → 480px
+	}
+	
+	@media (max-width: $breakpoint-mobile) {
+		height: clamp(15rem, 12rem + 12vw, 22rem); // 240px → 352px
+	}
 }
 
-// ========Main Offer Section===============================================
+// Individual travel slides
+.travel-slide {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: $pure-white;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	padding-bottom: $space-xl;
+	
+	// Smooth transitions for all slide changes
+	transition: opacity 0.3s ease-in-out;
+	
+	// Default state (hidden)
+	opacity: 0;
+	
+	// Active slide state
+	&.active {
+		opacity: 1;
+		transform: scale(1);
+		filter: blur(0);
+		z-index: 2;
+	}
+	
+	// Transition slides (partially visible)
+	&.travel-slide-transition {
+		opacity: 0.7;
+		transform: scale(0.98);
+		filter: blur(0.5px);
+		z-index: 1;
+	}
+	
+	// Loading state
+	&:not(.loaded) {
+		background-color: $grey-light;
+		
+		&::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: clamp(2.25rem, 1.8rem + 1.8vw, 2.75rem); // 36px → 44px
+			height: clamp(2.25rem, 1.8rem + 1.8vw, 2.75rem); // 36px → 44px
+			border: 3px solid rgba($pure-white, 0.3);
+			border-top: 3px solid $pure-white;
+			border-radius: 50%;
+			animation: spin 1s linear infinite;
+		}
+	}
+	
+	// Slide text styling
+	.travel-slide-text {
+		font-size: $font-size-xl;
+		font-weight: $font-weight-bold;
+		text-align: center;
+		padding: $space-md $space-lg;
+		background: rgba(0, 0, 0, 0.4);
+		border-radius: $radius-s;
+		backdrop-filter: blur(10px);
+		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+		line-height: $line-height-tight;
+		max-width: 80%;
+		
+		@media (max-width: $breakpoint-tablet) {
+			font-size: $font-size-lg;
+			padding: $space-sm $space-md;
+		}
+		
+		@media (max-width: $breakpoint-mobile) {
+			font-size: $font-size-md;
+			padding: $space-xs $space-sm;
+		}
+	}
+	
+	// Hover effect for slides
+	&:hover {
+		cursor: pointer;
+		
+		.travel-slide-text {
+			background: rgba(0, 0, 0, 0.6);
+			transform: translateY(-2px);
+		}
+	}
+}
+
+// Loading animation
+@keyframes spin {
+	0% { transform: translate(-50%, -50%) rotate(0deg); }
+	100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+// Navigation arrows for travel slider
+.travel-slider-arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba($pure-white, 0.95);
+	color: $accent-pink;
+	border: 2px solid rgba($pure-white, 0.8);
+	width: clamp(3rem, 2.5rem + 2.5vw, 4rem); // 48px → 64px
+	height: clamp(3rem, 2.5rem + 2.5vw, 4rem); // 48px → 64px
+	border-radius: 50%;
+	font-size: $font-size-xl;
+	font-weight: $font-weight-bold;
+	cursor: pointer;
+	z-index: 15;
+	transition: all 0.3s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(10px);
+	
+	&:hover:not(:disabled) {
+		background: $accent-pink;
+		color: $pure-white;
+		border-color: $accent-pink;
+		transform: translateY(-50%) scale(1.1);
+		box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+	}
+	
+	&:active {
+		transform: translateY(-50%) scale(0.95);
+	}
+	
+	&:focus {
+		outline: 3px solid rgba($accent-pink, 0.5);
+		outline-offset: 2px;
+	}
+	
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		pointer-events: none;
+	}
+	
+	&.travel-slider-arrow-left {
+		left: $space-lg;
+		
+		@media (max-width: $breakpoint-mobile) {
+			left: $space-sm;
+		}
+	}
+	
+	&.travel-slider-arrow-right {
+		right: $space-lg;
+		
+		@media (max-width: $breakpoint-mobile) {
+			right: $space-sm;
+		}
+	}
+	
+	// Responsive sizing
+	@media (max-width: $breakpoint-tablet) {
+		width: 50px;
+		height: 50px;
+		font-size: $font-size-lg;
+	}
+	
+	@media (max-width: $breakpoint-mobile) {
+		width: 40px;
+		height: 40px;
+		font-size: $font-size-md;
+	}
+}// ========Main Offer Section===============================================
 .main-offer-section {
 	@include shaded-background("/src/assets/images/backgrounds/offer2.png");
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0;
+	min-height: 400px;
+
+	@media (max-width: 1024px) {
+		grid-template-columns: 1fr;
+		gap: 0;
+		min-height: auto;
+	}
 		
 		.main-offer-1 {
 			@include section-styles('offer-banner');
@@ -510,8 +664,8 @@
 		padding: $space-2xl;
 		background: $pure-white;
 		box-shadow: $shadow;
-		@include hover-effect('people-card');
-																	
+		@include hover-effect('product-card');
+		
 		p {
 			font-size: $font-size-md;
 			color: $grey-dark;
@@ -524,7 +678,3 @@
 		}
 	}
 }
-
-
-
-

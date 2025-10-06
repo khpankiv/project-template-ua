@@ -136,6 +136,10 @@
         @include hover-effect('header-menu');
 				@include selected-effect('header-menu');
 				white-space: nowrap;
+				
+				&.active {
+					color: $accent-pink;
+				}
 
         .arrow {
 					display: inline-block;
@@ -213,4 +217,109 @@
     height: $hamburger-height;        
     background: $hamburger-bg-color;
     transition: background-color $animation-fast $animation-ease;
+}
+
+// ===============================================================
+//=============Login Modal Styles=================================
+// ==============================================================
+.login-modal {
+    @include modal-backdrop;
+    
+    .login-form-container {
+        @include modal-content;
+        max-width: clamp(20rem, 18rem + 8vw, 28rem); // 320px → 448px
+        padding: $space-2xl;
+        
+        .login-form {
+            .form-group {
+                @include form-group;
+                margin-bottom: $space-lg;
+                
+                label {
+                    display: block;
+                    font-size: $font-size-sm;
+                    font-weight: $font-weight-medium;
+                    color: $form-label-color;
+                    margin-bottom: $space-xs;
+                }
+                
+                input {
+                    @include base-input;
+                    width: 100%;
+                }
+                
+                .password-field {
+                    position: relative;
+                    
+                    .password-toggle {
+                        position: absolute;
+                        right: $space-md;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+                        padding: $space-xs;
+                        color: $grey;
+                        
+                        &:hover {
+                            color: $accent-pink;
+                        }
+                    }
+                }
+                
+                .error-message {
+                    display: block;
+                    font-size: $font-size-xs;
+                    color: $form-input-border-color-error;
+                    margin-top: $space-xs;
+                }
+            }
+            
+            .form-line-group {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: $space-md;
+                margin-bottom: $space-lg;
+                
+                .checkbox-label {
+                    display: flex;
+                    align-items: center;
+                    gap: $space-sm;
+                    font-size: $font-size-sm;
+                    color: $grey;
+                    font-weight: $font-weight-normal;
+                    cursor: pointer;
+
+                    input[type="checkbox"] {
+                        cursor: pointer;
+                        accent-color: $checkbox-bg-color-checked;
+                    }
+
+                    span {
+                        user-select: none;
+                    }
+                }
+                
+                .forgot {
+                    font-size: $font-size-sm;
+                    color: $accent-pink;
+                    font-weight: $font-weight-bold;
+                    text-decoration: none;
+                    white-space: nowrap;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+            
+            .button {
+                @include button('btn-base');
+                width: 100%;
+                margin-top: $space-md;
+            }
+        }
+    }
 }

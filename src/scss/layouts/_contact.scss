@@ -1,20 +1,6 @@
 // Contact page specific styles
-.contact-wrapper {
-    .map-offer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: transparent;
-        
-        .container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0;
-        }
-    }
-    
-    .offer-2-section {
-        @include split-section(right); // Форма справа від картинки
-    }
+
+// Contact form section - image left, form right
+.offer-2-section {
+    @include split-section(right); // Форма справа від картинки
 }

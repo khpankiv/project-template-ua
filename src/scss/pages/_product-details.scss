@@ -65,11 +65,17 @@
 	}
 }
 // ==========Product Filters=================
-.filter-label {
-	font-size: $font-size-sm;
-	font-weight: $font-weight-bold;
-	line-height: $line-height-base;
-	color: $grey-dark;
+// Фільтри на сторінці продукту розтягуються на всю ширину
+.product-details .filter-labeled {
+	width: 100%;
+	
+	.filter-dropdown {
+		width: 100%;
+		
+		.filter-btn {
+			width: 100%;
+		}
+	}
 }
 
 .product-buttons-section {
@@ -88,6 +94,21 @@
 	padding-block: $space-2xl;
 }
 
+// Product page filters - stretch to full container width like add to cart button
+.product-details .filter-labeled {
+	width: 100%;
+	max-width: none; // Override any max-width restrictions
+	
+	.filter-dropdown {
+		width: 100%;
+		
+		.filter-btn {
+			width: 100%;
+			max-width: none;
+		}
+	}
+}
+
 .review-form-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -96,6 +117,58 @@
 	@media (max-width: 768px) {
 		grid-template-columns: 1fr;
 		gap: $space-xl;
+	}
+}
+
+// Review form grid layout like in the photo
+.review-form .form-grid {
+	display: grid;
+	gap: $space-lg;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto auto;
+
+	@media (max-width: $breakpoint-tablet) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Textarea (Review) takes full width in first row
+.review-form .floating-input-group:has(textarea) {
+	grid-column: 1 / -1;
+	grid-row: 1;
+}
+
+// Name field in second row, first column
+.review-form .floating-input-group:has(input[type="text"]) {
+	grid-column: 1;
+	grid-row: 2;
+}
+
+// Email field in second row, second column  
+.review-form .floating-input-group:has(input[type="email"]) {
+	grid-column: 2;
+	grid-row: 2;
+	
+	@media (max-width: $breakpoint-tablet) {
+		grid-column: 1;
+		grid-row: 3;
+	}
+}
+
+// Checkbox row - horizontal layout
+.review-form .form-checkbox-row {
+	display: flex;
+	align-items: flex-start;
+	gap: $space-sm;
+	
+	input[type="checkbox"] {
+		flex-shrink: 0;
+		margin-top: 0.2em; // Align with first line of text
+	}
+	
+	p {
+		margin: 0;
+		flex: 1;
 	}
 }
 

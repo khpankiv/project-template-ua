@@ -30,19 +30,39 @@ class NotificationManager {
             info: 'ℹ️'
         };
 
-        popup.innerHTML = `
-            <div class="popup-content">
-                <div class="popup-icon">${icons[type] || icons.info}</div>
-                <div class="popup-text">
-                    <div class="popup-title">${title}</div>
-                    <div class="popup-message">${message}</div>
-                </div>
-            </div>
-            <button class="popup-close">&times;</button>
-        `;
+        // Безпечне створення DOM елементів замість innerHTML
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content';
+        
+        const popupIcon = document.createElement('div');
+        popupIcon.className = 'popup-icon';
+        popupIcon.textContent = icons[type] || icons.info;
+        
+        const popupText = document.createElement('div');
+        popupText.className = 'popup-text';
+        
+        const popupTitle = document.createElement('div');
+        popupTitle.className = 'popup-title';
+        popupTitle.textContent = title || 'Notification';
+        
+        const popupMessage = document.createElement('div');
+        popupMessage.className = 'popup-message';
+        popupMessage.textContent = message || '';
+        
+        popupText.appendChild(popupTitle);
+        popupText.appendChild(popupMessage);
+        
+        popupContent.appendChild(popupIcon);
+        popupContent.appendChild(popupText);
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'popup-close';
+        closeBtn.textContent = '×';
+        
+        popup.appendChild(popupContent);
+        popup.appendChild(closeBtn);
 
         // Додаємо обробники подій
-        const closeBtn = popup.querySelector('.popup-close');
         closeBtn.addEventListener('click', () => this.hidePopup(popup));
 
         // Додаємо в DOM та показуємо

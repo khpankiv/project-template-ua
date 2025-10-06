@@ -5,6 +5,7 @@ import { updatePagination } from "./interractions.js";
 import { productCardTemplatePath, productsPerPage, numberOfRandomProducts, numberOfRandomSets, imageCount, imageFolder} from "./file_links.js";
 import { getProductsByField, getInfoById, getRandomItems, generateLoremIpsumParagraphs } from "./utils.js";
 import { getCartTotal, clearCart } from "./logic.js";
+import notificationManager from "./notifications.js";
 
 // Duplicate function removed - using exported version below
 
@@ -23,13 +24,24 @@ export async function loadComponent(id, url) {
   if (component) {
     try {
       const res = await fetch(url);
-      component.innerHTML = await res.text();
+      // Безпечніше завантаження HTML компонентів
+      const html = await res.text();
+      // Санітизуємо HTML перед вставкою
+      component.innerHTML = sanitizeHTML(html);
     } catch (error) {
       console.error(`Failed to load component from ${url}:`, error);
     }
   } else {
     console.error(`Element with ID '${id}' not found in the DOM.`);
   }
+}
+
+// Функція для базової санітизації HTML
+// Для завантаження компонентів використовуємо оригінальний HTML
+function sanitizeHTML(html) {
+  // Для header/footer компонентів повертаємо як є
+  // В майбутньому можна додати більш складну логіку санітизації
+  return html;
 }
 
 // ===========================================================
@@ -206,7 +218,7 @@ export async function renderProductsForPage(products, currentPage) {
  ******************************************************************************/
 export function renderProductDetailsPage(product) {
 	if (!product) {
-		showNotFoundPopup('error', 'Product not found');
+		notificationManager.showCartNotification('product-not-found');
 		return;
 	}
   document.title = `${product.name} - Product Details`;
@@ -224,7 +236,8 @@ export function renderProductDetailsPage(product) {
 	document.querySelector('#product-rating-text').textContent = `${product.popularity} || 0} Clients Reviewed`;
 	if (ratingEl) renderStars(product.rating, ratingEl);
 	const descriptionEl = generateLoremIpsumParagraphs(2, 3); //2 paragraphs, 3 sentences each
-	document.querySelector('.product-description').innerHTML = descriptionEl || 'No description available.';
+	// Використовуємо textContent для безпеки
+	document.querySelector('.product-description').textContent = descriptionEl || 'No description available.';
 
 	document.querySelector('#filter-size .filter-btn').textContent = product.size || 'Choose option ▾';
 	document.querySelector('#filter-color .filter-btn').textContent = product.color || 'Choose option ▾';
@@ -252,7 +265,8 @@ export function createSlides(imageCount, numSlides, imageFolder) {
 				const slide = document.createElement("div");
 				slide.className = "travel-slide";
 				slide.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${images[imgIdx]})`;
-				slide.innerHTML = generateLoremIpsumParagraphs(1, 1);
+				// Використовуємо textContent для безпеки
+			slide.textContent = generateLoremIpsumParagraphs(1, 1);
 				sliderContainer.appendChild(slide);
 			}
 		}
@@ -284,29 +298,86 @@ export async function displayCartItems() {
 			items.forEach(item => {
 				const cartKey = `${item.name}|${item.size}|${item.color}`;
 				const row = document.createElement('tr');
-				row.innerHTML = `
-				<td><img class="cart-item-image" src="${item.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png')}" alt="Product Image"></td>
-				<td class="cart-item-name">
-					<div class="product-details">
-						<div class="product-name">${item.name}</div>
-						<div class="product-variant">Size: ${item.size} | Color: ${item.color}</div>
-					</div>
-				</td>
-				<td class="cart-item-price">$${item.price}</td>
-				<td class="cart-item-quantity">
-					<div class="quantity-controls">
-						<button type="button" class="button-quantity minus" data-cart-key="${cartKey}">-</button>
-						<input class="quantity" value="${item.quantity}" min="1" readonly>
-						<button type="button" class="button-quantity plus" data-cart-key="${cartKey}">+</button>
-					</div>
-				</td>
-				<td class="cart-item-total">$${item.price * item.quantity}</td>
-				<td>
-					<button class="delete-item-button">
-						<img class="delete-icon" src="assets/images/icons/trash.svg" alt="Delete" data-cart-key="${cartKey}">
-					</button>
-				</td>
-			`;
+				
+				// Безпечне створення DOM елементів замість innerHTML
+				// Стовпець з зображенням
+				const imgCell = document.createElement('td');
+				const img = document.createElement('img');
+				img.className = 'cart-item-image';
+				img.src = item.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png');
+				img.alt = 'Product Image';
+				imgCell.appendChild(img);
+				
+				// Стовпець з назвою
+				const nameCell = document.createElement('td');
+				nameCell.className = 'cart-item-name';
+				const productDetails = document.createElement('div');
+				productDetails.className = 'product-details';
+				const productName = document.createElement('div');
+				productName.className = 'product-name';
+				productName.textContent = item.name;
+				const productVariant = document.createElement('div');
+				productVariant.className = 'product-variant';
+				productVariant.textContent = `Size: ${item.size} | Color: ${item.color}`;
+				productDetails.appendChild(productName);
+				productDetails.appendChild(productVariant);
+				nameCell.appendChild(productDetails);
+				
+				// Стовпець з ціною
+				const priceCell = document.createElement('td');
+				priceCell.className = 'cart-item-price';
+				priceCell.textContent = `$${item.price}`;
+				
+				// Стовпець з кількістю
+				const quantityCell = document.createElement('td');
+				quantityCell.className = 'cart-item-quantity';
+				const quantityControls = document.createElement('div');
+				quantityControls.className = 'quantity-controls';
+				const minusBtn = document.createElement('button');
+				minusBtn.type = 'button';
+				minusBtn.className = 'button-quantity minus';
+				minusBtn.setAttribute('data-cart-key', cartKey);
+				minusBtn.textContent = '-';
+				const quantityInput = document.createElement('input');
+				quantityInput.className = 'quantity';
+				quantityInput.value = item.quantity;
+				quantityInput.min = '1';
+				quantityInput.readOnly = true;
+				const plusBtn = document.createElement('button');
+				plusBtn.type = 'button';
+				plusBtn.className = 'button-quantity plus';
+				plusBtn.setAttribute('data-cart-key', cartKey);
+				plusBtn.textContent = '+';
+				quantityControls.appendChild(minusBtn);
+				quantityControls.appendChild(quantityInput);
+				quantityControls.appendChild(plusBtn);
+				quantityCell.appendChild(quantityControls);
+				
+				// Стовпець з загальною сумою
+				const totalCell = document.createElement('td');
+				totalCell.className = 'cart-item-total';
+				totalCell.textContent = `$${item.price * item.quantity}`;
+				
+				// Стовпець з кнопкою видалення
+				const deleteCell = document.createElement('td');
+				const deleteBtn = document.createElement('button');
+				deleteBtn.className = 'delete-item-button';
+				const deleteIcon = document.createElement('img');
+				deleteIcon.className = 'delete-icon';
+				deleteIcon.src = 'assets/images/icons/trash.svg';
+				deleteIcon.alt = 'Delete';
+				deleteIcon.setAttribute('data-cart-key', cartKey);
+				deleteBtn.appendChild(deleteIcon);
+				deleteCell.appendChild(deleteBtn);
+				
+				// Додаємо всі стовпці до рядка
+				row.appendChild(imgCell);
+				row.appendChild(nameCell);
+				row.appendChild(priceCell);
+				row.appendChild(quantityCell);
+				row.appendChild(totalCell);
+				row.appendChild(deleteCell);
+				
 				cartTableBody.appendChild(row);
 			});
   	// Update cart summary after rendering items

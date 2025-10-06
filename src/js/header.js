@@ -1,7 +1,7 @@
 // =======================================================================
 // Header Functionality: Login Modal, Cart Counter, Active Link Highlighting, Mobile Menu
 // =======================================================================
-import { initForm } from './forms.js';
+import { FormValidator } from './forms.js';
 
 /*******************************************************************************************************
  * @name initHeader - Initializes header functionalities: login modal, cart counter, mobile menu.
@@ -54,7 +54,7 @@ function initLoginModal() {
 			passwordToggle.querySelector('.eye-icon').textContent = type === 'password' ? '👁️' : '🙈';
     });
 
-		initForm('#login-form', null);
+		new FormValidator('#login-form');
 
     // // Form validation and submission
     // loginForm?.addEventListener('submit', (e) => {

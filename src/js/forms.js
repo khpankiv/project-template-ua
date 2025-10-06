@@ -317,11 +317,14 @@ export function initFloatingLabels() {
  * @name initReviewForm - Initialize review form functionality
  *****************************************************************************/
 export function initReviewForm() {
-	initForm('#review-form');
+	new FormValidator('#review-form');
 	initFloatingLabels();
 	renderStars(3, document.querySelector('.review-rating'));
-	let productName = document.querySelector('#product-name').textContent;
-	document.querySelector('#number-of-reviews').textContent = '1 review for ' + productName;
+	let productName = document.querySelector('#product-name')?.textContent || 'Product';
+	const reviewsElement = document.querySelector('#number-of-reviews');
+	if (reviewsElement) {
+		reviewsElement.textContent = '1 review for ' + productName;
+	}
 	// initStarRating();
 }
 
@@ -333,99 +336,275 @@ export function initReviewForm() {
 // }
 
 /****************************************************************************
- * @name initForm - Initialize form validation and submission handling
+ * @class FormValidator - Universal form validation class with real-time validation
+ ***************************************************************************/
+export class FormValidator {
+	constructor(formSelector) {
+		this.form = document.querySelector(formSelector);
+		this.fields = new Map(); // Store field validation states
+		this.validationRules = new Map(); // Store validation rules for each field
+		
+		if (!this.form) {
+			console.warn(`Form not found: ${formSelector}`);
+			return;
+		}
+		
+		this.init();
+	}
+	
+	/**
+	 * Initialize the form validator
+	 */
+	init() {
+		// Discover all form inputs
+		this.discoverFields();
+		
+		// Set up validation rules
+		this.setupValidationRules();
+		
+		// Add event listeners
+		this.attachEventListeners();
+		
+		// Initial validation state
+		this.updateSubmitButton();
+	}
+	
+	/**
+	 * Discover all form fields and their types
+	 */
+	discoverFields() {
+		const inputs = this.form.querySelectorAll('input, textarea, select');
+		
+		inputs.forEach(input => {
+			const fieldType = this.getFieldType(input);
+			this.fields.set(input.id || input.name, {
+				element: input,
+				type: fieldType,
+				isValid: false,
+				isRequired: input.hasAttribute('required')
+			});
+		});
+	}
+	
+	/**
+	 * Determine field type for validation
+	 */
+	getFieldType(input) {
+		if (input.type === 'email' || input.id === 'email' || input.id === 'mail') return 'email';
+		if (input.type === 'password' || input.id === 'password') return 'password';
+		if (input.type === 'checkbox') return 'checkbox';
+		if (input.tagName === 'TEXTAREA' || input.id === 'message') return 'message';
+		if (input.id === 'topic') return 'topic';
+		if (input.id === 'name' || input.name === 'name') return 'name';
+		return 'text';
+	}
+	
+	/**
+	 * Setup validation rules for different field types
+	 */
+	setupValidationRules() {
+		this.validationRules.set('name', (value) => {
+			if (!value) return { isValid: false, message: 'Name is required' };
+			if (value.length < 2) return { isValid: false, message: 'Name must contain at least 2 characters' };
+			if (!/^[a-zA-ZА-Яа-я\s''`-]+$/u.test(value)) return { isValid: false, message: 'Name can contain only letters and spaces' };
+			return { isValid: true };
+		});
+		
+		this.validationRules.set('email', (value) => {
+			if (!value) return { isValid: false, message: 'Email is required' };
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(value)) return { isValid: false, message: 'Enter a valid email address' };
+			return { isValid: true };
+		});
+		
+		this.validationRules.set('password', (value) => {
+			if (!value) return { isValid: false, message: 'Password is required' };
+			if (value.length < 6) return { isValid: false, message: 'Password must contain at least 6 characters' };
+			if (!/(?=.*[a-zA-Z])(?=.*\d)/.test(value)) return { isValid: false, message: 'Password must contain letters and numbers' };
+			return { isValid: true };
+		});
+		
+		this.validationRules.set('message', (value) => {
+			if (!value) return { isValid: false, message: 'Message is required' };
+			if (value.length < 10) return { isValid: false, message: 'Message must contain at least 10 characters' };
+			if (value.length > 1000) return { isValid: false, message: 'Message must be shorter than 1000 characters' };
+			return { isValid: true };
+		});
+		
+		this.validationRules.set('topic', (value) => {
+			if (!value || value === '') return { isValid: false, message: 'Please select a topic' };
+			return { isValid: true };
+		});
+		
+		this.validationRules.set('checkbox', (checked, element) => {
+			if (element.hasAttribute('required') && !checked) return { isValid: false, message: 'You must agree before submitting' };
+			return { isValid: true };
+		});
+		
+		this.validationRules.set('text', (value) => {
+			if (!value) return { isValid: false, message: 'This field is required' };
+			return { isValid: true };
+		});
+	}
+	
+	/**
+	 * Attach event listeners to form fields
+	 */
+	attachEventListeners() {
+		this.fields.forEach((field, fieldKey) => {
+			const element = field.element;
+			
+			// Real-time validation on input (but only after first interaction)
+			element.addEventListener('input', (e) => {
+				e.preventDefault();
+				if (element.value.length > 0 || field.hasInteracted) {
+					this.validateField(fieldKey);
+				}
+			});
+			
+			// Validation on blur (always)
+			element.addEventListener('blur', (e) => {
+				e.preventDefault();
+				field.hasInteracted = true;
+				this.validateField(fieldKey);
+			});
+		});
+		
+		// Form submission
+		this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+	}
+	
+	/**
+	 * Validate a specific field
+	 */
+	validateField(fieldKey) {
+		const field = this.fields.get(fieldKey);
+		if (!field) return;
+		
+		const element = field.element;
+		const value = element.type === 'checkbox' ? element.checked : element.value.trim();
+		
+		// Skip validation for non-required empty fields
+		if (!field.isRequired && !value && element.type !== 'checkbox') {
+			field.isValid = true;
+			notificationManager.hideInlineNotification(element);
+			element.classList.remove('error', 'valid');
+			this.updateSubmitButton();
+			return;
+		}
+		
+		const rule = this.validationRules.get(field.type);
+		if (!rule) {
+			field.isValid = true;
+			this.updateSubmitButton();
+			return;
+		}
+		
+		const result = rule(value, element);
+		field.isValid = result.isValid;
+		
+		// Show/hide notification
+		if (result.isValid) {
+			notificationManager.showFormValidation(element, true);
+		} else {
+			notificationManager.showFormValidation(element, false, result.message);
+		}
+		
+		this.updateSubmitButton();
+	}
+	
+	/**
+	 * Validate all fields in the form
+	 */
+	validateAllFields() {
+		let isFormValid = true;
+		
+		this.fields.forEach((field, fieldKey) => {
+			this.validateField(fieldKey);
+			if (!field.isValid) {
+				isFormValid = false;
+			}
+		});
+		
+		return isFormValid;
+	}
+	
+	/**
+	 * Update submit button state based on form validity
+	 */
+	updateSubmitButton() {
+		const submitButton = this.form.querySelector('button[type="submit"], button:not([type])');
+		if (!submitButton) return;
+		
+		const isFormValid = Array.from(this.fields.values()).every(field => field.isValid);
+		
+		if (isFormValid) {
+			submitButton.disabled = false;
+			submitButton.classList.remove('disabled');
+		} else {
+			submitButton.disabled = true;
+			submitButton.classList.add('disabled');
+		}
+	}
+	
+	/**
+	 * Handle form submission
+	 */
+	handleSubmit(e) {
+		e.preventDefault();
+		
+		// Validate all fields before submission
+		const isValid = this.validateAllFields();
+		
+		if (isValid) {
+			this.onFormSubmit(e);
+		}
+	}
+	
+	/**
+	 * Form submission handler (can be overridden)
+	 */
+	onFormSubmit(e) {
+		// Show success notification
+		notificationManager.showPopup(
+			'success',
+			'Thank you for your feedback!',
+			'Your message has been successfully sent. We will contact you shortly.',
+			5000
+		);
+		
+		// Reset form
+		this.resetForm();
+	}
+	
+	/**
+	 * Reset form and clear all validation states
+	 */
+	resetForm() {
+		this.form.reset();
+		
+		// Clear validation states
+		this.fields.forEach(field => {
+			field.isValid = false;
+			field.hasInteracted = false;
+			notificationManager.hideInlineNotification(field.element);
+			field.element.classList.remove('error', 'valid');
+		});
+		
+		// Reset star rating if exists
+		updateStarDisplay(0);
+		
+		this.updateSubmitButton();
+	}
+}
+
+/****************************************************************************
+ * @name initForm - Initialize form validation and submission handling (legacy)
  * @param {string} formId - The ID of the form to initialize
- * @param {object} star - The star rating element
  ***************************************************************************/
 export function initForm(formId) {
-		const form = document.querySelector(formId);
-    if (!form) return;
-
-		const nameInput = document.querySelector('#name');
-		const emailInput = document.querySelector('#email');
-		const mailInput = document.querySelector('#mail');
-		const topicInput = document.querySelector('#topic');
-		const messageInput = document.querySelector('#message');
-		const checkedInput = document.querySelector('#agree-checkbox');
-		const passwordInput = document.querySelector('#password');
-		let nameValid = true;
-		let emailValid = true;
-		let mailValid = true;
-		let topicValid = true;
-		let messageValid = true;
-		let checkedValid = true;
-		let passwordValid = true;
-    // Real-time validation
-    nameInput?.addEventListener('blur', (event) => {
-				event.preventDefault();
-        nameValid = validateName(nameInput);
-    });
-    nameInput?.addEventListener('input', (event) => {
-			event.preventDefault();
-        if (nameInput.value.length > 0) nameValid = validateName(nameInput);
-    });
-
-    emailInput?.addEventListener('blur', (event)	 => {
-        event.preventDefault();
-        emailValid = validateEmail(emailInput);
-    });
-    emailInput?.addEventListener('input', (event) => {
-        event.preventDefault();
-        if (emailInput.value.length > 0) emailValid = validateEmail(emailInput);
-    });
-
-		mailInput?.addEventListener('blur', (event) => {
-			event.preventDefault();
-			mailValid = validateEmail(mailInput);
-		});
-		mailInput?.addEventListener('input', (event) => {
-			event.preventDefault();
-			if (mailInput.value.length > 0) mailValid = validateEmail(mailInput);
-		});
-
-		topicInput?.addEventListener('blur', (event) => {
-			event.preventDefault();
-			topicValid = validateTopic(topicInput);
-		});
-		topicInput?.addEventListener('input', (event) => {
-			event.preventDefault();
-			if (topicInput.value.length > 0) topicValid = validateTopic(topicInput);
-		});
-
-    messageInput?.addEventListener('blur', (event) => {
-        event.preventDefault();
-        messageValid = validateMessage(messageInput);
-    });
-    messageInput?.addEventListener('input', (event) => {
-        event.preventDefault();
-        if (messageInput.value.length > 0) messageValid = validateMessage(messageInput);
-    });
-
-		passwordInput?.addEventListener('blur', (event) => {
-			event.preventDefault();
-			passwordValid = validatePassword(passwordInput);
-		});
-		passwordInput?.addEventListener('input', (event) => {
-			event.preventDefault();
-			if (passwordInput.value.length > 0) passwordValid = validatePassword(passwordInput);
-		});
-
-		if (checkedInput) {
-			const checkedValid = checkedInput.checked;
-			if (!checkedValid) {
-				showError('review-checkbox', 'You must agree before submitting.');
-			}
-		}
-
-		const isValid = nameValid && emailValid && topicValid && messageValid && checkedValid;
-		if (isValid) {
-			let button = form.querySelector('button');
-			button.disabled = false;
-			button.classList.remove('disabled');
-			form.reset();
-			form.addEventListener('submit', handleFormSubmit);
-
-		}
+	// Use new FormValidator class instead
+	new FormValidator(formId);
 }
 
 /****************************************************************************

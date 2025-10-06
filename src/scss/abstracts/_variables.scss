@@ -205,6 +205,12 @@ $checkbox-dot-size: 6px;
 $checkbox-dot-color: $pure-white;
 $checkbox-focus-shadow: rgba(114, 113, 116, 0.3);
 
+// Breakpoints
+// ===============================================
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;  
+$breakpoint-desktop: 1440px;
+
 // Form Styles
 // ===============================================
 $form-label-color: $grey-dark;
@@ -213,6 +219,7 @@ $form-label-required-color: $accent-pink;
 $form-input-border-color: $grey-light;
 $form-input-border-color-focused: $accent-pink;
 $form-input-border-color-error: #e74c3c;
+$form-input-border-color-success: #27ae60;
 $form-input-bg-color: $pure-white;
 $form-input-text-color: $text-color;
 $form-gap: $space-md;
@@ -232,6 +239,7 @@ $cart-image-size: clamp(6rem, 5rem + 8vw, 10rem); // 96px → 160px
 // Product Card Styles
 // ===============================================
 $product-card-max-height: string.unquote("clamp(400px, 30vw + 300px, 500px)"); // 400px → 500px
+$product-card-img-height: string.unquote("clamp(12rem, 10rem + 8vw, 16rem)"); // 192px → 256px
 $product-card-button-max-width: string.unquote("clamp(8rem, 6rem + 10vw, 12rem)"); // 128px → 192px
 
 // // Popup Styles
