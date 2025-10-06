@@ -122,10 +122,8 @@ export async function fetchProducts(dataFile) {
     }
     
     if (allProducts && allProducts.data && Array.isArray(allProducts.data)) {
-      console.log(`Data fetched successfully. Loaded ${allProducts.data.length} products.`);
       return allProducts.data;
     } else if (Array.isArray(allProducts)) {
-      console.log(`Data fetched successfully. Loaded ${allProducts.length} products.`);
       return allProducts;
     } else {
       console.warn('Unexpected data structure received:', allProducts);

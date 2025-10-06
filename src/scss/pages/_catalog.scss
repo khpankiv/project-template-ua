@@ -1,3 +1,6 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
 // ================Catalog Page Styles===============
 // =================================================
 
@@ -139,14 +142,30 @@ body.anti-hover {
 
 // ==========Search Field========================
 .search-field {
-	@extend .filter-dropdown;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	flex-shrink: 0;
 	position: relative;
 	margin-bottom: $space-lg;
 	// max-width: $search-field-width;
 	width: 100%;
 	
 	.catalog-search {
-		@extend .filter-btn;
+		width: 100%;
+		padding: $space-md;
+		border: $border solid $dropdown-border-color;
+		border-radius: $radius-s;
+		background: $form-input-bg-color;
+		color: $form-input-text-color;
+		font-size: $control-font-size;
+		font-family: inherit;
+		min-height: $control-height;
+		transition: border-color $animation-fast $animation-ease;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		// width: 100%;
 		// padding: $space-md;
 		// border: $border solid $form-input-border-color;

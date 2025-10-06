@@ -1,3 +1,6 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
 // ==================================================
 // ======= Form and Inputs Styles ===================
 // ===================================
@@ -127,11 +130,16 @@ input:-webkit-autofill:active {
 
 
 // Base dropdown container
-.filter-dropdown {
+// ========== Dropdown Base Placeholder ============
+%dropdown-base {
 	position: relative;
 	display: inline-block;
 	width: 100%;
 	flex-shrink: 0;
+}
+
+.filter-dropdown {
+	@extend %dropdown-base;
 	
 	// Show dropdown on hover
 	&:hover .filter-options {
@@ -142,10 +150,7 @@ input:-webkit-autofill:active {
 }
 
 .sort-dropdown {
-	position: relative;
-	display: inline-block;
-	width: 100%;
-	flex-shrink: 0;
+	@extend %dropdown-base;
 	
 	// Show dropdown on hover
 	&:hover .sort-options {

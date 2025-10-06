@@ -23,25 +23,27 @@ export async function loadComponent(id, url) {
   const component = document.getElementById(id);
   if (component) {
     try {
+      // Валідація URL перед fetch
+      if (!url || typeof url !== 'string' || url.trim() === '') {
+        throw new Error('Invalid URL parameter');
+      }
+      
       const res = await fetch(url);
-      // Безпечніше завантаження HTML компонентів
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      
       const html = await res.text();
-      // Санітизуємо HTML перед вставкою
-      component.innerHTML = sanitizeHTML(html);
+      // Для header/footer компонентів використовуємо innerHTML безпосередньо
+      // оскільки це контрольований статичний контент
+      component.innerHTML = html;
     } catch (error) {
       console.error(`Failed to load component from ${url}:`, error);
     }
   } else {
     console.error(`Element with ID '${id}' not found in the DOM.`);
   }
-}
-
-// Функція для базової санітизації HTML
-// Для завантаження компонентів використовуємо оригінальний HTML
-function sanitizeHTML(html) {
-  // Для header/footer компонентів повертаємо як є
-  // В майбутньому можна додати більш складну логіку санітизації
-  return html;
 }
 
 // ===========================================================
@@ -59,7 +61,9 @@ export async function populateProducts(products, containerSelector, templateId, 
   const container = document.querySelector(containerSelector);
 	if (!container || !template) return;
   // Clear the container before adding new products
-  container.innerHTML = '';
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
 	if (isSidebar) {
 		products.forEach(product => {
 		const card = createSidebarProductCard(product, template);
@@ -79,7 +83,10 @@ export async function populateProducts(products, containerSelector, templateId, 
  * @param {HTMLElement} container - The container element to render stars into.
  **************************************************************************/
 export function renderStars(rating, container) {
-  container.innerHTML = '';
+  // Clear container safely
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
   for (let i = 1; i <= 5; i++) {
     const star = document.createElement('span');
     star.className = 'star-bg';
@@ -102,16 +109,21 @@ export function renderStars(rating, container) {
  * @returns {Promise<Element>} The template element.
  ************************************************************************/
 async function loadCardTemplate(selector) {
-  const templateRes = await fetch(productCardTemplatePath);
-	if (!templateRes.ok) {
-		console.error(`Failed to load template from ${productCardTemplatePath}: ${templateRes.statusText}`);
-		return null;
-	}
-  const templateHtml = await templateRes.text();
-  const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = templateHtml;
-  const template = tempDiv.querySelector(selector);
-  return template;
+  try {
+    const templateRes = await fetch(productCardTemplatePath);
+    if (!templateRes.ok) {
+      console.error(`Failed to load template from ${productCardTemplatePath}: ${templateRes.statusText}`);
+      return null;
+    }
+    const templateHtml = await templateRes.text();
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = templateHtml;
+    const template = tempDiv.querySelector(selector);
+    return template;
+  } catch (error) {
+    console.error(`Error loading template: ${error.message}`);
+    return null;
+  }
 }
 
 // ===========================================================
@@ -198,7 +210,10 @@ export async function renderProductsForPage(products, currentPage) {
     console.error('Product grid container not found');
     return;
   }
-  grid.innerHTML = '';
+  // Clear grid safely
+  while (grid.firstChild) {
+    grid.removeChild(grid.firstChild);
+  }
   await populateProducts(productsToDisplay, '.product-grid', '#product-card-template');
   // Update product count display
   const productCountElement = document.querySelector('#product-count');
@@ -226,11 +241,16 @@ export function renderProductDetailsPage(product) {
 	document.querySelector('#product-name').textContent = product.name;
 	document.querySelector('#product-price').textContent = `$${product.price}`;
 	document.querySelector('#product-main-image').src = product.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png');
+	document.querySelector('#product-main-image').alt = product.name;
 	const imageThumbnails = document.querySelector('.image-thumbnails');
-	imageThumbnails.innerHTML = '';
+	// Clear thumbnails safely
+	while (imageThumbnails.firstChild) {
+		imageThumbnails.removeChild(imageThumbnails.firstChild);
+	}
 	for (let i = 1; i <= 4; i++) {
 		const thumb = document.createElement('img');
 		thumb.src = product.imageUrl.replace('path/to/', 'assets/images/items/').replace('.jpg', '.png');
+		thumb.alt = `${product.name} - thumbnail ${i}`;
 		imageThumbnails.appendChild(thumb);
 	}
 	document.querySelector('#product-rating-text').textContent = `${product.popularity} || 0} Clients Reviewed`;
@@ -259,7 +279,10 @@ export function createSlides(imageCount, numSlides, imageFolder) {
 		let start = 0;
 
 		function renderSlides(startIdx) {
-			sliderContainer.innerHTML = '';
+			// Clear slider safely
+			while (sliderContainer.firstChild) {
+				sliderContainer.removeChild(sliderContainer.firstChild);
+			}
 			
 			for (let i = 0; i < numSlides; i++) {
 				const imgIdx = (startIdx + i) % images.length;
@@ -296,7 +319,10 @@ export async function displayCartItems() {
 			// Cart items are already in the right format
 			let items = Object.values(allCart);
 			const cartTableBody = document.querySelector('#cart-tbody');
-			cartTableBody.innerHTML = '';
+			// Clear table safely
+			while (cartTableBody.firstChild) {
+				cartTableBody.removeChild(cartTableBody.firstChild);
+			}
 			items.forEach(item => {
 				const cartKey = `${item.name}|${item.size}|${item.color}`;
 				const row = document.createElement('tr');

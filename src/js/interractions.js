@@ -94,7 +94,10 @@ export async function updatePagination(products, currentPage) {
   const totalPages = Math.ceil(products.length / productsPerPage);
   const pageNumberContainer = document.querySelector('#page-number');
   if (!pageNumberContainer) return;
-  pageNumberContainer.innerHTML = '';
+  // Clear pagination container safely
+  while (pageNumberContainer.firstChild) {
+    pageNumberContainer.removeChild(pageNumberContainer.firstChild);
+  }
   // Create page number buttons
   for (let i = 1; i <= totalPages; i++) {
     const btn = document.createElement('button');

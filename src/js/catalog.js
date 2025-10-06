@@ -15,7 +15,6 @@ import { initFilterDropdown, initSortDropdown, initSearch, initResetFilters, ini
  * @param {string} dataFile - The path to the data file.
  ******************************************************************************/
 async function initCatalog() {
-    console.log('Initializing catalog...');
   try {
     // Fetch all products
     const allProducts = await fetchProducts(dataFile);
