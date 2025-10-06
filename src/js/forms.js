@@ -309,7 +309,7 @@ export function initFloatingLabels() {
  * @name initReviewForm - Initialize review form functionality
  *****************************************************************************/
 export function initReviewForm() {
-	new FormValidator('#review-form');
+	new FormValidator('#review-form'); // Initialize form validation
 	initFloatingLabels();
 	renderStars(3, document.querySelector('.review-rating'));
 	let productName = document.querySelector('#product-name')?.textContent || 'Product';
@@ -317,15 +317,7 @@ export function initReviewForm() {
 	if (reviewsElement) {
 		reviewsElement.textContent = '1 review for ' + productName;
 	}
-	// initStarRating();
 }
-
-// /****************************************************************************
-//  * @name initContactForm - Initialize contact form functionality
-//  ****************************************************************************/
-// export function initContactForm() {
-// 	initForm('#contact-form', null);
-// }
 
 /****************************************************************************
  * @class FormValidator - Universal form validation class with real-time validation
@@ -398,7 +390,7 @@ export class FormValidator {
 		this.validationRules.set('name', (value) => {
 			if (!value) return { isValid: false, message: 'Name is required' };
 			if (value.length < 2) return { isValid: false, message: 'Name must contain at least 2 characters' };
-			if (!/^[a-zA-ZА-Яа-я\s''`-]+$/u.test(value)) return { isValid: false, message: 'Name can contain only letters and spaces' };
+			if (!/^[a-zA-ZА-Яа-я\s'`-]+$/u.test(value)) return { isValid: false, message: 'Name can contain only letters and spaces' };
 			return { isValid: true };
 		});
 		
@@ -596,7 +588,7 @@ export class FormValidator {
  ***************************************************************************/
 export function initForm(formId) {
 	// Use new FormValidator class instead
-	new FormValidator(formId);
+	return new FormValidator(formId);
 }
 
 // Removed unused functions: handleFormSubmit and validateName
