@@ -1,14 +1,33 @@
 // ==================================================
 // ======= Form and Inputs Styles ===================
-// ==================================================
+// ===================================
 
-// Base form elements without border-radius (according to design)
+// Base form elements
 input[type="text"],
 input[type="email"],
 input[type="password"],
-textarea,
-select {
-	@include base-input;
+textarea {
+	width: 100%;
+	padding: $space-md;
+	border: $border solid $form-input-border-color;
+	border-radius: $radius-s;
+	background: $form-input-bg-color;
+	color: $form-input-text-color;
+	font-size: $control-font-size;
+	font-family: inherit;
+	min-height: $control-height;
+	transition: border-color $animation-fast $animation-ease;
+	
+	&:focus {
+		outline: none;
+		border-color: $form-input-border-color-focused;
+		box-shadow: 0 0 0 3px rgba($accent-pink, 0.1);
+	}
+	
+	&::placeholder {
+		color: $control-text-color;
+		opacity: 1;
+	}
 }
 
 // Checkbox styling - square according to design
@@ -32,13 +51,16 @@ input:-webkit-autofill:active {
 
 // Basic form groups
 .form-group {
-	@include form-group;
+	position: relative;
+	margin-bottom: $form-gap;
 	
 	label {
 		display: block;
 		font-size: $font-size-sm;
+		font-weight: $font-weight-bold;
 		color: $form-label-color;
 		margin-bottom: $space-xs;
+		text-align: left;
 		
 		.required-star {
 			color: $form-label-required-color;
@@ -46,52 +68,166 @@ input:-webkit-autofill:active {
 	}
 }
 
-// Floating labels for modern forms
-.floating-input-group {
-	@include form-group;
+// Floating labels - direct classes without wrapper
+.floating-input {
+	width: 100%;
+	padding: $space-md;
+	border: $border solid $form-input-border-color;
+	border-radius: $radius-s;
+	background: $form-input-bg-color;
+	color: $form-input-text-color;
+	font-size: $control-font-size;
+	font-family: inherit;
+	min-height: $control-height;
+	transition: border-color $animation-fast $animation-ease;
 	
-	.floating-input {
-		@include base-input;
-		
-		&::placeholder {
-			color: transparent;
-		}
-		
-		&:focus + .floating-label,
-		&:not(:placeholder-shown) + .floating-label {
-			@include floating-label-active;
-		}
+	&:focus {
+		outline: none;
+		border-color: $form-input-border-color-focused;
+		box-shadow: 0 0 0 3px rgba($accent-pink, 0.1);
 	}
 	
-	.floating-label {
-		@include floating-label;
+	&::placeholder {
+		color: transparent;
 	}
 }
 
-// Select dropdown with custom arrow (no rounded corners)
-select {
-	appearance: none;
-	background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDEwIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik01IDZMMC41IDBIOS41IDBMNSA2WiIgZmlsbD0iIzUwNEU0QSIvPgo8L3N2Zz4K");
-	background-repeat: no-repeat;
-	background-position: right $space-md center;
-	padding-right: $space-xl;
-	cursor: pointer;
+.floating-label {
+	position: absolute;
+	left: $space-md;
+	top: 30%;
+	transform: translateY(-50%);
+	background: transparent;
+	padding: $floating-label-padding;
+	color: $form-label-color;
+	font-size: $font-size-sm;
+	font-weight: $font-weight-normal;
+	pointer-events: none;
+	transition: all $animation-fast $animation-ease;
+	z-index: 1;
+	
+	.required-star {
+		color: $form-label-required-color;
+	}
 }
 
-// Custom dropdown styles for filters and sorting
-.filter-dropdown,
+// Floating label active states
+.floating-input:focus + .floating-label,
+.floating-input:not(:placeholder-shown) + .floating-label {
+	// top: 0;
+	// transform:  scale($floating-label-scale);
+	// color: $form-label-color-focused;
+	opacity: 0;
+	
+	.required-star {
+		color: $form-label-required-color;
+	}
+}
+
+
+
+// Base dropdown container
+.filter-dropdown {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	flex-shrink: 0;
+	
+	// Show dropdown on hover
+	&:hover .filter-options {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+}
+
 .sort-dropdown {
-	@include dropdown-container;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	flex-shrink: 0;
+	
+	// Show dropdown on hover
+	&:hover .sort-options {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
 }
 
+// Dropdown buttons - inherit base control styles but with dropdown-specific border
 .filter-btn,
 .sort-btn {
-	@include dropdown-button;
+	width: 100%;
+	padding: $space-md;
+	border: $border solid $dropdown-border-color; // Grey border instead of pink
+	border-radius: $radius-s;
+	background: $form-input-bg-color;
+	color: $form-input-text-color;
+	font-size: $control-font-size;
+	font-family: inherit;
+	min-height: $control-height;
+	transition: border-color $animation-fast $animation-ease;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	
+	&:focus {
+		outline: none;
+		border-color: $dropdown-border-color-focused;
+		box-shadow: 0 0 0 3px rgba($grey, 0.1);
+	}
+	
+	&::placeholder {
+		color: $control-text-color;
+		opacity: 1;
+	}
+	
+	img {
+		width: 16px;
+		height: 16px;
+		transition: transform $animation-fast $animation-ease;
+	}
+	
+	&.active img {
+		transform: rotate(180deg);
+	}
 }
+
+
 
 .filter-options,
 .sort-options {
-	@include dropdown-options;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background: $form-input-bg-color;
+	border: $border solid $dropdown-border-color;
+	border-top: none;
+	z-index: $dropdown-z-index;
+	max-height: $control-max-height;
+	overflow-y: auto;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-$space-xs);
+	transition: all $animation-fast $animation-ease;
+	
+	&.show {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+	
+	li {
+		list-style: none;
+		padding: $space-sm $space-md;
+		cursor: pointer;
+		color: $control-text-color;
+		font-size: $font-size-sm;
+		transition: all $animation-fast $animation-ease;
+	}
 }
 
 // Standard form styling for all pages
@@ -99,7 +235,7 @@ select {
 	width: 100%;
 	max-width: clamp(18.75rem, 15rem + 15vw, 37.5rem); // 300px → 600px
 	margin: 0 auto;
-	padding: $space-xl;
+	padding: 0 $space-xl;
 	background: $pure-white;
 	
 	.form-title {
@@ -117,36 +253,15 @@ select {
 		text-align: center;
 	}
 	
-	.form-group {
-		margin-bottom: $space-lg;
-		
-		label {
-			display: block;
-			font-size: $font-size-sm;
-			font-weight: $font-weight-medium;
-			color: $form-label-color;
-			margin-bottom: $space-xs;
-			
-			span {
-				color: $form-label-required-color;
-			}
-		}
-		
-		input,
-		textarea {
-			width: 100%;
-		}
-		
-		.error-message {
-			display: block;
-			font-size: $font-size-xs;
-			color: $form-input-border-color-error;
-			margin-top: $space-xs;
-		}
+
+	.error-message {
+		display: block;
+		font-size: $font-size-xs;
+		color: $form-input-border-color-error;
+		margin-top: $space-xs;
 	}
 	
 	.button-submit {
-		@include button('btn-base');
 		width: 100%;
 		margin-top: $space-lg;
 	}
@@ -165,6 +280,6 @@ select {
 	}
 	
 	.review-form {
-		padding: $space-lg;
+		padding: 0 $space-lg;
 	}
 }

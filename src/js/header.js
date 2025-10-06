@@ -22,7 +22,6 @@ export function initHeader() {
 function initLoginModal() {
     const loginIcon = document.querySelector('#login-icon');
     const loginModal = document.querySelector('#login-modal');
-    const closeModal = document.querySelector('#close-modal');
     const loginForm = document.querySelector('#login-form');
     const passwordToggle = document.querySelector('#password-toggle');
     const passwordInput = document.querySelector('#password');
@@ -32,12 +31,6 @@ function initLoginModal() {
         e.preventDefault();
         loginModal.style.display = 'block';
     });
-
-    // // Close modal
-    // closeModal?.addEventListener('click', () => {
-    //     loginModal.style.display = 'none';
-    //     clearFormErrors();
-    // });
 
     // Close modal on outside click
     window.addEventListener('click', (e) => {

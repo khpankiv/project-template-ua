@@ -29,7 +29,21 @@ $info-color: $text-color; // Amber color for info messages
 $radius-s: 0; 
 $radius-m: 0;
 $radius-l: 0;
+$radius-logo: 8px; // Rounded corners for logo icon only
 $border: 2px;
+
+// Adaptive sizes for frequent values
+$size-sm: string.unquote("clamp(18.75rem, 16rem + 12vw, 25rem)");   // 300px → 400px
+$size-md: string.unquote("clamp(25rem, 22rem + 10vw, 31.25rem)");   // 400px → 500px
+$size-lg: string.unquote("clamp(28.125rem, 25rem + 12vw, 37.5rem)"); // 450px → 600px
+$size-xl: string.unquote("clamp(31.25rem, 28rem + 10vw, 43.75rem)"); // 500px → 700px
+$size-full: 100%;
+
+// Adaptive Grid minmax sizes with clamp
+$grid-min-sm: string.unquote("clamp(12.5rem, 10rem + 10vw, 17.5rem)");  // 200px → 280px
+$grid-min-md: string.unquote("clamp(13.75rem, 12rem + 7vw, 18.75rem)"); // 220px → 300px
+$grid-min-lg: string.unquote("clamp(15.625rem, 14rem + 8vw, 22.5rem)"); // 250px → 360px
+$grid-min-xl: string.unquote("clamp(17.5rem, 16rem + 6vw, 25rem)");     // 280px → 400px
 
 // Responsive Spacing Scale with clamp()
 // Mobile → Desktop
@@ -86,11 +100,7 @@ $breakpoint-desktop: 1440px; // large desktop breakpoint
 $container-width: $breakpoint-desktop; 
 $container-padding: string.unquote("clamp(1rem, 2vw + 1rem, 4rem)"); // 16px → 64px
 
-// ========Grid min-widths for responsive layouts========
-$min-grid-width-4el: string.unquote("clamp(200px, 15vw + 150px, 250px)"); 
-$min-grid-width-3el: string.unquote("clamp(250px, 18vw + 200px, 300px)"); 
-$min-grid-width-2el: string.unquote("clamp(300px, 20vw + 250px, 400px)"); 
-$min-grid-width-1el: string.unquote("clamp(350px, 25vw + 300px, 500px)"); 
+// Legacy variables replaced with $grid-min-* system 
 
 //=========Z-index Scale================================
 $z-hover: 2;
@@ -124,9 +134,9 @@ $main-offer-bg: $pure-white;
 $main-offer-up-margin: -10rem; //  -96px
 
 //==== Slider ==================
-// $slider-height: auto;
-$slide-height: 600px;
-// $slide-flex: 300px;
+// Adaptive slider sizes
+$slide-height: string.unquote("clamp(25rem, 40vh, 50rem)");  // 400px → 800px
+$slide-min-height: string.unquote("clamp(20rem, 35vh, 37.5rem)"); // 320px → 600px
 $slide-background: rgba(0,0,0,0.4); // background color for slides
 
 // Header Styles
@@ -134,11 +144,11 @@ $slide-background: rgba(0,0,0,0.4); // background color for slides
 $counter-size: $space-dl; // 20px
 $counter-num-color: $accent-pink;
 
-// Modal & Overlays
+// Modal & Overlays (адаптивні розміри)
 // ===============================================
 $modal-backdrop: rgba(0, 0, 0, 0.5);
-$modal-min-width: clamp(200px, 25vw, 300px);
-$modal-max-width: 500px;
+$modal-min-width: string.unquote("clamp(12.5rem, 25vw, 18.75rem)");  // 200px → 300px
+$modal-max-width: string.unquote("clamp(25rem, 50vw, 50rem)");      // 400px → 800px
 $modal-max-height: 90vh;
 
 // Hamburger Styles
@@ -159,36 +169,35 @@ $copyright-text-color: rgba(0, 0, 0, 0.35);
 // ===============================================
 $min-grid-height: 20rem;    // Minimum height for items grid 
 
-// Dropdowns and Forms
+// Forms & Dropdowns - Об'єднані спільні змінні
 // ===============================================
-$input-height: unquote("clamp(2rem, 1.6rem + 2vw, 2.5rem)"); // 32px → 40px
-$input-text-color: $grey;
-$input-font-size: $font-size-sm;
-$input-width: unquote("clamp(12rem, 10rem + 8vw, 15rem)"); // 192px → 240px
-$input-border-focus: $border solid $accent-pink;
-$color-muted: $grey;
-$min-height-textinput: string.unquote("clamp(80px, 60px + 8vw, 120px)");
 
-// Dropdown specific variables
-$dropdown-max-width: string.unquote("clamp(12rem, 10rem + 8vw, 15rem)"); // 192px → 240px
-$dropdown-min-width: string.unquote("clamp(10rem, 8rem + 6vw, 12rem)"); // 160px → 192px
-$dropdown-sort-max-width: string.unquote("clamp(10rem, 8rem + 6vw, 12.5rem)"); // 160px → 200px
-$dropdown-sort-min-width: string.unquote("clamp(8rem, 6rem + 4vw, 10rem)"); // 128px → 160px
-$dropdown-max-height: string.unquote("clamp(8rem, 6rem + 8vw, 12.5rem)"); // 128px → 200px
+// Спільні розміри для всіх інтерактивних елементів
+$control-height: unquote("clamp(2rem, 1.6rem + 2vw, 2.5rem)"); // 32px → 40px
+$control-width-medium: unquote("clamp(12rem, 10rem + 8vw, 15rem)"); // 192px → 240px  
+$control-width-small: unquote("clamp(10rem, 8rem + 6vw, 12rem)"); // 160px → 192px
+$control-width-compact: unquote("clamp(8rem, 6rem + 4vw, 10rem)"); // 128px → 160px
+$control-max-height: string.unquote("clamp(8rem, 6rem + 8vw, 12.5rem)"); // 128px → 200px
+
+// Текстові стилі  
+$control-text-color: $grey;
+$control-font-size: $font-size-sm;
+$control-border-focus: $border solid $accent-pink;
+$textarea-min-height: string.unquote("clamp(80px, 60px + 8vw, 120px)");
+
+// Зворотна сумісність - алайси для старих змінних
+$input-height: $control-height;
+$input-font-size: $control-font-size; 
+$input-text-color: $control-text-color;
+
+// Спеціальні для дропдаунів
 $dropdown-z-index: $z-filter-dropdown;
 
-// Search field variables  
-$search-field-max-width: string.unquote("clamp(18rem, 15rem + 12vw, 25rem)"); // 288px → 400px
-$search-icon-size: string.unquote("clamp(1rem, 0.8rem + 1vw, 1.25rem)"); // 16px → 20px
-$search-icon-container-size: string.unquote("clamp(1.25rem, 1rem + 1.5vw, 1.5rem)"); // 20px → 24px
-
-// Dropdown arrow icon size
-$dropdown-arrow-size: string.unquote("clamp(0.75rem, 0.6rem + 0.8vw, 1rem)"); // 12px → 16px
-
-// Product grid variables
-$product-grid-min-width-sm: string.unquote("clamp(13.75rem, 12rem + 7vw, 17.5rem)"); // 220px → 280px
-$product-grid-min-width-md: string.unquote("clamp(15.625rem, 14rem + 8vw, 20rem)"); // 250px → 320px
-$product-grid-min-width-lg: string.unquote("clamp(17.5rem, 15rem + 10vw, 22.5rem)"); // 280px → 360px
+// Спеціальні елементи
+$search-field-width: string.unquote("clamp(18rem, 15rem + 12vw, 25rem)"); // 288px → 400px
+$icon-size-small: string.unquote("clamp(0.75rem, 0.6rem + 0.8vw, 1rem)"); // 12px → 16px (arrow)
+$icon-size-medium: string.unquote("clamp(1rem, 0.8rem + 1vw, 1.25rem)"); // 16px → 20px (search)
+$icon-container-size: string.unquote("clamp(1.25rem, 1rem + 1.5vw, 1.5rem)"); // 20px → 24px
 
 // Catalog layout variables
 $catalog-sidebar-ratio: 3fr 1fr;
@@ -205,19 +214,20 @@ $checkbox-dot-size: 6px;
 $checkbox-dot-color: $pure-white;
 $checkbox-focus-shadow: rgba(114, 113, 116, 0.3);
 
-// Breakpoints
-// ===============================================
-$breakpoint-mobile: 768px;
-$breakpoint-tablet: 1024px;  
-$breakpoint-desktop: 1440px;
-
 // Form Styles
 // ===============================================
-$form-label-color: $grey-dark;
+$form-label-color: $text-color;
 $form-label-color-focused: $grey;
 $form-label-required-color: $accent-pink;
-$form-input-border-color: $grey-light;
-$form-input-border-color-focused: $accent-pink;
+// Form inputs (pink borders)
+$form-input-border-color: $accent-pink;
+$form-input-border-color-focused: $accent-pink-darker;
+
+// Dropdown inputs (grey borders)
+$dropdown-border-color: $grey-light;
+$dropdown-border-color-focused: $grey-dark;
+
+// Error/success states
 $form-input-border-color-error: #e74c3c;
 $form-input-border-color-success: #27ae60;
 $form-input-bg-color: $pure-white;

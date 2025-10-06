@@ -10,7 +10,7 @@
 	align-items: center;
 	table-layout: fixed;
 	
-	@media (max-width: 768px) {
+	@media (max-width: $breakpoint-mobile) {
 		font-size: $font-size-sm;
 		
 		// Hide less important columns on mobile
@@ -31,7 +31,7 @@
 		white-space: normal;
 		word-break: break-word;
 		
-		@media (max-width: 768px) {
+		@media (max-width: $breakpoint-mobile) {
 			padding: $space-sm;
 			font-size: $font-size-xs;
 		}
@@ -43,7 +43,7 @@
 		color: $pure-white;
 		padding-block: $space-lg;
 		
-		@media (max-width: 768px) {
+		@media (max-width: $breakpoint-mobile) {
 			padding-block: $space-md;
 			font-size: $font-size-sm;
 		}
@@ -59,7 +59,7 @@
 		width: $cart-image-size;
 		height: auto;
 		
-		@media (max-width: 768px) {
+		@media (max-width: $breakpoint-mobile) {
 			width: calc($cart-image-size * 0.8);
 		}
 	}
@@ -73,11 +73,11 @@
 	align-items: start;
 	gap: $space-5xl;
 	
-	@media (max-width: 1024px) {
+	@media (max-width: $breakpoint-tablet) {
 		gap: $space-3xl;
 	}
 	
-	@media (max-width: 768px) {
+	@media (max-width: $breakpoint-mobile) {
 		grid-template-columns: 1fr;
 		gap: $space-2xl;
 	}

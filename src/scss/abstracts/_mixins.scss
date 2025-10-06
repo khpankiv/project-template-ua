@@ -1,4 +1,5 @@
 @use 'sass:string';
+@use 'sass:map';
 // =============================================================================
 // ================ ОПТИМІЗОВАНІ МІКСІНИ ======================================
 // =============================================================================
@@ -10,36 +11,64 @@
 // =============================================================================
 
 // ==========================================================================
+// КНОПКИ (потрібно для section-styles)
+// ==========================================================================
+@mixin button($key) {
+    $btn-map: map-get($button-styles-map, $key);
+    
+    @if map.has-key($btn-map, bg-color) {
+        background-color: map-get($btn-map, bg-color);
+    }
+    @if map.has-key($btn-map, text-color) {
+        color: map-get($btn-map, text-color);
+    }
+    @if map.has-key($btn-map, border) {
+        border: map-get($btn-map, border);
+    }
+    @if map.has-key($btn-map, padding) {
+        padding: map-get($btn-map, padding);
+    }
+    @if map.has-key($btn-map, font-size) {
+        font-size: map-get($btn-map, font-size);
+    }
+    @if map.has-key($btn-map, font-weight) {
+        font-weight: map-get($btn-map, font-weight);
+    }
+    @if map.has-key($btn-map, border-radius) {
+        border-radius: map-get($btn-map, border-radius);
+    }
+    
+    line-height: $line-height-single;
+    text-align: center;
+    cursor: pointer;
+    
+    @if (map-get($btn-map, hover-effect)) {
+        @include hover-effect(map-get($btn-map, hover-effect));
+    }
+    @if (map-get($btn-map, selected-effect)) {
+        @include selected-effect(map-get($btn-map, selected-effect));
+    }
+    @if (map-get($btn-map, press-effect)) {
+        @include press-effect(map-get($btn-map, press-effect));
+    }
+    
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+}
+
+// ==========================================================================
 // ОСНОВНІ LAYOUT МІКСІНИ (використовуються багато разів)
 // ==========================================================================
 
-// Responsive grid - використовується 5+ разів
-@mixin grid-responsive($min-width: $min-grid-width-4el, $gap: $space-lg, $items-center: false) {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
-    gap: $gap;
-    @if $items-center {
-        justify-items: center;
-        align-items: center;
-    }
-}
+// Міксин grid-responsive видалений (використовувався лише 2 рази)
 
-// Flex container - використовується 10+ разів
-@mixin flex-responsive($direction: row, $gap: null, $wrap: null, $mobile-direction: null) {
-    display: flex;
-    flex-direction: $direction;
-    @if $gap { gap: $gap; }
-    @if $wrap { flex-wrap: $wrap; }
-    
-    @if $mobile-direction {
-        @media (max-width: $breakpoint-mobile) {
-            flex-direction: $mobile-direction;
-        }
-    }
-}
+// Міксин flex-responsive видалений (тривіальний, краще писати прямо CSS)
 
-// Split section для about/contact - використовується 2 рази, але критично важливий
-@mixin split-section($image-side: left) {
+// Split section placeholder for @extend
+%split-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
@@ -47,12 +76,6 @@
     @media (max-width: $breakpoint-tablet) {
         grid-template-columns: 1fr;
         min-height: auto;
-        
-        .offer-banner {
-            @if $image-side == right {
-                order: 2;
-            }
-        }
     }
     
     .offer-banner {
@@ -205,171 +228,15 @@
 }
 
 // ==========================================================================
-// ФОРМИ (критичні для функціональності)
+// ФОРМИ І ЕЛЕМЕНТИ УПРАВЛІННЯ (критичні для функціональності)
 // ==========================================================================
 
-// Base input - базовий для всіх інпутів
-@mixin base-input {
-    width: 100%;
-    padding: $space-md;
-    border: $border solid $form-input-border-color;
-    border-radius: $radius-s;
-    background: $form-input-bg-color;
-    color: $form-input-text-color;
-    font-size: $input-font-size;
-    font-family: inherit;
-    min-height: $input-height;
-    transition: border-color $animation-fast $animation-ease;
-    
-    &:focus {
-        outline: none;
-        border-color: $form-input-border-color-focused;
-        box-shadow: $shadow-form-focus;
-    }
-    
-    &::placeholder {
-        color: $input-text-color;
-        opacity: 1;
-    }
-}
+// Плейсхолдери %control-base і %form-input видалені - використовуємо прямі стилі
 
-// Form group контейнер
-@mixin form-group {
-    position: relative;
-    margin-bottom: $form-gap;
-}
 
-// Floating label styling
-@mixin floating-label {
-    position: absolute;
-    left: $space-md;
-    top: 50%;
-    transform: translateY(-50%);
-    background: $form-input-bg-color;
-    padding: $floating-label-padding;
-    color: $form-label-color;
-    font-size: $font-size-sm;
-    pointer-events: none;
-    transition: all $animation-fast $animation-ease;
-    z-index: 1;
-    
-    .required-star {
-        color: $form-label-required-color;
-    }
-}
-
-// Floating label active state
-@mixin floating-label-active {
-    top: 0;
-    transform: translateY($floating-label-offset) scale($floating-label-scale);
-    color: $form-label-color-focused;
-    
-    .required-star {
-        color: $form-label-required-color;
-    }
-}
-
-// Dropdown container
-@mixin dropdown-container($max-width: $dropdown-max-width, $min-width: $dropdown-min-width) {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    max-width: $max-width;
-    min-width: $min-width;
-    flex-shrink: 0;
-}
-
-// Dropdown button
-@mixin dropdown-button {
-    @include base-input;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    
-    span {
-        flex: 1;
-        text-align: left;
-        color: $form-input-text-color;
-    }
-    
-    img {
-        width: $dropdown-arrow-size;
-        height: $dropdown-arrow-size;
-        transition: transform $animation-fast $animation-ease;
-        flex-shrink: 0;
-    }
-    
-    &.active img {
-        transform: rotate(180deg);
-    }
-}
-
-// Dropdown options
-@mixin dropdown-options {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: $form-input-bg-color;
-    border: 2px solid $form-input-border-color;
-    border-top: none;
-    z-index: $dropdown-z-index;
-    max-height: $dropdown-max-height;
-    overflow-y: auto;
-    opacity: 0;
-    visibility: hidden;
-    transition: all $animation-fast $animation-ease;
-    
-    &.show {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    li {
-        list-style: none;
-        padding: $space-sm $space-md;
-        cursor: pointer;
-        color: $form-input-text-color;
-        font-size: $font-size-sm;
-        transition: all $animation-fast $animation-ease;
-    }
-}
-
-// Компактні input стилі
-@mixin compact-input-styles() {
-    @include base-input;
-    padding: $space-md;
-    height: $input-height;
-}
-
-// Search field container
-@mixin search-field-container {
-    position: relative;
-    margin-bottom: $space-lg;
-    max-width: $search-field-max-width;
-    width: 100%;
-}
-
-// Search icon position
-@mixin search-icon-position {
-    position: absolute;
-    right: $space-md;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: $search-icon-container-size;
-    height: $search-icon-container-size;
-    transition: all $animation-fast $animation-ease;
-    
-    img {
-        width: $search-icon-size;
-        height: $search-icon-size;
-    }
-}
+// Видалені непотрібні плейсхолдери для простих стилів
+// Замість @extend %form-group використовуємо прямо: position: relative; margin-bottom: $form-gap;
+// Замість @extend %floating-label використовуємо прямі CSS стилі
 
 // ==========================================================================
 // СПЕЦИФІЧНІ МІКСІНИ (зберігаємо тільки найважливіші)
@@ -408,13 +275,9 @@
         line-height: $line-height-base;
         color: $text-color;
     }
+	}
 
-    button {
-        @include button('btn-base');
-    }
-}
-
-// Checkbox - специфічний але важливий
+  // Checkbox - специфічний але важливий
 @mixin checkbox-round($size: $checkbox-size, $type: 'round') {
     width: $size;
     height: $size;
@@ -458,8 +321,8 @@
     width: 100%;
 }
 
-// Modal міксіни - критичні для функціональності
-@mixin modal-backdrop {
+// Modal backdrop placeholder for @extend
+%modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
@@ -485,68 +348,4 @@
     overflow: auto;
     box-shadow: $shadow-modal;
     z-index: $z-modal;
-}
-
-// ==========================================================================
-// КАТАЛОГ МІКСІНИ (об'єднані найважливіші)
-// ==========================================================================
-
-// Основний layout каталогу
-@mixin catalog-layout {
-    display: grid;
-    grid-template-columns: $catalog-sidebar-ratio;
-    gap: $catalog-main-gap;
-    
-    @media (max-width: $breakpoint-tablet) {
-        grid-template-columns: 1fr;
-        gap: $space-md;
-        
-        .sidebar {
-            order: -1;
-            margin-bottom: $space-md;
-        }
-    }
-}
-
-// Product grid
-@mixin product-grid-layout {
-    display: grid;
-    gap: $space-lg;
-    margin-bottom: $space-lg;
-    width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax($product-grid-min-width-md, 1fr));
-    
-    @media (min-width: $breakpoint-desktop) {
-        grid-template-columns: repeat(3, 1fr);
-        gap: $space-xl $space-lg;
-    }
-    
-    @media (max-width: $breakpoint-tablet) {
-        grid-template-columns: repeat(auto-fit, minmax($product-grid-min-width-sm, 1fr));
-        gap: $space-md;
-    }
-    
-    @media (max-width: $breakpoint-mobile) {
-        grid-template-columns: repeat(auto-fit, minmax($product-grid-min-width-lg, 1fr));
-        gap: $space-md;
-    }
-}
-
-// Filters layout
-@mixin filters-grid-layout {
-    padding: $space-lg 0;
-    gap: $space-lg;
-    @include grid-responsive($min-grid-width-4el, $space-lg);
-    
-    @media (max-width: $breakpoint-tablet) {
-        padding: $space-md 0;
-        gap: $space-md;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-    
-    @media (max-width: $breakpoint-mobile) {
-        grid-template-columns: 1fr;
-        gap: $space-sm;
-        padding: $space-md 0;
-    }
 }

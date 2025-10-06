@@ -260,13 +260,15 @@ export function createSlides(imageCount, numSlides, imageFolder) {
 
 		function renderSlides(startIdx) {
 			sliderContainer.innerHTML = '';
+			
 			for (let i = 0; i < numSlides; i++) {
 				const imgIdx = (startIdx + i) % images.length;
 				const slide = document.createElement("div");
 				slide.className = "travel-slide";
+				
 				slide.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${images[imgIdx]})`;
 				// Використовуємо textContent для безпеки
-			slide.textContent = generateLoremIpsumParagraphs(1, 1);
+				slide.textContent = generateLoremIpsumParagraphs(1, 1);
 				sliderContainer.appendChild(slide);
 			}
 		}
@@ -397,27 +399,3 @@ function updateCartSummary(cartItems) {
   // document.getElementById('cart-shipping-amount').textContent = `$${shipping}`;
   document.getElementById('cart-total-amount').textContent = `$${total}`;
 }
-
-// //==================================================================
-// // ================= Notifications =====================
-// //==================================================================
-
-// /****************************************************************************
-//  * @name showNotFoundPopup - Shows a "Product not found" popup notification.
-//  * @param {string} label - The label for the notification (e.g., 'error').
-//  * @param {string} message - The message to display in the notification.
-//  *****************************************************************************/
-// export function showNotFoundPopup(label, message) {
-//   // Create backdrop to make page inactive
-//   const backdrop = document.createElement('div');
-//   backdrop.className = 'notification-backdrop';
-//   const popup = document.createElement('div');
-//   popup.className = 'notification ' + (label || 'error');
-//   popup.textContent = message || 'Product not found';
-//   document.body.appendChild(backdrop);
-//   document.body.appendChild(popup);
-//   setTimeout(() => {
-//     popup.remove();
-//     backdrop.remove();
-//   }, 3000);
-// }

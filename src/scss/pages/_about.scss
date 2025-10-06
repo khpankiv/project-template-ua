@@ -7,11 +7,11 @@
 	@include banner("/src/assets/images/backgrounds/banner-about.png");
 	padding-block: $space-10xl;
 	
-	@media (max-width: 1024px) {
+	@media (max-width: $breakpoint-tablet) {
 		padding-block: $space-5xl;
 	}
 	
-	@media (max-width: 768px) {
+	@media (max-width: $breakpoint-mobile) {
 		padding-block: $space-5xl;
 	}
 }
@@ -27,20 +27,20 @@
 // ========Features Section===============================================
 .features-details {
   display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax($grid-min-lg, 1fr));
 	justify-content: space-between;
 	gap: $space-4xl;
 	
-	@media (min-width: 1440px) {
+	@media (min-width: $breakpoint-desktop) {
 		grid-template-columns: repeat(4, 1fr);
 	}
 	
-	@media (max-width: 1024px) {
+	@media (max-width: $breakpoint-tablet) {
 		gap: $space-2xl;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax($grid-min-sm, 1fr));
 	}
 	
-	@media (max-width: 768px) {
+	@media (max-width: $breakpoint-mobile) {
 		grid-template-columns: 1fr 1fr;
 		gap: $space-xl;
 	}
@@ -105,20 +105,20 @@
 
 .team-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax($grid-min-xl, 1fr));
 	gap: $space-3xl;
 	text-align: center;
 	width: 100%;
 	
-	@media (min-width: 1440px) {
+	@media (min-width: $breakpoint-desktop) {
 		grid-template-columns: repeat(3, 1fr);
 	}
 	
-	@media (max-width: 1024px) {
+	@media (max-width: $breakpoint-tablet) {
 		gap: $space-2xl;
 	}
 	
-	@media (max-width: 768px) {
+	@media (max-width: $breakpoint-mobile) {
 		grid-template-columns: 1fr;
 		gap: $space-xl;
 	}

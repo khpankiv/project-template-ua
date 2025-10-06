@@ -16,11 +16,11 @@
 	padding: $space-lg 0;
 	position: relative;
 
-	@media (max-width: 1024px) {
+	@media (max-width: $breakpoint-tablet) {
 	    padding: $space-md 0;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: $breakpoint-mobile) {
 	    flex-wrap: wrap;
 	    gap: $space-md;
 	    padding: $space-sm 0;
@@ -40,7 +40,7 @@
 	background: $accent-pink;
 	width: $font-size-2xl, 0.1, 0.05;
 	height: auto; 
-	border-radius: $radius-s;
+	border-radius: $radius-logo;
 	padding: $space-xs;
 }
 
@@ -89,7 +89,7 @@
 //==============Navigation styles===================================
 // =============================================================
 .nav {
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
         position: absolute;
         top: 100%;
         left: 0;
@@ -118,11 +118,11 @@
 			padding: $space-lg 0;
 			margin: 0;
 			
-			@media (max-width: 1024px) {
+			@media (max-width: $breakpoint-tablet) {
 				gap: $space-lg;
 			}
 			
-			@media (max-width: 768px) {
+			@media (max-width: $breakpoint-mobile) {
 				flex-direction: column;
 				gap: 0;
 				padding: 0;
@@ -147,12 +147,12 @@
 					margin-left: $space-xs;
         }
         
-        @media (max-width: 1024px) {
+        @media (max-width: $breakpoint-tablet) {
         	font-size: $font-size-md;
         	padding: $space-xs $space-sm;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: $breakpoint-mobile) {
             display: block;
             width: 100%;
             text-align: center;
@@ -223,16 +223,19 @@
 //=============Login Modal Styles=================================
 // ==============================================================
 .login-modal {
-    @include modal-backdrop;
+    @extend %modal-backdrop;
     
     .login-form-container {
         @include modal-content;
         max-width: clamp(20rem, 18rem + 8vw, 28rem); // 320px → 448px
+        margin: $space-lg; // Add margin to prevent viewport overflow
+        max-height: calc(100vh - #{$space-2xl}); // Prevent vertical overflow
+        overflow-y: auto; // Allow scrolling if content is too tall
         padding: $space-2xl;
         
         .login-form {
             .form-group {
-                @include form-group;
+                position: relative;
                 margin-bottom: $space-lg;
                 
                 label {
@@ -244,11 +247,30 @@
                 }
                 
                 input {
-                    @include base-input;
                     width: 100%;
+                    padding: $space-md;
+                    border: $border solid $form-input-border-color;
+                    border-radius: $radius-s;
+                    background: $form-input-bg-color;
+                    color: $form-input-text-color;
+                    font-size: $control-font-size;
+                    font-family: inherit;
+                    min-height: $control-height;
+                    transition: border-color $animation-fast $animation-ease;
+                    
+                    &:focus {
+                        outline: none;
+                        border-color: $form-input-border-color-focused;
+                        box-shadow: 0 0 0 3px rgba($accent-pink, 0.1);
+                    }
+                    
+                    &::placeholder {
+                        color: $control-text-color;
+                        opacity: 1;
+                    }
                 }
                 
-                .password-field {
+                .password-wrapper {
                     position: relative;
                     
                     .password-toggle {

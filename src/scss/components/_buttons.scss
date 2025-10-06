@@ -1,54 +1,8 @@
 // ======================================================================
 // Button styles using a map for different button types
 // ======================================================================
-@use 'sass:map';
 
-// ===========================================================
-// ====Button universal mixin================================
-// =========================================================
-@mixin button($key) {
-    $btn-map: map-get($button-styles-map, $key);
-    
-    @if map.has-key($btn-map, bg-color) {
-        background-color: map-get($btn-map, bg-color);
-    }
-    @if map.has-key($btn-map, text-color) {
-        color: map-get($btn-map, text-color);
-    }
-    @if map.has-key($btn-map, border) {
-        border: map-get($btn-map, border);
-    }
-    @if map.has-key($btn-map, padding) {
-        padding: map-get($btn-map, padding);
-    }
-    @if map.has-key($btn-map, font-size) {
-        font-size: map-get($btn-map, font-size);
-    }
-    @if map.has-key($btn-map, font-weight) {
-        font-weight: map-get($btn-map, font-weight);
-    }
-    @if map.has-key($btn-map, border-radius) {
-        border-radius: map-get($btn-map, border-radius);
-    }
-    
-    line-height: $line-height-single;
-    text-align: center;
-    cursor: pointer;
-    
-    @if (map-get($btn-map, hover-effect)) {
-			@include hover-effect(map-get($btn-map, hover-effect));
-    }
-    @if (map-get($btn-map, selected-effect)) {
-			@include selected-effect(map-get($btn-map, selected-effect));
-    }
-    @if (map-get($btn-map, press-effect)) {
-			@include press-effect(map-get($btn-map, press-effect));
-    }
-		&.disabled {
-			opacity: 0;
-			pointer-events: none;
-		}
-}
+// Button styles - міксин перенесено в _mixins.scss
 
 .button {
     @include button('btn-base');
@@ -117,7 +71,7 @@
     overflow-x: auto;
     padding: 0 $space-md;
     
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
         gap: $space-xs;
         padding: 0 $space-sm;
     }
@@ -138,7 +92,7 @@
     overflow-x: auto;
     max-width: 50vw;
     
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
         max-width: 40vw;
     }
 }
@@ -171,6 +125,6 @@
 // ===================================================================
 // Submit form
 // ===================================================================
-// .button-submit {
-// 		@include button('btn-base');
-// }
+.button-submit {
+	@include button('btn-base');
+}

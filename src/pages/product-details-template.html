@@ -10,7 +10,6 @@
 <body>
 
 	<div id="header"></div>
-
 	<main class="page-content container">
     
 		<!-- Main Product Section-->
@@ -40,7 +39,7 @@
 
 					<!-- Filter Options -->
 				<div class="filter-labeled">
-					<label class="filter-label">Size</label>
+					<label class="filter-label" for="filter-size">Size</label>
 					<div class="filter-dropdown" id="filter-size">
 							<button class="filter-btn"></button>
 							<ul class="filter-options">
@@ -54,7 +53,7 @@
 					</div>
 				</div>
 				<div class="filter-labeled">
-						<label class="filter-label">Color</label>
+						<label class="filter-label" for="filter-color">Color</label>
 						<div class="filter-dropdown" id="filter-color">
 								<button class="filter-btn"></button>
 								<ul class="filter-options">
@@ -69,7 +68,7 @@
 						</div>
 				</div>
 				<div class="filter-labeled">
-					<label class="filter-label">Category</label>
+					<label class="filter-label" for="filter-category">Category</label>
 					<div class="filter-dropdown" id="filter-category">
 						<button class="filter-btn"></button>
 						<ul class="filter-options">
@@ -162,20 +161,20 @@
 								</div>
 							</div>
 							<div class="form-grid">
-								<div class="floating-input-group">
-									<textarea id="text-review" class="floating-input" required autocomplete="off"></textarea>
+								<div class="form-group">
+									<textarea id="text-review" class="floating-input" placeholder=" " required autocomplete="off"></textarea>
 									<label for="text-review" class="floating-label">
 										Your Review<span class="required-star">*</span>
 									</label>
 								</div>
-								<div class="floating-input-group">
-									<input id="name-review" class="floating-input" type="text" required autocomplete="off">
+								<div class="form-group">
+									<input id="name-review" class="floating-input" type="text" placeholder=" " required autocomplete="off">
 									<label for="name-review" class="floating-label">
 										Your Name<span class="required-star">*</span>
 									</label>
 								</div>
-								<div class="floating-input-group">
-									<input id="email-review" class="floating-input" type="email" required autocomplete="off">
+								<div class="form-group">
+									<input id="email-review" class="floating-input" type="email" placeholder=" " required autocomplete="off">
 									<label for="email-review" class="floating-label">
 										Your Email<span class="required-star">*</span>
 									</label>

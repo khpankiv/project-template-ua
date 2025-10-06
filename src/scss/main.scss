@@ -8,8 +8,6 @@
 
 @import './layouts/_header';
 @import './layouts/_footer';
-@import './layouts/_contact';
-@import './layouts/_about';
 
 @import './pages/_about';
 @import './pages/_catalog';
@@ -37,7 +35,9 @@
 	}
 }
 
-
+.offer-2-section {
+	@extend %split-section;
+}
 
 // =========Product Grid Section===============================================
 .product-grid-product-render {
@@ -45,22 +45,22 @@
 	cursor: pointer;
 	align-self: center;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax($grid-min-lg, 1fr));
 	gap: $space-lg;
 	
-	@media (min-width: 1440px) {
+	@media (min-width: $breakpoint-desktop) {
 		grid-template-columns: repeat(4, 1fr);
 		gap: $space-xl;
 	}
 	
-	@media (max-width: 1024px) {
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	@media (max-width: $breakpoint-tablet) {
+		grid-template-columns: repeat(auto-fit, minmax($grid-min-md, 1fr));
 		gap: $space-md;
 		padding-top: $space-lg;
 	}
 	
-	@media (max-width: 768px) {
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	@media (max-width: $breakpoint-mobile) {
+		grid-template-columns: repeat(auto-fit, minmax($grid-min-xl, 1fr));
 		gap: $space-md;
 		padding: $space-md;
 	}
@@ -74,13 +74,18 @@
 	// min-height: 60vh;
 
 	.hero-content {
-		@include flex-responsive($mobile-direction: column);
+		display: flex;
+		flex-direction: row;
+		
+		@media (max-width: $breakpoint-mobile) {
+			flex-direction: column;
+		}
 		align-items: center;
 		justify-content: space-between;
 		gap: $space-lg;
 		padding: $space-5xl $container-padding;
 		
-		@media (max-width: 768px) {
+		@media (max-width: $breakpoint-mobile) {
 			text-align: center;
 			gap: $space-md;
 		}
@@ -90,25 +95,25 @@
 		@include section-styles('hero');
 		flex: 1;
 		min-width: 0;
-		max-width: 50%; // Обмежуємо текст, щоб не вилазив
+		max-width: clamp(20rem, 50vw, 35rem); // Обмежуємо текст адаптивно
 		
-		@media (max-width: 768px) {
+		@media (max-width: $breakpoint-mobile) {
 			order: 2;
 			padding: $space-md;
 			max-width: 100%;
 		}
 		
 		h2 {
-			@media (max-width: 768px) {
+			@media (max-width: $breakpoint-mobile) {
 				font-size: $font-size-xl;
 				line-height: $line-height-tight;
 			}
 		}
 		
 		button {
-			@media (max-width: 768px) {
+			@media (max-width: $breakpoint-mobile) {
 				width: 100%;
-				max-width: 300px;
+				max-width: $size-sm;
 			}
 		}
 	}
@@ -120,9 +125,9 @@
 		height: auto;
 		flex-shrink: 0;
 		
-		@media (max-width: 768px) {
+		@media (max-width: $breakpoint-mobile) {
 			order: 1;
-			max-width: 80%;
+			max-width: clamp(18rem, 80vw, 30rem);
 			padding-block: $space-md;
 		}
 	}
@@ -134,18 +139,19 @@
 	margin-top: $main-offer-up-margin;
 	z-index: 3;
 	box-shadow: $shadow;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 0;
-	min-height: 400px;
+	// display: grid;
+	// grid-template-columns: 1fr 1fr;
+	// gap: 0;
+	// min-height: 400px;
+	// @include split-section(right);
 
-	@media (max-width: 1024px) {
+	@media (max-width: $breakpoint-tablet) {
 		grid-template-columns: 1fr;
 		gap: 0;
 		min-height: auto;
 	}
 	
-	@media (max-width: 768px) {
+	@media (max-width: $breakpoint-mobile) {
 		margin-top: $space-lg;
 	}
 
@@ -157,22 +163,23 @@
 		justify-content: center;
 		padding: $space-xl;
 		
-		@media (max-width: 1024px) {
+		@media (max-width: $breakpoint-tablet) {
 			padding: $space-lg;
 		}
 		
-		@media (max-width: 768px) {
+		@media (max-width: $breakpoint-mobile) {
 			padding: $space-md;
 			text-align: center;
 		}
 
 		.profile {
-			@include flex-responsive;
+			display: flex;
+			flex-direction: row;
 			gap: $space-md;
 			align-items: center;
 			margin-bottom: $space-lg;
 			
-			@media (max-width: 768px) {
+			@media (max-width: $breakpoint-mobile) {
 				justify-content: center;
 				gap: $space-sm;
 			}
@@ -182,13 +189,13 @@
 					font-size: $font-size-md;
 					font-weight: $font-weight-bold;
 					
-					@media (max-width: 768px) {
+					@media (max-width: $breakpoint-mobile) {
 						font-size: $font-size-sm;
 					}
 				}
 				
 				p {
-					@media (max-width: 768px) {
+					@media (max-width: $breakpoint-mobile) {
 						font-size: $font-size-xs;
 					}
 				}
@@ -196,13 +203,13 @@
 		}
 		
 		h2 {
-			@media (max-width: 768px) {
+			@media (max-width: $breakpoint-mobile) {
 				font-size: $font-size-lg;
 			}
 		}
 		
 		p {
-			@media (max-width: 768px) {
+			@media (max-width: $breakpoint-mobile) {
 				font-size: $font-size-sm;
 				line-height: $line-height-base;
 			}
@@ -220,24 +227,24 @@
 		position: relative;
 		overflow: hidden;
 
-		@media (max-width: 1024px) {
+		@media (max-width: $breakpoint-tablet) {
 			padding: $space-lg;
 		}
 		
-		@media (max-width: 768px) {
+		@media (max-width: $breakpoint-mobile) {
 			padding: $space-md;
 			text-align: center;
-			min-height: 300px;
+			min-height: $size-sm;
 		}
 
 		h2 {
 			word-wrap: break-word;
 			
-			@media (max-width: 1024px) {
+			@media (max-width: $breakpoint-tablet) {
 				font-size: $font-size-xl;
 			}
 			
-			@media (max-width: 768px) {
+			@media (max-width: $breakpoint-mobile) {
 				font-size: $font-size-lg;
 				margin-bottom: $space-md;
 			}
@@ -246,7 +253,7 @@
 		p {
 			word-wrap: break-word;
 			
-			@media (max-width: 768px) {
+			@media (max-width: $breakpoint-mobile) {
 				font-size: $font-size-sm;
 				margin-bottom: $space-md;
 				br {
@@ -256,14 +263,14 @@
 		}
 
 		button {
-			@media (max-width: 1024px) {
+			@media (max-width: $breakpoint-tablet) {
 				align-self: flex-start;
 			}
 			
-			@media (max-width: 768px) {
+			@media (max-width: $breakpoint-mobile) {
 				align-self: center;
 				width: 100%;
-				max-width: 200px;
+				max-width: $size-sm;
 				padding: $space-sm $space-md;
 				font-size: $font-size-sm;
 			}
@@ -276,208 +283,50 @@
     height: auto;
 }
 
-// ===========================================================
-// ================= Slider Styles ===========================
-// ===========================================================
-
-// Travel Suitcases Slider Container
-.travel-slider-container {
-	position: relative;
-	overflow: hidden;
-	height: $slide-height;
-	border-radius: $radius-m;
-	box-shadow: $shadow;
-	
-	// Responsive height
-	@media (max-width: $breakpoint-tablet) {
-		height: clamp(20rem, 15rem + 20vw, 30rem); // 320px → 480px
-	}
-	
-	@media (max-width: $breakpoint-mobile) {
-		height: clamp(15rem, 12rem + 12vw, 22rem); // 240px → 352px
-	}
+// ======== Travel Slider - 4 slides side by side ===============================================
+#travel-slider {
+    display: flex;
+    gap: $space-md;
+    height: $size-lg;
+    width: 100%;
+    
+    .travel-slide {
+        flex: 1;
+        min-width: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 1rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+        
+        &.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
 }
 
-// Individual travel slides
-.travel-slide {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	color: $pure-white;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-	padding-bottom: $space-xl;
-	
-	// Smooth transitions for all slide changes
-	transition: opacity 0.3s ease-in-out;
-	
-	// Default state (hidden)
-	opacity: 0;
-	
-	// Active slide state
-	&.active {
-		opacity: 1;
-		transform: scale(1);
-		filter: blur(0);
-		z-index: 2;
-	}
-	
-	// Transition slides (partially visible)
-	&.travel-slide-transition {
-		opacity: 0.7;
-		transform: scale(0.98);
-		filter: blur(0.5px);
-		z-index: 1;
-	}
-	
-	// Loading state
-	&:not(.loaded) {
-		background-color: $grey-light;
-		
-		&::before {
-			content: '';
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			width: clamp(2.25rem, 1.8rem + 1.8vw, 2.75rem); // 36px → 44px
-			height: clamp(2.25rem, 1.8rem + 1.8vw, 2.75rem); // 36px → 44px
-			border: 3px solid rgba($pure-white, 0.3);
-			border-top: 3px solid $pure-white;
-			border-radius: 50%;
-			animation: spin 1s linear infinite;
-		}
-	}
-	
-	// Slide text styling
-	.travel-slide-text {
-		font-size: $font-size-xl;
-		font-weight: $font-weight-bold;
-		text-align: center;
-		padding: $space-md $space-lg;
-		background: rgba(0, 0, 0, 0.4);
-		border-radius: $radius-s;
-		backdrop-filter: blur(10px);
-		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-		line-height: $line-height-tight;
-		max-width: 80%;
-		
-		@media (max-width: $breakpoint-tablet) {
-			font-size: $font-size-lg;
-			padding: $space-sm $space-md;
-		}
-		
-		@media (max-width: $breakpoint-mobile) {
-			font-size: $font-size-md;
-			padding: $space-xs $space-sm;
-		}
-	}
-	
-	// Hover effect for slides
-	&:hover {
-		cursor: pointer;
-		
-		.travel-slide-text {
-			background: rgba(0, 0, 0, 0.6);
-			transform: translateY(-2px);
-		}
-	}
-}
-
-// Loading animation
-@keyframes spin {
-	0% { transform: translate(-50%, -50%) rotate(0deg); }
-	100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-// Navigation arrows for travel slider
-.travel-slider-arrow {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	background: rgba($pure-white, 0.95);
-	color: $accent-pink;
-	border: 2px solid rgba($pure-white, 0.8);
-	width: clamp(3rem, 2.5rem + 2.5vw, 4rem); // 48px → 64px
-	height: clamp(3rem, 2.5rem + 2.5vw, 4rem); // 48px → 64px
-	border-radius: 50%;
-	font-size: $font-size-xl;
-	font-weight: $font-weight-bold;
-	cursor: pointer;
-	z-index: 15;
-	transition: all 0.3s ease;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-	backdrop-filter: blur(10px);
-	
-	&:hover:not(:disabled) {
-		background: $accent-pink;
-		color: $pure-white;
-		border-color: $accent-pink;
-		transform: translateY(-50%) scale(1.1);
-		box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
-	}
-	
-	&:active {
-		transform: translateY(-50%) scale(0.95);
-	}
-	
-	&:focus {
-		outline: 3px solid rgba($accent-pink, 0.5);
-		outline-offset: 2px;
-	}
-	
-	&:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-		pointer-events: none;
-	}
-	
-	&.travel-slider-arrow-left {
-		left: $space-lg;
-		
-		@media (max-width: $breakpoint-mobile) {
-			left: $space-sm;
-		}
-	}
-	
-	&.travel-slider-arrow-right {
-		right: $space-lg;
-		
-		@media (max-width: $breakpoint-mobile) {
-			right: $space-sm;
-		}
-	}
-	
-	// Responsive sizing
-	@media (max-width: $breakpoint-tablet) {
-		width: 50px;
-		height: 50px;
-		font-size: $font-size-lg;
-	}
-	
-	@media (max-width: $breakpoint-mobile) {
-		width: 40px;
-		height: 40px;
-		font-size: $font-size-md;
-	}
-}// ========Main Offer Section===============================================
+// ========Main Offer Section===============================================
 .main-offer-section {
 	@include shaded-background("/src/assets/images/backgrounds/offer2.png");
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 0;
-	min-height: 400px;
+	// @include split-section(right);	
+	// min-height: 400px;
 
-	@media (max-width: 1024px) {
+	@media (max-width: $breakpoint-tablet) {
 		grid-template-columns: 1fr;
 		gap: 0;
 		min-height: auto;
@@ -504,7 +353,7 @@
 	top: $notification-top;
 	right: $notification-right;
 	z-index: $z-notification;
-	max-width: 400px;
+	max-width: $size-md;
 	background: $pure-white;
 	border-radius: 0;
 	box-shadow: $shadow-modal;
@@ -523,7 +372,9 @@
 	&.info { border-left: 4px solid $info-color; }
 	
 	.popup-content {
-		@include flex-responsive(row, $space-md);
+		display: flex;
+		flex-direction: row;
+		gap: $space-md;
 		align-items: flex-start;
 		padding: $space-lg;
 	}
@@ -620,7 +471,7 @@
 
 // ========Modal System===============================================
 .modal {
-	@include modal-backdrop;
+	@extend %modal-backdrop;
 	display: none;
 	
 	&.show {
@@ -652,11 +503,15 @@
 // ======Testimonials Section===============================================
 .testimonials-grid {
 	padding-top: $space-3xl;
-	@include grid-responsive($min-grid-width-3el, $space-lg, true);
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax($grid-min-lg, 1fr));
+	gap: $space-lg;
+	justify-items: center;
+	align-items: center;
 	gap: $space-3xl;
 
 	.testimonial-card {
-		@include flex-responsive;
+		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;

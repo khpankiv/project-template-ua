@@ -14,13 +14,13 @@ export function initFilterToggle() {
 		// Hide filters functionality
 		hideFiltersBtn.addEventListener('click', () => {
 			filterSection.style.display = 'none';
-			showFiltersBtn.style.display = 'inline-block';
+			showFiltersBtn.classList.remove('disabled');
 		});
 		
 		// Show filters functionality  
 		showFiltersBtn.addEventListener('click', () => {
 			filterSection.style.display = 'block';
-			showFiltersBtn.style.display = 'none';
+			showFiltersBtn.classList.add('disabled');
 		});
 	}
 }

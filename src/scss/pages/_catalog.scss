@@ -16,11 +16,28 @@ body.anti-hover {
 }
 
 .filters-grid {
-	@include filters-grid-layout;
+	padding: $space-lg 0;
+	gap: $space-lg;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax($grid-min-md, 1fr));
+	
+	@media (max-width: $breakpoint-tablet) {
+		padding: $space-md 0;
+		gap: $space-md;
+		grid-template-columns: repeat(auto-fit, minmax($grid-min-sm, 1fr));
+	}
+	
+	@media (max-width: $breakpoint-mobile) {
+		grid-template-columns: 1fr;
+		gap: $space-sm;
+		padding: $space-md 0;
+	}
+}
 
-	.filter-labeled {
-		@include flex-responsive(column, $space-sm);
-		justify-content: flex-start;
+.filter-labeled {
+	display: flex;
+	flex-direction: column;
+	gap: $space-sm;
 
 		label {
 			font-size: $font-size-sm;
@@ -30,19 +47,25 @@ body.anti-hover {
 
 		// Special alignment for checkbox containers
 		&:has(#salesStatus) {
-			justify-content: flex-start;
-			align-items: flex-start;
+			flex-direction: row;
+			align-items: center;
+			gap: $space-sm;
+			
+			label {
+				margin-bottom: 0;
+				order: 2;
+			}
 			
 			#salesStatus {
-				margin-top: $space-xs;
+				order: 1;
+				margin-top: 0;
 			}
 		}
 	}
-}
 
 .filter-buttons {
-	@include flex-responsive(row, $space-md);
-	justify-content: flex-start;
+	display: flex;
+	gap: $space-md;
 	margin: $space-xl 0;
 
 	.filter-resume-btn {
@@ -50,58 +73,115 @@ body.anti-hover {
 	}
 }
 
-// Filter toggle button in sort line
-.filter-toggle-btn {
+// Show Filters Button (замість зникнення стає disabled)
+#show-filters-btn {
 	@include button('btn-base');
-	margin-right: $space-md;
+	
+	// Замість display: none використовуємо disabled стан
+	&.disabled {
+		opacity: 0.5;
+		pointer-events: none;
+		cursor: not-allowed;
+	}
 }
 
 // =============== Page Layout=======================
 .catalog-page-container {
-	@include catalog-layout;
+	display: grid;
+	grid-template-columns: $catalog-sidebar-ratio;
+	gap: $catalog-main-gap;
+	
+	@media (max-width: $breakpoint-tablet) {
+		grid-template-columns: 1fr;
+		gap: $space-md;
+		
+		.sidebar {
+			order: -1;
+			margin-bottom: $space-md;
+		}
+	}
 }
 
 // ================Main Products Area=======================
 .product-grid {
-	@include product-grid-layout;
+	display: grid;
+	gap: $space-lg;
+	margin-bottom: $space-lg;
+	width: 100%;
+	grid-template-columns: repeat(auto-fit, minmax($grid-min-lg, 1fr));
+	
+	@media (min-width: $breakpoint-desktop) {
+		grid-template-columns: repeat(3, 1fr);
+		gap: $space-xl $space-lg;
+	}
+	
+	@media (max-width: $breakpoint-tablet) {
+		grid-template-columns: repeat(auto-fit, minmax($grid-min-md, 1fr));
+		gap: $space-md;
+	}
+	
+	@media (max-width: $breakpoint-mobile) {
+		grid-template-columns: repeat(auto-fit, minmax($grid-min-sm, 1fr));
+		gap: $space-md;
+	}
 }
 
 // ==========Sort and Search Line========================
 .sort-search-line {
 	color: $form-label-color;
-	@include flex-responsive(row);
-	justify-content: space-between;
-	align-items: center;
+	grid-template-columns: repeat(3, 1fr);
+	display: grid;
+	gap: $space-lg;
 	margin-bottom: $space-md;
-	
-	.sort-dropdown {
-		@include dropdown-container($dropdown-max-width, $dropdown-min-width);
-	}
+	width: 100%;
 }
 
-// Ensure both search and sort are on same baseline
-.sort-search-line,
-.search-field {
-	align-items: stretch; // Make all elements same height
-	
-	.catalog-search,
-	.sort-btn {
-		height: $input-height; // Force same height
-		box-sizing: border-box;
-	}
-}
 
 // ==========Search Field========================
 .search-field {
-	@include search-field-container;
+	@extend .filter-dropdown;
+	position: relative;
+	margin-bottom: $space-lg;
+	// max-width: $search-field-width;
+	width: 100%;
 	
 	.catalog-search {
-		@include compact-input-styles;
-		padding-right: $space-xl;
+		@extend .filter-btn;
+		// width: 100%;
+		// padding: $space-md;
+		// border: $border solid $form-input-border-color;
+		// background: $form-input-bg-color;
+		// color: $form-input-text-color;
+		// font-size: $control-font-size;
+		// font-family: inherit;
+		// min-height: $control-height;
+		// transition: border-color $animation-fast $animation-ease;
+		// height: $input-height;
+		// padding-right: $space-xl;
+		
+		&:focus {
+			outline: none;
+			border-color: $form-input-border-color-focused;
+			box-shadow: 0 0 0 3px rgba($accent-pink, 0.1);
+		}
+		
+		&::placeholder {
+			color: $control-text-color;
+			opacity: 1;
+		}
 	}
 	
 	.search-icon {
-		@include search-icon-position;
+		position: absolute;
+		right: $space-md;
+		top: 50%;
+		transform: translateY(-50%);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: $icon-container-size;
+		height: $icon-container-size;
 	}
 }
 
@@ -116,7 +196,7 @@ body.anti-hover {
 }
 
 .random-products-list {
-	@include flex-responsive(column, $space-lg);
+	display: flex;
+	flex-direction: column;
+	gap: $space-lg;
 }
-
-
