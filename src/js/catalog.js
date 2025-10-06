@@ -6,7 +6,7 @@ import { dataFile, headerPath, footerPath} from './file_links.js';
 import { loadComponent, renderProductsForPage, renderRandomSetsSidebar } from './ui.js';
 import { fetchProducts} from './utils.js';
 import { initHeader } from './header.js';//to check
-import { initAddToCartButtons, initClickCard, initPaginationButtons} from './interractions.js';
+import { initAddToCartButtons, initClickCard} from './interractions.js';
 import { initFilterDropdown, initSortDropdown, initSearch, initResetFilters, initSalesFilter, initFilterToggle  } from './forms.js';
 
 /******************************************************************************
@@ -33,7 +33,7 @@ async function initCatalog() {
  * @param {Array} products - The array of filtered products.
  * @param {number} currentPage - The current page number.
  ******************************************************************************/
-function initAllCatalogInteractions(products, currentPage) {
+function initAllCatalogInteractions(products) {
   // updatePagination(products, currentPage);
   initFilterDropdown();
 	initSalesFilter();

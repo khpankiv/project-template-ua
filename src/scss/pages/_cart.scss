@@ -69,7 +69,7 @@
 
 }
 
-//===================Bottom part of the cart=========================
+// ===================Bottom part of the cart=========================
 .cart-bottom {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -110,7 +110,6 @@
 	}
 
 	tr {
-
 		border-bottom: $border solid $accent-pink;
 	}
 

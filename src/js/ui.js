@@ -2,8 +2,8 @@
 // ================== UI Functions ============================
 // ===========================================================
 import { updatePagination } from "./interractions.js";
-import { productCardTemplatePath, productsPerPage, numberOfRandomProducts, numberOfRandomSets, imageCount, imageFolder} from "./file_links.js";
-import { getProductsByField, getInfoById, getRandomItems, generateLoremIpsumParagraphs } from "./utils.js";
+import { productCardTemplatePath, productsPerPage, numberOfRandomProducts, numberOfRandomSets} from "./file_links.js";
+import { getProductsByField, getRandomItems, generateLoremIpsumParagraphs } from "./utils.js";
 import { getCartTotal, clearCart } from "./logic.js";
 import notificationManager from "./notifications.js";
 

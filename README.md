@@ -19,17 +19,14 @@
    npm install
    ```
 
-3. **Compile SCSS**
+3. **Start development server**
    ```bash
-   npm run compile
-   ```
-
-4. **Start local server**
-   ```bash
-   npx live-server src
+   npm run dev
    ```
    
-   Site will be available at `http://localhost:8080`
+   This will compile SCSS and start local server at `http://localhost:8080`
 
-### Additional commands:
+### Alternative commands:
+- `npm start` - start server only (requires CSS to be compiled first)
+- `npm run compile` - compile SCSS once
 - `npm run compile:watch` - auto-compile SCSS on changes

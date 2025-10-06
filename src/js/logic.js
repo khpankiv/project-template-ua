@@ -114,7 +114,7 @@ export function readActualFilters() {
 	category: document.querySelector('#filter-category span') ? document.querySelector('#filter-category span').textContent : undefined,
 		color: document.querySelector('#filter-color span') ? document.querySelector('#filter-color span').textContent : undefined,
 		size: document.querySelector('#filter-size span') ? document.querySelector('#filter-size span').textContent : undefined,
-		salesStatus: document.querySelector('#filter-salesStatus input') ? document.querySelector('#filter-salesStatus input').checked : undefined,
+		salesStatus: document.querySelector('#filter-sales-status input') ? document.querySelector('#filter-sales-status input').checked : undefined,
 	};
 	return filters;
 }

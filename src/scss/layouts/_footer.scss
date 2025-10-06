@@ -4,10 +4,10 @@
 .footer {
     letter-spacing: -0.02; 
 		padding-top: $space-10xl;
-
+		margin-top: auto;
 }
  
-//============Benefits Section===========================================
+// ============Benefits Section===========================================
 .benefits {
 		background-image: url('/src/assets/images/backgrounds/vector_lines.svg');
 		background-repeat: no-repeat;
@@ -59,7 +59,7 @@ gap: $space-lg;
 	height: auto;
 }
 
-//================= Main Footer Content============================
+// ================= Main Footer Content============================
 .footer-main {
 		display: grid;
 		grid-template-columns: 3fr 2fr; 
@@ -78,6 +78,7 @@ gap: $space-lg;
 	font-weight: $font-weight-bold;
 	line-height: $line-height-loose;
 	margin-bottom: $space-md;
+
 	@include hover-effect('footer');
 }
 
@@ -86,29 +87,13 @@ display: grid;
 grid-template-columns: repeat(3, 1fr);
 gap: $space-lg; 
 
-		// @media (max-width: $breakpoint-tablet) {
-		//     grid-template-columns: repeat(2, 1fr);
-		//     gap: $space-xl;
-		//     padding-top: $space-2xl;
-		//     padding-bottom: $space-2xl;
-		// }
-		
-		// @media (max-width: $breakpoint-mobile) {
-		//     grid-template-columns: 1fr;
-		//     gap: $space-lg;
-		//     padding-top: $space-xl;
-		//     padding-bottom: $space-xl;
-		// }
+
 }
                     
 .contact-column {
 	grid-row: span 2; 
 	
-	// @media (max-width: $breakpoint-tablet) {
-	//     grid-column: 1 / -1;
-	//     grid-row: auto;
-	// } 
-	// }
+
 
 	.contact-info {
 		margin-top: $space-4xl;
@@ -116,19 +101,14 @@ gap: $space-lg;
 		grid-template-columns: 1fr 1fr;
 		gap: $space-lg;
 		
-		// @media (max-width: $breakpoint-mobile) {
-		//     grid-template-columns: 1fr;
-		//     gap: $space-md;
-		// }
+
 
 		.contact-item {
 			display: flex;       
 			align-items: center;
 			gap: $space-md;
 			
-			// @media (max-width: $breakpoint-mobile) {
-			//     gap: $space-sm;
-			// }
+
 
 			span {
 				font-size: $font-size-sm;

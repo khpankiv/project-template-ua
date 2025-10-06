@@ -8,6 +8,7 @@
 // =========Title Banner===============================================
 .title-section {
 	@include banner("/src/assets/images/backgrounds/banner-about.png");
+
 	padding-block: $space-10xl;
 	
 	@media (max-width: $breakpoint-tablet) {
@@ -56,6 +57,7 @@
 	align-items: center;
 	text-align: center;
 	gap: $space-dl;
+
 	@include hover-effect('feature-icon');
 
 	.feature-icon {
@@ -101,9 +103,8 @@
 .underlined {
 	// @include font-parameters($font-size-2xl, $font-weight-black, $color: $text-color);
 	text-align: center;
-	margin-bottom: $space-lg;
 	width: fit-content;
-	margin: 0 auto;
+	margin: $space-lg auto 0;
 }
 
 .team-grid {
@@ -128,6 +129,7 @@
 
 	.team-member {
 		width: 100%;
+
 		@include hover-effect('people-card');
 	}
 }

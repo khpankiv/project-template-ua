@@ -14,12 +14,14 @@
   border-radius: 0;
   box-shadow: $shadow;
   transition: all $animation-medium $animation-ease;
+
   @include hover-effect('product-card');
 }
 
 .product-card-img-wrapper {
   position: relative;
   width: 100%;
+
   // якщо треба фіксована висота — додай тут
 }
 
@@ -49,9 +51,11 @@
 	gap: $space-md;
 	padding: $space-md $space-sm $space-lg;
 	align-items: center;
+
 	// flex-grow: 1;
 	// justify-content: space-between; 
 	text-align: center;
+
 	// flex-grow: 1;
 	margin-top: auto;
 }
@@ -69,7 +73,7 @@
 }
 
 // ===========================================================
-//======== Sidebar Compact Product Card =========================
+// ======== Sidebar Compact Product Card =========================
 // ===========================================================
 .sidebar-product-card {
 	display: flex;
@@ -78,6 +82,7 @@
 	padding: $space-md 0;
 	background: transparent;
 	transition: background-color $animation-medium $animation-ease;
+
 	@include hover-effect('product-card');
 }
 

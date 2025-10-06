@@ -179,10 +179,8 @@ export function initQuantityControls() {
 
 /****************************************************************************
  * @name initAddQuantity - Add product to cart from product details page
- * @param {string} productId - The ID of the product to add
- * @param {number} quantity - The quantity of the product to add
  *********************************************************************************/
-export function initAddQuantity(productId, quantity) {
+export function initAddQuantity() {
   const addToCartButton = document.querySelector('#add-multiple-products');
   addToCartButton.addEventListener('click', () => {
 		const productId = new URLSearchParams(window.location.search).get('id');

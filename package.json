@@ -12,6 +12,8 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server --open=/src",
+    "dev": "npm run compile && npm run start",
     "compile": "sass src/scss:dist --no-source-map --style=compressed",
     "compile:watch": "sass --watch src/scss:dist",
     "compile:once": "sass src/scss:dist --no-source-map",

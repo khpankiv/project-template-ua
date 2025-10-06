@@ -22,7 +22,6 @@ export function initHeader() {
 function initLoginModal() {
     const loginIcon = document.querySelector('#login-icon');
     const loginModal = document.querySelector('#login-modal');
-    const loginForm = document.querySelector('#login-form');
     const passwordToggle = document.querySelector('#password-toggle');
     const passwordInput = document.querySelector('#password');
 

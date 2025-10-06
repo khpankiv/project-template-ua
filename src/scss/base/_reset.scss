@@ -7,16 +7,27 @@
 }
 
 html, body {
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: Montserrat, Arial, sans-serif;
   background-color: $pure-white;
   color: $text-color;
   font-size: $font-size-sm; // 16px - Base font size
   line-height: $line-height-base;
   font-weight: $font-weight-normal;
-  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 120px; // Space for fixed header
+}
+
+main {
+  flex: 1;
 }
 
 // List resets
@@ -40,11 +51,7 @@ img, picture, video, canvas, svg {
 	object-fit: cover;
 }
 
-// // Form resets
-// input, button, textarea, select {
-//  font: inherit;
-//  color: inherit;
-// }
+// Form resets
 
 button {
   background: none;

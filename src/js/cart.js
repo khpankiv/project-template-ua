@@ -5,7 +5,6 @@ import { initHeader } from './header.js';
 import { loadComponent, displayCartItems } from './ui.js';
 import { footerPath, headerPath } from './file_links.js';
 import { initCartRowsControls, initCheckoutButton, initClearCartButton } from './interractions.js';
-import notificationManager from './notifications.js';
 
 /*****************************************************************************************************
  * @name initCartPage - Initializes the cart page.

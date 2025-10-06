@@ -1,56 +1,63 @@
 @use 'sass:string';
 @use 'sass:map';
 @use 'variables' as *;
+
 // =============================================================================
 // ================ OPTIMIZED MIXINS ======================================
 // =============================================================================
-//
 // Залишені тільки справді повторювані міксіни (використовуються 3+ рази)
 // Removed complex mixins with many parameters
 // Simplified mixins for frequently used patterns
-//
 // =============================================================================
 
 // ==========================================================================
 // BUTTONS (needed for section-styles)
 // ==========================================================================
 @mixin button($key) {
-    $btn-map: map-get($button-styles-map, $key);
+    $btn-map: map.get($button-styles-map, $key);
     
     @if map.has-key($btn-map, bg-color) {
-        background-color: map-get($btn-map, bg-color);
+        background-color: map.get($btn-map, bg-color);
     }
+
     @if map.has-key($btn-map, text-color) {
-        color: map-get($btn-map, text-color);
+        color: map.get($btn-map, text-color);
     }
+
     @if map.has-key($btn-map, border) {
-        border: map-get($btn-map, border);
+        border: map.get($btn-map, border);
     }
+
     @if map.has-key($btn-map, padding) {
-        padding: map-get($btn-map, padding);
+        padding: map.get($btn-map, padding);
     }
+
     @if map.has-key($btn-map, font-size) {
-        font-size: map-get($btn-map, font-size);
+        font-size: map.get($btn-map, font-size);
     }
+
     @if map.has-key($btn-map, font-weight) {
-        font-weight: map-get($btn-map, font-weight);
+        font-weight: map.get($btn-map, font-weight);
     }
+
     @if map.has-key($btn-map, border-radius) {
-        border-radius: map-get($btn-map, border-radius);
+        border-radius: map.get($btn-map, border-radius);
     }
     
     line-height: $line-height-single;
     text-align: center;
     cursor: pointer;
     
-    @if (map-get($btn-map, hover-effect)) {
-        @include hover-effect(map-get($btn-map, hover-effect));
+    @if map.get($btn-map, hover-effect) {
+        @include hover-effect(map.get($btn-map, hover-effect));
     }
-    @if (map-get($btn-map, selected-effect)) {
-        @include selected-effect(map-get($btn-map, selected-effect));
+
+    @if map.get($btn-map, selected-effect) {
+        @include selected-effect(map.get($btn-map, selected-effect));
     }
-    @if (map-get($btn-map, press-effect)) {
-        @include press-effect(map-get($btn-map, press-effect));
+
+    @if map.get($btn-map, press-effect) {
+        @include press-effect(map.get($btn-map, press-effect));
     }
     
     &.disabled {
@@ -103,6 +110,7 @@
 @mixin sticky-element($direction: top, $offset: 0, $z: $z-sticky, $animation: false) {
     position: sticky;
     z-index: $z;
+
     @if $direction == top {
         top: $offset;
     } @else if $direction == bottom {
@@ -112,6 +120,7 @@
     } @else if $direction == right {
         right: $offset;
     }
+
     @if $animation {
         @include hover-effect('sticky-element'); 
     }
@@ -123,63 +132,80 @@
 
 // Hover effects - most used mixin
 @mixin hover-effect($type, $transition: $animation-slow $animation-ease) {
-    $params: map-get($hover-effects-map, $type);
-    $lift: if(map-has-key($params, lift), map-get($params, lift), null);
-    $background: if(map-has-key($params, background), map-get($params, background), null);
-    $color: if(map-has-key($params, color), map-get($params, color), null);
-    $shadow: if(map-has-key($params, shadow), map-get($params, shadow), null);
-    $scale: if(map-has-key($params, scale), map-get($params, scale), null);
+    $params: map.get($hover-effects-map, $type);
+    $lift: if(map.has-key($params, lift), map.get($params, lift), null);
+    $background: if(map.has-key($params, background), map.get($params, background), null);
+    $color: if(map.has-key($params, color), map.get($params, color), null);
+    $shadow: if(map.has-key($params, shadow), map.get($params, shadow), null);
+    $scale: if(map.has-key($params, scale), map.get($params, scale), null);
     
     transition: transform #{$transition}, background #{$transition}, color #{$transition}, box-shadow #{$transition};
 
     &:hover {
         $transform: '';
+
         @if $scale { $transform: $transform + ' scale(' + $scale + ')'; }
+
         @if $lift { $transform: $transform + ' translateY(-' + $lift + ')'; }
+
         @if $transform != '' { transform: string.unquote($transform); }
         
         @if $background { background: $background; }
+
         @if $color { color: $color; }
+
         @if $shadow { box-shadow: $shadow; }
+
         z-index: $z-hover;
     }
 }
 
 // Press effect for active states
 @mixin press-effect($type, $transition: $animation-fast $animation-ease) {
-    $params: map-get($press-effects-map, $type);
-    $background: if(map-has-key($params, background), map-get($params, background), null);
-    $color: if(map-has-key($params, color), map-get($params, color), null);
-    $shadow: if(map-has-key($params, shadow), map-get($params, shadow), null);
-    $scale: if(map-has-key($params, scale), map-get($params, scale), null);
+    $params: map.get($press-effects-map, $type);
+    $background: if(map.has-key($params, background), map.get($params, background), null);
+    $color: if(map.has-key($params, color), map.get($params, color), null);
+    $shadow: if(map.has-key($params, shadow), map.get($params, shadow), null);
+    $scale: if(map.has-key($params, scale), map.get($params, scale), null);
 
     &:active, &:focus:active {
         $transform: '';
+
         @if $scale { $transform: $transform + ' scale(' + $scale + ')'; }
+
         @if $transform != '' { transform: string.unquote($transform); }
+
         @if $background { background: $background; }
+
         @if $color { color: $color; }
+
         @if $shadow { box-shadow: $shadow; }
+
         transition: #{$transition};
     }
 }
 
 // Selected effect for active elements
 @mixin selected-effect($type, $transition: $animation-medium $animation-ease) {
-    $params: map-get($selected-effects-map, $type);
-    $background: if(map-has-key($params, background), map-get($params, background), null);
-    $color: if(map-has-key($params, color), map-get($params, color), null);
-    $shadow: if(map-has-key($params, shadow), map-get($params, shadow), null);
-    $scale: if(map-has-key($params, scale), map-get($params, scale), null);
+    $params: map.get($selected-effects-map, $type);
+    $background: if(map.has-key($params, background), map.get($params, background), null);
+    $color: if(map.has-key($params, color), map.get($params, color), null);
+    $shadow: if(map.has-key($params, shadow), map.get($params, shadow), null);
+    $scale: if(map.has-key($params, scale), map.get($params, scale), null);
 
     transition: transform #{$transition}, background #{$transition}, color #{$transition}, box-shadow #{$transition};
 
     &.active, &.selected {
         $transform: '';
+
         @if $scale { $transform: $transform + ' scale(' + $scale + ')'; }
+
         @if $transform != '' { transform: string.unquote($transform); }
+
         @if $background { background: $background; }
+
         @if $color { color: $color; }
+
         @if $shadow { box-shadow: $shadow; }
     }
 }
@@ -194,6 +220,7 @@
         position: relative;
         display: inline-flex;
         padding: $space-sm;
+
         @include hover-effect($hover);
     }
 }
@@ -213,6 +240,7 @@
 // Banner mixin - used several times
 @mixin banner($path) {
     @include shaded-background($path);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -245,10 +273,10 @@
 
 // Section styles - використовується часто для промо-секцій
 @mixin section-styles($type) {
-    $params: map-get($section-style-map, $type);
-    $padding-top-bottom: if(map-has-key($params, padding-top-bottom), map-get($params, padding-top-bottom), 0);
-    $padding-left: if(map-has-key($params, padding-left), map-get($params, padding-left), $space-4xl);
-    $gap: if(map-has-key($params, gap), map-get($params, gap), $space-lg);
+    $params: map.get($section-style-map, $type);
+    $padding-top-bottom: if(map.has-key($params, padding-top-bottom), map.get($params, padding-top-bottom), 0);
+    $padding-left: if(map.has-key($params, padding-left), map.get($params, padding-left), $space-4xl);
+    $gap: if(map.has-key($params, gap), map.get($params, gap), $space-lg);
     
     display: flex;
     flex-direction: column;
@@ -259,8 +287,9 @@
     gap: $gap;
 
     h2 {
-        $title-color: if(map-has-key($params, title-color), map-get($params, title-color), $text-color);
-        $title-size: if(map-has-key($params, title-size), map-get($params, title-size), $font-size-2xl);    
+        $title-color: if(map.has-key($params, title-color), map.get($params, title-color), $text-color);
+        $title-size: if(map.has-key($params, title-size), map.get($params, title-size), $font-size-2xl);    
+
         font-size: $title-size;
         font-weight: $font-weight-black;
         line-height: $line-height-single;
@@ -269,8 +298,9 @@
     }
 
     p {
-        $text-color: if(map-has-key($params, text-color), map-get($params, text-color), $grey-dark);
-        $text-size: if(map-has-key($params, text-size), map-get($params, text-size), $font-size-sm);
+        $text-color: if(map.has-key($params, text-color), map.get($params, text-color), $grey-dark);
+        $text-size: if(map.has-key($params, text-size), map.get($params, text-size), $font-size-sm);
+
         font-size: $text-size;
         font-weight: $font-weight-normal;
         line-height: $line-height-base;
@@ -283,8 +313,6 @@
     width: $size;
     height: $size;
     margin: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
     border: $checkbox-border-width solid $checkbox-border-color;
     background: $checkbox-bg-color;

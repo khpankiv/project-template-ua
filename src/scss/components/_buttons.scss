@@ -7,12 +7,16 @@
 
 // Button styles - mixin moved to _mixins.scss
 
-.button {
+%button {
     @include button('btn-base');
 }
 
+.button {
+    @extend %button;
+}
+
 .button-add {
-	@extend .button;
+	@extend %button;
 	
 	// In product cards, limit button width
 	.product-card & {
@@ -80,6 +84,7 @@
 
 .button-scroll-page {
     @include button('btn-scroll-page');
+
     white-space: nowrap;
     min-width: fit-content;
     flex-shrink: 0;
@@ -100,6 +105,7 @@
 
 .button-page-number {
     @include button('btn-page-number');
+
     white-space: nowrap;
     min-width: clamp(2.5rem, 2rem + 2vw, 3rem); // 40px → 48px
     flex-shrink: 0;
@@ -111,12 +117,15 @@
 .tab-pane {
   display: none;
 }
+
 .tab-pane.active {
   display: block;
 }
+
 .button-tab {
 	@include button('btn-tab');
 }
+
 .tab-buttons {
 	display: flex;
 	justify-content: center;

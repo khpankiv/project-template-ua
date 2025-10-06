@@ -1,4 +1,13 @@
 // =======================================================================
+// Forms and Interactions
+// =======================================================================
+import { renderProductsForPage, renderStars } from './ui.js';
+import { fetchProducts } from './utils.js';
+import { dataFile } from './file_links.js';
+import notificationManager from './notifications.js';
+import { doSearch, applyFilters } from './logic.js';
+
+// =======================================================================
 // Filters and Sorting Functionality
 // =======================================================================
 
@@ -29,140 +38,123 @@ export function initFilterToggle() {
  * @name initResetFilters - Initialize Reset Filters button
  ***************************************************************************/
 
-// =======================================================================
-import { dataFile } from './file_links.js';
-import { fetchProducts } from './utils.js';
-import { renderStars } from './ui.js';
-import { renderProductsForPage } from './ui.js';
-import { handleSort, doSearch, applyFilters } from './logic.js';
-import notificationManager from './notifications.js';
-
 // ===========================================================================
 // ========Dropdowns, Search, Filters=================================
 // ==========================================================================
 /*****************************************************************************
  * @name initSortDropdown - Initialize Sort Dropdown functionality.
- *  @param {Array} products - The array of all products for sorting.  
  *****************************************************************************/
-export async function initSortDropdown(products) {
-		const dropdown = document.querySelector('#sort-dropdown');
-		const sortButton = dropdown?.querySelector('.sort-btn') || document.querySelector('#sort-selected');
-		const sortOptions = dropdown?.querySelector('.sort-options') || document.querySelector('#sort-options');
-		const sortOptionItems = sortOptions?.querySelectorAll('li');
-		
-		if (!dropdown || !sortButton || !sortOptions || !sortOptionItems) return;
-		
-		let antiHover = false;
-		
-		// Toggle dropdown on button click
-		sortButton.addEventListener('click', (e) => {
+export function initSortDropdown() {
+	const dropdown = document.querySelector('#sort-dropdown');
+	const sortButton = dropdown?.querySelector('.sort-btn');
+	const sortOptions = dropdown?.querySelector('.sort-options');
+	const sortOptionItems = sortOptions?.querySelectorAll('li');
+	
+	if (!dropdown || !sortButton || !sortOptions || !sortOptionItems) return;
+	
+	// Toggle dropdown on button click
+	sortButton.addEventListener('click', (e) => {
+		e.stopPropagation();
+		sortOptions.classList.toggle('show');
+		sortButton.classList.toggle('active');
+	});
+	
+	sortOptionItems.forEach(option => {
+		option.addEventListener('click', async (e) => {
 			e.stopPropagation();
-			sortOptions.classList.toggle('show');
-			sortButton.classList.toggle('active');
-		});
-		
-		sortOptionItems.forEach(option => {
-				option.addEventListener('click',async (e) => {
-					e.stopPropagation();
-					antiHover = true;
-					
-					// Close dropdown
-					sortOptions.classList.remove('show');
-					sortButton.classList.remove('active');
-					
-					dropdown.classList.add('closed');
-					document.body.classList.add('anti-hover');
-					setTimeout(() => {
-						dropdown.classList.remove('closed');
-						document.body.classList.remove('anti-hover');
-						antiHover = false;
-					}, 300);
-					
-					// Update selected option
-					sortOptionItems.forEach(opt => opt.classList.remove('selected'));
-					option.classList.add('selected');
-					
-					// Update button text
-					if (sortButton.querySelector('span')) {
-						sortButton.querySelector('span').textContent = option.textContent;
-					} else {
-						sortButton.childNodes[0].textContent = option.textContent + ' ';
-					}
-					
-					const currentSort = option.dataset.value;
-					products = handleSort(products, currentSort);
-					await renderProductsForPage(products, 1);
-				});
-		});
-		
-		// Close dropdown when clicking outside
-		document.addEventListener('click', () => {
+			
+			// Close dropdown
 			sortOptions.classList.remove('show');
 			sortButton.classList.remove('active');
+			
+			dropdown.classList.add('closed');
+			document.body.classList.add('anti-hover');
+			setTimeout(() => {
+				dropdown.classList.remove('closed');
+				document.body.classList.remove('anti-hover');
+			}, 300);
+			
+			// Update selected option
+			sortOptionItems.forEach(opt => opt.classList.remove('selected'));
+			option.classList.add('selected');
+			
+			// Update button text
+			const buttonSpan = sortButton.querySelector('span');
+			if (buttonSpan) {
+				buttonSpan.textContent = option.textContent;
+			}
+			
+			// Apply filters with sorting
+			const products = await applyFilters();
+			await renderProductsForPage(products, 1);
 		});
-};
+	});
+	
+	// Close dropdown when clicking outside
+	document.addEventListener('click', () => {
+		sortOptions.classList.remove('show');
+		sortButton.classList.remove('active');
+	});
+}
 
 /*******************************************************************************
  * @name initFilterDropdown - Initialize Filter Dropdown functionality with auto-apply.
  *********************************************************************************/
 export function initFilterDropdown() {
-
-		const dropdowns = document.querySelectorAll('.filter-dropdown');
-		dropdowns.forEach(dropdown => {
-			const filterButton = dropdown.querySelector('.filter-btn');
-			const filterOptions = dropdown.querySelector('.filter-options');
-			const filterOptionItems = filterOptions.querySelectorAll('li');
-			let antiHover = false;
+	const dropdowns = document.querySelectorAll('.filter-dropdown');
+	
+	dropdowns.forEach(dropdown => {
+		const filterButton = dropdown.querySelector('.filter-btn');
+		const filterOptions = dropdown.querySelector('.filter-options');
+		const filterOptionItems = filterOptions.querySelectorAll('li');
+		
+		// Toggle dropdown on button click
+		filterButton.addEventListener('click', (e) => {
+			e.stopPropagation();
 			
-			// Toggle dropdown on button click
-			filterButton.addEventListener('click', (e) => {
-				e.stopPropagation();
-				
-				// Close all other dropdowns first
-				document.querySelectorAll('.filter-dropdown .filter-options.show').forEach(otherOptions => {
-					if (otherOptions !== filterOptions) {
-						otherOptions.classList.remove('show');
-						const otherBtn = otherOptions.closest('.filter-dropdown').querySelector('.filter-btn');
-						otherBtn.classList.remove('active');
-					}
-				});
-				
-				// Toggle current dropdown
-				filterOptions.classList.toggle('show');
-				filterButton.classList.toggle('active');
+			// Close all other dropdowns first
+			document.querySelectorAll('.filter-dropdown .filter-options.show').forEach(otherOptions => {
+				if (otherOptions !== filterOptions) {
+					otherOptions.classList.remove('show');
+					const otherBtn = otherOptions.closest('.filter-dropdown').querySelector('.filter-btn');
+					otherBtn.classList.remove('active');
+				}
 			});
 			
-			filterOptionItems.forEach(option => {
-				option.addEventListener('click', async (e) => {
-					e.stopPropagation();
-					antiHover = true;
-					
-					// Close dropdown
-					filterOptions.classList.remove('show');
-					filterButton.classList.remove('active');
-					
-        	dropdown.classList.add('closed');
+			// Toggle current dropdown
+			filterOptions.classList.toggle('show');
+			filterButton.classList.toggle('active');
+		});
+		
+		filterOptionItems.forEach(option => {
+			option.addEventListener('click', async (e) => {
+				e.stopPropagation();
+				
+				// Close dropdown
+				filterOptions.classList.remove('show');
+				filterButton.classList.remove('active');
+				
+				dropdown.classList.add('closed');
+				document.body.classList.add('anti-hover');
+				setTimeout(() => {
+					dropdown.classList.remove('closed');
 					document.body.classList.remove('anti-hover');
-					setTimeout(() => {
-						dropdown.classList.remove('closed');
-						document.body.classList.remove('anti-hover');
-						antiHover = false;
-					}, 300);
-					
-					// Update selected option
-					filterOptionItems.forEach(opt => opt.classList.remove('selected'));
-					option.classList.add('selected');
-					
-					if (filterButton.querySelector('span')) {
-						filterButton.querySelector('span').textContent = option.textContent;
-					}
-					
-					// Auto-apply filters after selection (only on catalog page)
-					if (document.querySelector('.product-grid')) {
-						const products = await applyFilters();
-						await renderProductsForPage(products, 1);
-					}
-				});
+				}, 300);
+				
+				// Update selected option
+				filterOptionItems.forEach(opt => opt.classList.remove('selected'));
+				option.classList.add('selected');
+				
+				if (filterButton.querySelector('span')) {
+					filterButton.querySelector('span').textContent = option.textContent;
+				}
+				
+				// Auto-apply filters after selection (only on catalog page)
+				if (document.querySelector('.product-grid')) {
+					const products = await applyFilters();
+					await renderProductsForPage(products, 1);
+				}
+			});
 		});
 		
 		// Close dropdown when clicking outside
@@ -170,14 +162,14 @@ export function initFilterDropdown() {
 			filterOptions.classList.remove('show');
 			filterButton.classList.remove('active');
 		});
-})
-};
+	});
+}
 
 /*******************************************************************************
  * @name initSalesFilter - Initialize Sales checkbox auto-apply functionality.
  *********************************************************************************/
 export function initSalesFilter() {
-	const salesCheckbox = document.querySelector('#filter-salesStatus input');
+	const salesCheckbox = document.querySelector('#filter-sales-status input');
 	if (salesCheckbox) {
 		salesCheckbox.addEventListener('change', async () => {
 			// Auto-apply filters when checkbox is toggled
@@ -208,31 +200,31 @@ export function initSearch(products) {
  * @name initResetFilters - Initialize Reset Filters button
  ****************************************************************************/
 export async function initResetFilters() {
-			const resetBtn = document.querySelector('#filter-reset');
-			if (resetBtn) {
-				resetBtn.addEventListener('click', async () => {
-					const products = await fetchProducts(dataFile);
-					document.querySelectorAll('.filter-dropdown span').forEach(btn => {
-						btn.textContent = 'Choose option';
-					});
-					const salesCheckbox = document.querySelector('#filter-salesStatus input');
-					if (salesCheckbox) salesCheckbox.checked = false;
-					await renderProductsForPage(products, 1);
-				});
-			}
+	const resetBtn = document.querySelector('#filter-reset');
+	if (resetBtn) {
+		resetBtn.addEventListener('click', async () => {
+			const products = await fetchProducts(dataFile);
+			document.querySelectorAll('.filter-dropdown span').forEach(btn => {
+				btn.textContent = 'Choose option';
+			});
+			const salesCheckbox = document.querySelector('#filter-sales-status input');
+			if (salesCheckbox) salesCheckbox.checked = false;
+			await renderProductsForPage(products, 1);
+		});
+	}
 }
 
 /*******************************************************************************
  * @name initApplyFilters - Initialize Apply Filters button
  ********************************************************************************/
 export async function initApplyFilters() {
-		const applyBtn = document.querySelector('#filter-apply');
-		if (applyBtn) {
-			applyBtn.addEventListener('click', async () => {
-				const products = await applyFilters();
-				await renderProductsForPage(products, 1);
-			});
-		}
+	const applyBtn = document.querySelector('#filter-apply');
+	if (applyBtn) {
+		applyBtn.addEventListener('click', async () => {
+			const products = await applyFilters();
+			await renderProductsForPage(products, 1);
+		});
+	}
 }
 
 // ==========================================================================
@@ -564,7 +556,7 @@ export class FormValidator {
 	/**
 	 * Form submission handler (can be overridden)
 	 */
-	onFormSubmit(e) {
+	onFormSubmit() {
 		// Show success notification
 		notificationManager.showPopup(
 			'success',
@@ -607,57 +599,7 @@ export function initForm(formId) {
 	new FormValidator(formId);
 }
 
-/****************************************************************************
- * @name handleFormSubmit - Handle form submission
- * @param {Event} e - The form submit event
- ***************************************************************************/
-function handleFormSubmit(e) {
-		e.preventDefault();
-		
-		// Show success submission notification
-		notificationManager.showPopup(
-				'success',
-				'Thank you for your feedback!',
-				'Your message has been successfully sent. We will contact you shortly.',
-				5000
-		);
-		
-		// Clear form
-		e.target.reset();
-		updateStarDisplay(0);
-		
-		// Clear all validation notifications
-		const inputs = e.target.querySelectorAll('input, textarea, select');
-		inputs.forEach(input => {
-				notificationManager.hideInlineNotification(input);
-				input.classList.remove('error', 'valid');
-		});
-}
-
-/****************************************************************************
- * @name validateName - Validate name input
- * @param {HTMLElement} nameInput - The name input element
- * @returns {boolean} True if valid, false otherwise
- ***************************************************************************/
-function validateName(nameInput) {
-		const value = nameInput.value.trim();
-		
-		if (!value) {
-				notificationManager.showFormValidation(nameInput, false, 'Name is required');
-				return false;
-		}
-		if (value.length < 2) {
-				notificationManager.showFormValidation(nameInput, false, 'Name must contain at least 2 characters');
-				return false;
-		}
-		if (!/^[a-zA-ZА-Яа-я\s''`-]+$/u.test(value)) {
-				notificationManager.showFormValidation(nameInput, false, 'Name can contain only letters and spaces');
-				return false;
-		}
-		
-		notificationManager.showFormValidation(nameInput, true);
-		return true;
-}
+// Removed unused functions: handleFormSubmit and validateName
 
 /****************************************************************************
  * @name validateEmail - Validate email input
@@ -682,139 +624,11 @@ export function validateEmail(emailInput) {
 		return true;
 }
 
-/****************************************************************************
- * @name validateTopic - Validate topic selection
- * @param {HTMLElement} topicInput - The topic select element
- * @returns {boolean} True if valid, false otherwise
- ***************************************************************************/
-function validateTopic(topicInput) {
-		const value = topicInput.value;
-		
-		if (!value || value === '') {
-				notificationManager.showFormValidation(topicInput, false, 'Please select a topic');
-				return false;
-		}
-		
-		notificationManager.showFormValidation(topicInput, true);
-		return true;
-}
-
-/****************************************************************************
- * @name validatePassword - Validate password input
- * @param {HTMLElement} passwordInput - The password input element
- * @returns {boolean} True if valid, false otherwise
- ***************************************************************************/
-function validatePassword(passwordInput) {
-		const value = passwordInput.value.trim();
-		
-		if (!value) {
-				notificationManager.showFormValidation(passwordInput, false, 'Password is required');
-				return false;
-		}
-		if (value.length < 6) {
-				notificationManager.showFormValidation(passwordInput, false, 'Password must contain at least 6 characters');
-				return false;
-		}
-		if (!/(?=.*[a-zA-Z])(?=.*\d)/.test(value)) {
-				notificationManager.showFormValidation(passwordInput, false, 'Password must contain letters and numbers');
-				return false;
-		}
-		
-		notificationManager.showFormValidation(passwordInput, true);
-		return true;
-}
-
-/****************************************************************************
- * @name validateMessage - Validate message input
- * @param {HTMLElement} messageInput - The message textarea element
- * @returns {boolean} True if valid, false otherwise
- ***************************************************************************/
-function validateMessage(messageInput) {
-		const value = messageInput.value.trim();
-		
-		if (!value) {
-				notificationManager.showFormValidation(messageInput, false, 'Message is required');
-				return false;
-		}
-		if (value.length < 10) {
-				notificationManager.showFormValidation(messageInput, false, 'Message must contain at least 10 characters');
-				return false;
-		}
-		if (value.length > 1000) {
-				notificationManager.showFormValidation(messageInput, false, 'Message must be shorter than 1000 characters');
-				return false;
-		}
-		
-		notificationManager.showFormValidation(messageInput, true);
-		return true;
-}
-
-// ==========================================================================================
-// Messages
-// ==========================================================================================
-
-/****************************************************************************
- * @name showError - Show error message for a specific field
- * @param {string} fieldName - The name of the field (e.g., 'name', 'email')
- * @param {string} message - The error message to display
- ***************************************************************************/
-function showError(fieldName, message) {
-		const errorElement = document.getElementById(`${fieldName}-error`);
-		const inputElement = document.getElementById(fieldName);
-		
-		if (errorElement) {
-			errorElement.textContent = message;
-			errorElement.style.display = 'block';
-		}
-		
-		if (inputElement) {
-			inputElement.classList.add('error');
-		}
-}
-
-/****************************************************************************
- * @name clearError - Clear error message for a specific field
- * @param {string} fieldName - The name of the field (e.g., 'name', 'email')
- ***************************************************************************/
-function clearError(fieldName) {
-		const errorElement = document.getElementById(`${fieldName}-error`);
-		const inputElement = document.getElementById(fieldName);
-		
-		if (errorElement) {
-			errorElement.textContent = '';
-			errorElement.style.display = 'none';
-		}
-		
-		if (inputElement) {
-			inputElement.classList.remove('error');
-		}
-}
-
-/****************************************************************************
- * @name showMessage - Show notification message
- * @param {string} type - The type of message (e.g., success, error)
- * @param {string} message - The message content
- * @param {string} id - The ID of the element to attach the message to
- ***************************************************************************/
-export function showMessage(type, message, targetEl) {
-  const notification = document.createElement('div');
-  notification.className = `notification ${type}`;
-  notification.textContent = message;
-
-  if (targetEl) {
-    // контейнер для popup
-    const wrapper = targetEl.parentElement;
-    wrapper.style.position = "relative"; 
-    wrapper.appendChild(notification);
-  } else {
-    document.body.appendChild(notification);
-  }
-
-  setTimeout(() => {
-    notification.remove();
-  }, 4000);
-}
-
-
-
+// ========================================================================
+// UNUSED VALIDATION FUNCTIONS - Removed to fix lint warnings
+// 
+// The following functions were removed because they are not used anywhere:
+// - validateTopic, validatePassword, validateMessage, showError, clearError, handleFormSubmit
+// These functions can be re-added if needed in the future.
+// ========================================================================
 

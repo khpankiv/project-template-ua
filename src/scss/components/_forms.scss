@@ -48,8 +48,13 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-	-webkit-box-shadow: 0 0 0 30px $pure-white inset;
+	box-shadow: 0 0 0 30px $pure-white inset;
 	-webkit-text-fill-color: $text-color;
+}
+
+// General required star styles
+.required-star {
+	color: $form-label-required-color;
 }
 
 // Basic form groups
@@ -64,10 +69,6 @@ input:-webkit-autofill:active {
 		color: $form-label-color;
 		margin-bottom: $space-xs;
 		text-align: left;
-		
-		.required-star {
-			color: $form-label-required-color;
-		}
 	}
 }
 
@@ -108,10 +109,6 @@ input:-webkit-autofill:active {
 	pointer-events: none;
 	transition: all $animation-fast $animation-ease;
 	z-index: 1;
-	
-	.required-star {
-		color: $form-label-required-color;
-	}
 }
 
 // Floating label active states
@@ -136,6 +133,51 @@ input:-webkit-autofill:active {
 	display: inline-block;
 	width: 100%;
 	flex-shrink: 0;
+}
+
+// Dropdown options (must come before hover states for correct specificity)
+.filter-options,
+.sort-options {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background: $form-input-bg-color;
+	border: $border solid $dropdown-border-color;
+	border-top: none;
+	z-index: $dropdown-z-index;
+	max-height: $control-max-height;
+	overflow-y: auto;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-$space-xs);
+	transition: all $animation-fast $animation-ease;
+	
+	&.show {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+	
+	li {
+		list-style: none;
+		padding: $space-sm $space-md;
+		cursor: pointer;
+		color: $control-text-color;
+		font-size: $font-size-sm;
+		transition: all $animation-fast $animation-ease;
+		
+		&:hover {
+			background: rgba($accent-pink, 0.1);
+			color: $accent-pink;
+		}
+		
+		&.selected {
+			background: rgba($accent-pink, 0.15);
+			color: $accent-pink;
+			font-weight: $font-weight-bold;
+		}
+	}
 }
 
 .filter-dropdown {
@@ -197,41 +239,6 @@ input:-webkit-autofill:active {
 	
 	&.active img {
 		transform: rotate(180deg);
-	}
-}
-
-
-
-.filter-options,
-.sort-options {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	background: $form-input-bg-color;
-	border: $border solid $dropdown-border-color;
-	border-top: none;
-	z-index: $dropdown-z-index;
-	max-height: $control-max-height;
-	overflow-y: auto;
-	opacity: 0;
-	visibility: hidden;
-	transform: translateY(-$space-xs);
-	transition: all $animation-fast $animation-ease;
-	
-	&.show {
-		opacity: 1;
-		visibility: visible;
-		transform: translateY(0);
-	}
-	
-	li {
-		list-style: none;
-		padding: $space-sm $space-md;
-		cursor: pointer;
-		color: $control-text-color;
-		font-size: $font-size-sm;
-		transition: all $animation-fast $animation-ease;
 	}
 }
 

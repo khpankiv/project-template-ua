@@ -5,10 +5,8 @@
 @use './components/buttons';
 @use './components/product-card';
 @use './components/forms';
-
 @use './layouts/header';
 @use './layouts/footer';
-
 @use './pages/about';
 @use './pages/catalog';
 @use './pages/product-details';
@@ -71,6 +69,7 @@
 	position: relative;
 	background-color: $main-hero-bg;
 	cursor: pointer;
+
 	// min-height: 60vh;
 
 	.hero-content {
@@ -80,6 +79,7 @@
 		@media (max-width: $breakpoint-mobile) {
 			flex-direction: column;
 		}
+
 		align-items: center;
 		justify-content: space-between;
 		gap: $space-lg;
@@ -93,6 +93,7 @@
 
 	.hero-text-block {
 		@include section-styles('hero');
+
 		flex: 1;
 		min-width: 0;
 		max-width: clamp(20rem, 50vw, 35rem); // Adaptive text width limit
@@ -120,7 +121,9 @@
 
 	.hero-suitcase {
 		padding-block: $space-lg;
+
 		@include hover-effect('hero-image');
+
 		max-width: 100%;
 		height: auto;
 		flex-shrink: 0;
@@ -139,6 +142,7 @@
 	margin-top: $main-offer-up-margin;
 	z-index: 3;
 	box-shadow: $shadow;
+
 	// display: grid;
 	// grid-template-columns: 1fr 1fr;
 	// gap: 0;
@@ -157,6 +161,7 @@
 
 	.main-banner-1 {
 		@include section-styles('main-news');
+
 		min-width: 0;
 		display: flex;
 		flex-direction: column;
@@ -170,6 +175,21 @@
 		@media (max-width: $breakpoint-mobile) {
 			padding: $space-md;
 			text-align: center;
+		}
+
+		// General p styles must come before more specific .profile-info p
+		p {
+			word-wrap: break-word;
+			
+			@media (max-width: $breakpoint-mobile) {
+				font-size: $font-size-sm;
+				line-height: $line-height-base;
+				margin-bottom: $space-md;
+
+				br {
+					display: none;
+				}
+			}
 		}
 
 		.profile {
@@ -207,18 +227,12 @@
 				font-size: $font-size-lg;
 			}
 		}
-		
-		p {
-			@media (max-width: $breakpoint-mobile) {
-				font-size: $font-size-sm;
-				line-height: $line-height-base;
-			}
-		}
 	}
 			
 	.main-banner-2 {
 		@include section-styles('offer-white');
 		@include shaded-background("/src/assets/images/backgrounds/offer1.png");
+
 		min-width: 0;
 		display: flex;
 		flex-direction: column;
@@ -247,18 +261,6 @@
 			@media (max-width: $breakpoint-mobile) {
 				font-size: $font-size-lg;
 				margin-bottom: $space-md;
-			}
-		}
-		
-		p {
-			word-wrap: break-word;
-			
-			@media (max-width: $breakpoint-mobile) {
-				font-size: $font-size-sm;
-				margin-bottom: $space-md;
-				br {
-					display: none;
-				}
 			}
 		}
 
@@ -309,7 +311,7 @@
         
         &:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgb(0 0 0 / 30%);
             z-index: 2;
         }
         
@@ -323,8 +325,6 @@
 // ========Main Offer Section===============================================
 .main-offer-section {
 	@include shaded-background("/src/assets/images/backgrounds/offer2.png");
-	// @include split-section(right);	
-	// min-height: 400px;
 
 	@media (max-width: $breakpoint-tablet) {
 		grid-template-columns: 1fr;
@@ -449,22 +449,23 @@
 	position: absolute;
 	bottom: -$space-lg;
 	left: 0;
+	z-index: $z-notification;
 	font-size: $font-size-xs;
-	color: $error-color;
-	background: rgba($error-color, 0.1);
+	color: $pure-white;
+	background: rgba($error-color, 0.95);
 	padding: $space-xs $space-sm;
-	border-radius: 0;
+	border-radius: $radius-s;
 	border: 1px solid $error-color;
 	
 	&.error {
-		color: $error-color;
-		background: rgba($error-color, 0.1);
+		color: $pure-white;
+		background: rgba($error-color, 0.95);
 		border-color: $error-color;
 	}
 	
 	&.success {
-		color: $success-color;
-		background: rgba($success-color, 0.1);
+		color: $pure-white;
+		background: rgba($success-color, 0.95);
 		border-color: $success-color;
 	}
 }
@@ -472,6 +473,7 @@
 // ========Modal System===============================================
 .modal {
 	@extend %modal-backdrop;
+
 	display: none;
 	
 	&.show {
@@ -481,6 +483,7 @@
 
 .modal-content {
 	@include modal-content;
+
 	padding: $space-xl;
 	
 	// Close button
@@ -505,9 +508,7 @@
 	padding-top: $space-3xl;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax($grid-min-lg, 1fr));
-	gap: $space-lg;
-	justify-items: center;
-	align-items: center;
+	place-items: center center;
 	gap: $space-3xl;
 
 	.testimonial-card {
@@ -519,12 +520,8 @@
 		padding: $space-2xl;
 		background: $pure-white;
 		box-shadow: $shadow;
+
 		@include hover-effect('product-card');
-		
-		p {
-			font-size: $font-size-md;
-			color: $grey-dark;
-		}
 
 		.testimonial-author {
 			font-size: $font-size-md;

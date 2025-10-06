@@ -2,19 +2,19 @@
 
 // ======================================================
 // ===============Colors=================================
-//=======================================================
+// =======================================================
 $grey: #727174; // medium grey - header line, form-text, 
 $grey-dark: #504E4A; // dark grey - text 
 $grey-light: #E9E9ED; // light grey - forms borders,
 $grey-extra-light: #E7E8E9; // very light grey - background, dividers
-$pure-white: #FFFFFF; // pure white
-$text-color: #000000; // main text color
+$pure-white: #FFF; // pure white
+$text-color: #000; // main text color
 $accent-pink: #B92770; // main accent from Figma
 $accent-pink-dark: #cfadbeee; // dark pink background
 $accent-pink-darker: #931f5b; // darker pink for active/press states
 $accent-pink-light: #c2a0b1; // light pink - buttons, highlights
 
-$shadow-color: rgba(193, 199, 212, 0.7); // shadow color
+$shadow-color: rgb(193 199 212 / 70%); // shadow color
 $hover-shadow-color: $grey; // lighter shadow color for hover effects
 $stars-color: #FFC107; // color for star ratings
 $stars-grey-color: #E0E0E0; // grey color for inactive stars
@@ -24,8 +24,8 @@ $success-color: $grey-dark; // Green color for success messages
 $info-color: $text-color; // Amber color for info messages
 
 // ====================================================
-//==========Sizes and Scales==========================
-//===================================================
+// ==========Sizes and Scales==========================
+// ===================================================
 $radius-s: 0; 
 $radius-m: 0;
 $radius-l: 0;
@@ -58,7 +58,7 @@ $space-3xl: string.unquote("clamp(2.5rem, 2rem + 2.5vw, 3rem)");          // 40p
 $space-4xl: string.unquote("clamp(3rem, 2.5rem + 3vw, 4rem)");            // 48px → 64px
 $space-5xl: string.unquote("clamp(4rem, 3rem + 4vw, 5rem)");              // 64px → 80px
 $space-xxl: string.unquote("clamp(2rem, 1.6rem + 2vw, 2.5rem)");          // 32px → 40px
-$space-10xl: unquote("clamp(6rem, 5rem + 8vw, 10rem)");            // 96px → 160px
+$space-10xl: string.unquote("clamp(6rem, 5rem + 8vw, 10rem)");            // 96px → 160px
 
 $photo-icon-size: $space-5xl; // 80px
 
@@ -76,13 +76,13 @@ $font-size-2xl: string.unquote("clamp(2rem, 1.7rem + 1.5vw, 2.5rem)");       // 
 $font-size-3xl: string.unquote("clamp(2.25rem, 1.9rem + 2vw, 3rem)");        // 36px → 48px
 $font-size-10xl: string.unquote("clamp(6rem, 5rem + 8vw, 13rem)");           // 96px → 208px
 
-//============Font Weights===============================
+// ============Font Weights===============================
 $font-weight-normal: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 $font-weight-black: 900;
 
-//============Line Heights==============================
+// ============Line Heights==============================
 $line-height-single: 1;
 $line-height-tight: 1.2;  
 $line-height-base: 1.5;    
@@ -102,16 +102,18 @@ $container-padding: string.unquote("clamp(1rem, 2vw + 1rem, 4rem)"); // 16px →
 
 // Legacy variables replaced with $grid-min-* system 
 
-//=========Z-index Scale================================
+// =========Z-index Scale================================
 $z-hover: 2;
 $z-filter-dropdown: 100;
 $z-sticky: 200;
-$z-notification: 1001;
+$z-notification: 9999;
 $z-modal-backdrop: 1000;
 $z-modal: 1010;
+$z-header: 100;
+$z-footer: 99;
 
 // Animation
-//=======================================================
+// =======================================================
 $animation-fast: 0.1s;
 $animation-medium: 0.3s;
 $animation-slow: 0.5s;
@@ -124,20 +126,20 @@ $shadow-filter-dropdown: 0.5rem, 2rem $shadow-color;
 $shadow-hover: 0px 0px 20px 10px $hover-shadow-color; 
 $shadow-inset: inset 0 2px 4px rgba($shadow-color, 0.6);
 $shadow-form-focus: 0 0 0 3px rgba($accent-pink, 0.1);
-$shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+$shadow-modal: 0 25px 50px -12px rgb(0 0 0 / 25%);
 
-//=======================================================
-//==== Page Specific Styles ================================
-//===================================================
+// =======================================================
+// ==== Page Specific Styles ================================
+// ===================================================
 $main-hero-bg: $grey-extra-light;  
 $main-offer-bg: $pure-white;
 $main-offer-up-margin: -10rem; //  -96px
 
-//==== Slider ==================
+// ==== Slider ==================
 // Adaptive slider sizes
 $slide-height: string.unquote("clamp(25rem, 40vh, 50rem)");  // 400px → 800px
 $slide-min-height: string.unquote("clamp(20rem, 35vh, 37.5rem)"); // 320px → 600px
-$slide-background: rgba(0,0,0,0.4); // background color for slides
+$slide-background: rgb(0 0 0 / 40%); // background color for slides
 
 // Header Styles
 // ===============================================
@@ -146,7 +148,7 @@ $counter-num-color: $accent-pink;
 
 // Modal & Overlays (adaptive sizes)
 // ===============================================
-$modal-backdrop: rgba(0, 0, 0, 0.5);
+$modal-backdrop: rgb(0 0 0 / 50%);
 $modal-min-width: string.unquote("clamp(12.5rem, 25vw, 18.75rem)");  // 200px → 300px
 $modal-max-width: string.unquote("clamp(25rem, 50vw, 50rem)");      // 400px → 800px
 $modal-max-height: 90vh;
@@ -163,7 +165,7 @@ $footer-benefits-bg: $grey-dark; // Background color for footer benefits section
 $footer-icons-contacts-size: 20px; // Size for footer icons icons
 $footer-benefits-icon-size: 60px; // Size for footer benefits icons
 // Copyright
-$copyright-text-color: rgba(0, 0, 0, 0.35);
+$copyright-text-color: rgb(0 0 0 / 35%);
 
 // Catalog Styles
 // ===============================================
@@ -173,10 +175,10 @@ $min-grid-height: 20rem;    // Minimum height for items grid
 // ===============================================
 
 // Shared sizes for all interactive elements
-$control-height: unquote("clamp(2rem, 1.6rem + 2vw, 2.5rem)"); // 32px → 40px
-$control-width-medium: unquote("clamp(12rem, 10rem + 8vw, 15rem)"); // 192px → 240px  
-$control-width-small: unquote("clamp(10rem, 8rem + 6vw, 12rem)"); // 160px → 192px
-$control-width-compact: unquote("clamp(8rem, 6rem + 4vw, 10rem)"); // 128px → 160px
+$control-height: string.unquote("clamp(2rem, 1.6rem + 2vw, 2.5rem)"); // 32px → 40px
+$control-width-medium: string.unquote("clamp(12rem, 10rem + 8vw, 15rem)"); // 192px → 240px  
+$control-width-small: string.unquote("clamp(10rem, 8rem + 6vw, 12rem)"); // 160px → 192px
+$control-width-compact: string.unquote("clamp(8rem, 6rem + 4vw, 10rem)"); // 128px → 160px
 $control-max-height: string.unquote("clamp(8rem, 6rem + 8vw, 12.5rem)"); // 128px → 200px
 
 // Text styles  
@@ -212,13 +214,14 @@ $checkbox-bg-color: $pure-white;
 $checkbox-bg-color-checked: $grey;
 $checkbox-dot-size: 6px;
 $checkbox-dot-color: $pure-white;
-$checkbox-focus-shadow: rgba(114, 113, 116, 0.3);
+$checkbox-focus-shadow: rgb(114 113 116 / 30%);
 
 // Form Styles
 // ===============================================
 $form-label-color: $text-color;
 $form-label-color-focused: $grey;
 $form-label-required-color: $accent-pink;
+
 // Form inputs (pink borders)
 $form-input-border-color: $accent-pink;
 $form-input-border-color-focused: $accent-pink-darker;
@@ -252,13 +255,8 @@ $product-card-max-height: string.unquote("clamp(400px, 30vw + 300px, 500px)"); /
 $product-card-img-height: string.unquote("clamp(12rem, 10rem + 8vw, 16rem)"); // 192px → 256px
 $product-card-button-max-width: string.unquote("clamp(8rem, 6rem + 10vw, 12rem)"); // 128px → 192px
 
-// // Popup Styles
-// // ===============================================
-// $popup-border-radius: $radius-m;
-// $popup-margin: $space-xl 0;      // 32px 0
-// $popup-text-color: $accent-pink;
-// $popup-text-size: $font-size-md; // 20px
-// $popup-text-weight: $font-weight-bold;
+// Popup Styles
+// ===============================================
 $notification-top: 20px;
 $notification-right: 20px;
 
@@ -266,7 +264,7 @@ $notification-right: 20px;
 
 // ============================================================
 // =======Section styles map (doble sections styles) ========
-//===========================================================
+// ===========================================================
 $section-style-map:(
     "main-news": (
         padding-top-bottom: $space-4xl, // 160px
@@ -296,9 +294,9 @@ $section-style-map:(
 		),
 );
 
-//==================================================================
-//=========== Universal hover effects map ========================
-//==================================================================
+// ==================================================================
+// =========== Universal hover effects map ========================
+// ==================================================================
 $hover-effects-map: (
     "header-icon": (
         scale: 1.3,
@@ -379,9 +377,9 @@ $hover-effects-map: (
 		),
 );
 
-//==============================================================
-//============== Selected effects map ===============================
-//=================================================================
+// ==============================================================
+// ============== Selected effects map ===============================
+// =================================================================
 $selected-effects-map: (
     "dropdown-option":(
         background: $grey-extra-light,
