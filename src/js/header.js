@@ -45,7 +45,7 @@ function initLoginModal() {
 			passwordToggle.querySelector('.eye-icon').textContent = type === 'password' ? '👁️' : '🙈';
     });
 
-		new FormValidator('#login-form'); // Needed for login form validation
+		new FormValidator('#login-form'); // Auto-initializes form validation on instantiation
 }
 
 // ==========================================================================================
