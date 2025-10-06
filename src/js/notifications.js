@@ -10,7 +10,7 @@ class NotificationManager {
     }
 
     init() {
-        // Створюємо контейнер для сповіщень якщо його немає
+        // Create notifications container if it doesn't exist
         if (!document.getElementById('notification-container')) {
             this.notificationContainer = document.createElement('div');
             this.notificationContainer.id = 'notification-container';
@@ -18,7 +18,7 @@ class NotificationManager {
         }
     }
 
-    // Popup сповіщення (детальні з заголовком та описом)
+    // Popup notifications (detailed with title and description)
     showPopup(type = 'info', title, message, duration = 5000) {
         const popup = document.createElement('div');
         popup.className = `popup-notification ${type}`;
@@ -30,7 +30,7 @@ class NotificationManager {
             info: 'ℹ️'
         };
 
-        // Безпечне створення DOM елементів замість innerHTML
+        // Safe DOM element creation instead of innerHTML
         const popupContent = document.createElement('div');
         popupContent.className = 'popup-content';
         
@@ -62,14 +62,14 @@ class NotificationManager {
         popup.appendChild(popupContent);
         popup.appendChild(closeBtn);
 
-        // Додаємо обробники подій
+        // Add event handlers
         closeBtn.addEventListener('click', () => this.hidePopup(popup));
 
-        // Додаємо в DOM та показуємо
+        // Add to DOM and show
         document.body.appendChild(popup);
         setTimeout(() => popup.classList.add('show'), 10);
 
-        // Автоматично приховуємо після duration
+        // Auto-hide after duration
         if (duration > 0) {
             setTimeout(() => this.hidePopup(popup), duration);
         }
@@ -90,7 +90,7 @@ class NotificationManager {
         }
     }
 
-    // Toast сповіщення (короткі)
+    // Toast notifications (short)
     showToast(type = 'info', message, duration = 3000) {
         const toast = document.createElement('div');
         toast.className = `toast-notification ${type}`;
@@ -111,7 +111,7 @@ class NotificationManager {
         return toast;
     }
 
-    // Inline сповіщення для форм
+    // Inline notifications for forms
     showInlineNotification(element, type = 'error', message) {
         // Видаляємо існуюче сповіщення
         this.hideInlineNotification(element);

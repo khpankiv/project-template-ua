@@ -95,7 +95,7 @@
 		@include section-styles('hero');
 		flex: 1;
 		min-width: 0;
-		max-width: clamp(20rem, 50vw, 35rem); // Обмежуємо текст адаптивно
+		max-width: clamp(20rem, 50vw, 35rem); // Adaptive text width limit
 		
 		@media (max-width: $breakpoint-mobile) {
 			order: 2;

@@ -41,7 +41,7 @@ async function initProductDetails() {
 		initProductDetailsEventListeners();
 	} catch (error) {
 		console.error('Error initializing product details:', error);
-		// Показуємо повідомлення про помилку користувачеві
+		// Show error message to user
 		const container = document.querySelector('.main');
 		if (container) {
 			container.innerHTML = '<div class="error-message">Sorry, there was an error loading the product details. Please try again later.</div>';
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         await initProductDetails();
     } catch (error) {
         console.error('Error initializing product details page:', error);
-        // Базова обробка критичних помилок
+        // Basic critical error handling
         document.body.innerHTML = '<div style="text-align: center; padding: 50px; color: #666;">Sorry, there was an error loading the page. Please refresh and try again.</div>';
     }
 })

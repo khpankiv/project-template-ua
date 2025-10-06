@@ -144,7 +144,7 @@ $slide-background: rgba(0,0,0,0.4); // background color for slides
 $counter-size: $space-dl; // 20px
 $counter-num-color: $accent-pink;
 
-// Modal & Overlays (адаптивні розміри)
+// Modal & Overlays (adaptive sizes)
 // ===============================================
 $modal-backdrop: rgba(0, 0, 0, 0.5);
 $modal-min-width: string.unquote("clamp(12.5rem, 25vw, 18.75rem)");  // 200px → 300px
@@ -169,31 +169,31 @@ $copyright-text-color: rgba(0, 0, 0, 0.35);
 // ===============================================
 $min-grid-height: 20rem;    // Minimum height for items grid 
 
-// Forms & Dropdowns - Об'єднані спільні змінні
+// Forms & Dropdowns - Combined shared variables
 // ===============================================
 
-// Спільні розміри для всіх інтерактивних елементів
+// Shared sizes for all interactive elements
 $control-height: unquote("clamp(2rem, 1.6rem + 2vw, 2.5rem)"); // 32px → 40px
 $control-width-medium: unquote("clamp(12rem, 10rem + 8vw, 15rem)"); // 192px → 240px  
 $control-width-small: unquote("clamp(10rem, 8rem + 6vw, 12rem)"); // 160px → 192px
 $control-width-compact: unquote("clamp(8rem, 6rem + 4vw, 10rem)"); // 128px → 160px
 $control-max-height: string.unquote("clamp(8rem, 6rem + 8vw, 12.5rem)"); // 128px → 200px
 
-// Текстові стилі  
+// Text styles  
 $control-text-color: $grey;
 $control-font-size: $font-size-sm;
 $control-border-focus: $border solid $accent-pink;
 $textarea-min-height: string.unquote("clamp(80px, 60px + 8vw, 120px)");
 
-// Зворотна сумісність - алайси для старих змінних
+// Backwards compatibility - aliases for old variables
 $input-height: $control-height;
 $input-font-size: $control-font-size; 
 $input-text-color: $control-text-color;
 
-// Спеціальні для дропдаунів
+// Dropdown-specific variables
 $dropdown-z-index: $z-filter-dropdown;
 
-// Спеціальні елементи
+// Special elements
 $search-field-width: string.unquote("clamp(18rem, 15rem + 12vw, 25rem)"); // 288px → 400px
 $icon-size-small: string.unquote("clamp(0.75rem, 0.6rem + 0.8vw, 1rem)"); // 12px → 16px (arrow)
 $icon-size-medium: string.unquote("clamp(1rem, 0.8rem + 1vw, 1.25rem)"); // 16px → 20px (search)

@@ -42,7 +42,7 @@ export function getRandomItems(array, count) {
  ****************************************************************************/
 export function getProductsByField(products, field, value) {
 	try {
-		// Валідація параметрів
+		// Parameters validation
 		if (!Array.isArray(products)) {
 			console.warn('getProductsByField: products parameter is not an array');
 			return [];
@@ -104,7 +104,7 @@ export async function fetchProducts(dataFile) {
     
     const data = await fetch(dataFile);
     
-    // Перевірка статусу відповіді
+    // Check response status
     if (!data.ok) {
       throw new Error(`HTTP error! status: ${data.status} - ${data.statusText}`);
     }
@@ -116,7 +116,7 @@ export async function fetchProducts(dataFile) {
     
     const allProducts = await data.json();
     
-    // Валідація структури даних
+    // Data structure validation
     if (!allProducts) {
       throw new Error('No data received from server');
     }
@@ -133,7 +133,7 @@ export async function fetchProducts(dataFile) {
     }
   } catch (error) {
     console.error('Failed to fetch data from', dataFile, ':', error.message);
-    // Повернемо порожній масив замість кидання помилки
+    // Return empty array instead of throwing error
     return [];
   }
 }

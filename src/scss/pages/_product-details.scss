@@ -64,19 +64,7 @@
 		margin-bottom: $space-md;
 	}
 }
-// // ==========Product Filters=================
-// // Фільтри на сторінці продукту розтягуються на всю ширину
-// .product-details .filter-labeled {
-// 	width: 100%;
-	
-// 	.filter-dropdown {
-// 		width: 100%;
-		
-// 		.filter-btn {
-// 			width: 100%;
-// 		}
-// 	}
-// }
+
 
 .product-buttons-section {
 	display: grid;
@@ -94,20 +82,7 @@
 	padding-block: $space-2xl;
 }
 
-// // Product page filters - stretch to full container width like add to cart button
-// .product-details .filter-labeled {
-// 	width: 100%;
-// 	max-width: none; // Override any max-width restrictions
-	
-// 	.filter-dropdown {
-// 		width: 100%;
-		
-// 		.filter-btn {
-// 			width: 100%;
-// 			max-width: none;
-// 		}
-// 	}
-// }
+
 
 .review-form-container {
 	display: grid;

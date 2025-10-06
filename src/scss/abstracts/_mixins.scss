@@ -1,17 +1,17 @@
-@use 'sass:string';
+@use '// Only truly reusable mixins left (used 3+ times)ass:string';
 @use 'sass:map';
 // =============================================================================
-// ================ ОПТИМІЗОВАНІ МІКСІНИ ======================================
+// ================ OPTIMIZED MIXINS ======================================
 // =============================================================================
 //
 // Залишені тільки справді повторювані міксіни (використовуються 3+ рази)
-// Видалені складні міксіни з великою кількістю параметрів
-// Спрощені міксіни для часто використовуваних патернів
+// Removed complex mixins with many parameters
+// Simplified mixins for frequently used patterns
 //
 // =============================================================================
 
 // ==========================================================================
-// КНОПКИ (потрібно для section-styles)
+// BUTTONS (needed for section-styles)
 // ==========================================================================
 @mixin button($key) {
     $btn-map: map-get($button-styles-map, $key);
@@ -60,12 +60,12 @@
 }
 
 // ==========================================================================
-// ОСНОВНІ LAYOUT МІКСІНИ (використовуються багато разів)
+// MAIN LAYOUT MIXINS (used many times)
 // ==========================================================================
 
-// Міксин grid-responsive видалений (використовувався лише 2 рази)
+// grid-responsive mixin removed (used only 2 times)
 
-// Міксин flex-responsive видалений (тривіальний, краще писати прямо CSS)
+// flex-responsive mixin removed (trivial, better to write CSS directly)
 
 // Split section placeholder for @extend
 %split-section {
@@ -95,10 +95,10 @@
 }
 
 // ==========================================================================
-// УТИЛІТИ ТА ПОЗИЦІОНУВАННЯ
+// UTILITIES AND POSITIONING
 // ==========================================================================
 
-// Sticky element міксин
+// Sticky element mixin
 @mixin sticky-element($direction: top, $offset: 0, $z: $z-sticky, $animation: false) {
     position: sticky;
     z-index: $z;
@@ -117,10 +117,10 @@
 }
 
 // ==========================================================================
-// ЕФЕКТИ (використовуються дуже часто - 15+ разів)
+// EFFECTS (used very frequently - 15+ times)
 // ==========================================================================
 
-// Hover ефекти - найбільш використовуваний міксин
+// Hover effects - most used mixin
 @mixin hover-effect($type, $transition: $animation-slow $animation-ease) {
     $params: map-get($hover-effects-map, $type);
     $lift: if(map-has-key($params, lift), map-get($params, lift), null);
@@ -144,7 +144,7 @@
     }
 }
 
-// Press effect для active станів
+// Press effect for active states
 @mixin press-effect($type, $transition: $animation-fast $animation-ease) {
     $params: map-get($press-effects-map, $type);
     $background: if(map-has-key($params, background), map-get($params, background), null);
@@ -163,7 +163,7 @@
     }
 }
 
-// Selected effect для активних елементів
+// Selected effect for active elements
 @mixin selected-effect($type, $transition: $animation-medium $animation-ease) {
     $params: map-get($selected-effects-map, $type);
     $background: if(map-has-key($params, background), map-get($params, background), null);
@@ -183,7 +183,7 @@
     }
 }
 
-// Icon container міксин для header
+// Icon container mixin for header
 @mixin icon-container($hover: 'header-icon', $tablet-position: center, $mobile-position: center, $gap: $space-md) {
     display: flex;
     gap: $gap;
@@ -198,10 +198,10 @@
 }
 
 // ==========================================================================
-// УТИЛІТИ (часто використовувані)
+// UTILITIES (frequently used)
 // ==========================================================================
 
-// Shaded background - використовується 5+ разів
+// Shaded background - used 5+ times
 @mixin shaded-background($image-url, $overlay: rgba(0, 0, 0, 0.4)) {
     background-image: linear-gradient($overlay, $overlay), url($image-url);
     background-size: cover;
@@ -209,7 +209,7 @@
     background-repeat: no-repeat;
 }
 
-// Banner міксин - використовується кілька разів
+// Banner mixin - used several times
 @mixin banner($path) {
     @include shaded-background($path);
     display: flex;
@@ -228,13 +228,13 @@
 }
 
 // ==========================================================================
-// ФОРМИ І ЕЛЕМЕНТИ УПРАВЛІННЯ (критичні для функціональності)
+// FORMS & CONTROLS (critical for functionality)
 // ==========================================================================
 
-// Плейсхолдери %control-base і %form-input видалені - використовуємо прямі стилі
+// Placeholders %control-base and %form-input removed - using direct styles
 
 
-// Видалені непотрібні плейсхолдери для простих стилів
+// Removed unnecessary placeholders for simple styles
 // Замість @extend %form-group використовуємо прямо: position: relative; margin-bottom: $form-gap;
 // Замість @extend %floating-label використовуємо прямі CSS стилі
 

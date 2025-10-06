@@ -2,7 +2,7 @@
 // Button styles using a map for different button types
 // ======================================================================
 
-// Button styles - міксин перенесено в _mixins.scss
+// Button styles - mixin moved to _mixins.scss
 
 .button {
     @include button('btn-base');
@@ -22,9 +22,7 @@
 // =======================================================================
 // Add to Cart button
 // =====================================================================
-// .button-add {
-// 		@include button('btn-base');
-// }
+
 
 // ========================================================================
 // Quantity controls

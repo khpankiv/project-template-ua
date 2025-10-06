@@ -73,11 +73,11 @@ body.anti-hover {
 	}
 }
 
-// Show Filters Button (замість зникнення стає disabled)
+// Show Filters Button (becomes disabled instead of hiding)
 #show-filters-btn {
 	@include button('btn-base');
 	
-	// Замість display: none використовуємо disabled стан
+	// Using disabled state instead of display: none
 	&.disabled {
 		opacity: 0.5;
 		pointer-events: none;
