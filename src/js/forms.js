@@ -177,6 +177,7 @@ export function initSalesFilter() {
 			await renderProductsForPage(products, 1);
 		});
 	}
+	return salesCheckbox; // Return for reuse
 }
 
  /********************************************************************************************
@@ -309,7 +310,7 @@ export function initFloatingLabels() {
  * @name initReviewForm - Initialize review form functionality
  *****************************************************************************/
 export function initReviewForm() {
-	new FormValidator('#review-form');
+	new FormValidator('#review-form'); // Needed for form validation
 	initFloatingLabels();
 	renderStars(3, document.querySelector('.review-rating'));
 	let productName = document.querySelector('#product-name')?.textContent || 'Product';
@@ -416,7 +417,7 @@ export class FormValidator {
 		});
 		
 		this.validationRules.set('topic', (value) => {
-			if (!value || value === '') return { isValid: false, message: 'Please select a topic' };
+			if (!value?.trim()) return { isValid: false, message: 'Please select a topic' };
 			return { isValid: true };
 		});
 		

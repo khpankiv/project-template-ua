@@ -60,8 +60,10 @@ export async function populateProducts(products, containerSelector, templateId, 
 	const template = await loadCardTemplate(templateId);
   const container = document.querySelector(containerSelector);
 	if (!container || !template) return;
+  
   // Clear the container before adding new products
   container.innerHTML = '';
+  
 	if (isSidebar) {
 		products.forEach(product => {
 		const card = createSidebarProductCard(product, template);
@@ -251,7 +253,7 @@ export function renderProductDetailsPage(product) {
 		thumb.alt = `${product.name} - thumbnail ${i}`;
 		imageThumbnails.appendChild(thumb);
 	}
-	document.querySelector('#product-rating-text').textContent = `${product.popularity} || 0} Clients Reviewed`;
+	document.querySelector('#product-rating-text').textContent = `${product.popularity || 0} Clients Reviewed`;
 	if (ratingEl) renderStars(product.rating, ratingEl);
 	const descriptionEl = generateLoremIpsumParagraphs(2, 3); //2 paragraphs, 3 sentences each
 	// Використовуємо textContent для безпеки
