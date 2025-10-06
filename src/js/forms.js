@@ -309,7 +309,7 @@ export function initFloatingLabels() {
  * @name initReviewForm - Initialize review form functionality
  *****************************************************************************/
 export function initReviewForm() {
-	new FormValidator('#review-form'); // Initialize form validation
+	const reviewFormValidator = new FormValidator('#review-form');
 	initFloatingLabels();
 	renderStars(3, document.querySelector('.review-rating'));
 	let productName = document.querySelector('#product-name')?.textContent || 'Product';

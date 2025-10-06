@@ -159,8 +159,12 @@ class NotificationManager {
             'product-not-found': 'Product not found. Please check the link.'
         };
 
-        const notificationType = ['product-added'].includes(type) ? 'success' : 
-                               ['product-not-found'].includes(type) ? 'error' : 'info';
+        let notificationType = 'info';
+        if (['product-added'].includes(type)) {
+            notificationType = 'success';
+        } else if (['product-not-found'].includes(type)) {
+            notificationType = 'error';
+        }
 
         return this.showPopup(
             titles[type] || 'Notification',

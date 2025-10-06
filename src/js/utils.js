@@ -110,7 +110,7 @@ export async function fetchProducts(dataFile) {
     }
     
     const contentType = data.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
+    if (!contentType?.includes('application/json')) {
       console.warn('Response is not JSON format');
     }
     
@@ -121,7 +121,7 @@ export async function fetchProducts(dataFile) {
       throw new Error('No data received from server');
     }
     
-    if (allProducts && allProducts.data && Array.isArray(allProducts.data)) {
+    if (allProducts?.data && Array.isArray(allProducts.data)) {
       return allProducts.data;
     } else if (Array.isArray(allProducts)) {
       return allProducts;
