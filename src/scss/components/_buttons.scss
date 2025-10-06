@@ -116,6 +116,11 @@
 // ==================================================================
 .tab-pane {
   display: none;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-loose;
+  color: $text-color;
+	padding-block: $space-2xl;
 }
 
 .tab-pane.active {

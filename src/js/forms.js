@@ -310,7 +310,7 @@ export function initFloatingLabels() {
  * @name initReviewForm - Initialize review form functionality
  *****************************************************************************/
 export function initReviewForm() {
-	new FormValidator('#review-form'); // Auto-initializes form validation on instantiation
+	const reviewFormValidator = new FormValidator('#review-form');
 	initFloatingLabels();
 	renderStars(3, document.querySelector('.review-rating'));
 	let productName = document.querySelector('#product-name')?.textContent || 'Product';
@@ -318,6 +318,7 @@ export function initReviewForm() {
 	if (reviewsElement) {
 		reviewsElement.textContent = `1 review for ${productName}`;
 	}
+	return reviewFormValidator;
 }
 
 /****************************************************************************

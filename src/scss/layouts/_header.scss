@@ -39,13 +39,13 @@
 	@include icon-container('header-logo', center, center, $space-md);
 	@include hover-effect('header-logo');
 
-.logo-bg {
-	background: $accent-pink;
-	width: $font-size-2xl, 0.1, 0.05;
-	height: auto; 
-	border-radius: $radius-logo;
-	padding: $space-xs;
-}
+	.logo-bg {
+		background: $accent-pink;
+		width: $font-size-2xl, 0.1, 0.05;
+		height: auto; 
+		border-radius: $radius-logo;
+		padding: $space-xs;
+	}
 
 	span {
 		font-size: $font-size-xl;
