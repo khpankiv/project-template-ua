@@ -47,7 +47,6 @@ function initLoginModal() {
 
 		const loginFormValidator = new FormValidator('#login-form');
 		return loginFormValidator;
-	}
 }
 
 // ==========================================================================================
