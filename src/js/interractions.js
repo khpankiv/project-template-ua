@@ -36,7 +36,6 @@ export function initAddToCartButtons() {
       }
       
       e.stopPropagation();
-      return;
     }
   });
 }

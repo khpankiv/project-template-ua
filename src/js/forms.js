@@ -551,9 +551,9 @@ export class FormValidator {
 	onFormSubmit() {
 		// Show success notification
 		notificationManager.showPopup(
-			'success',
 			'Thank you for your feedback!',
 			'Your message has been successfully sent. We will contact you shortly.',
+			'success',
 			5000
 		);
 		

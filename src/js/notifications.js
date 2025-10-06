@@ -19,7 +19,7 @@ class NotificationManager {
     }
 
     // Popup notifications (detailed with title and description)
-    showPopup(type = 'info', title, message, duration = 5000) {
+    showPopup(title, message, type = 'info', duration = 5000) {
         const popup = document.createElement('div');
         popup.className = `popup-notification ${type}`;
         
@@ -91,7 +91,7 @@ class NotificationManager {
     }
 
     // Toast notifications (short)
-    showToast(type = 'info', message, duration = 3000) {
+    showToast(message, type = 'info', duration = 3000) {
         const toast = document.createElement('div');
         toast.className = `toast-notification ${type}`;
         toast.textContent = message;
@@ -112,7 +112,7 @@ class NotificationManager {
     }
 
     // Inline notifications for forms
-    showInlineNotification(element, type = 'error', message) {
+    showInlineNotification(element, message, type = 'error') {
         // Видаляємо існуюче сповіщення
         this.hideInlineNotification(element);
 
@@ -163,9 +163,9 @@ class NotificationManager {
                                ['product-not-found'].includes(type) ? 'error' : 'info';
 
         return this.showPopup(
-            notificationType,
             titles[type] || 'Notification',
             messages[type] || message,
+            notificationType,
             type === 'checkout-success' ? 7000 : 4000
         );
     }
@@ -177,7 +177,7 @@ class NotificationManager {
             fieldElement.classList.remove('error');
             fieldElement.classList.add('valid');
         } else {
-            this.showInlineNotification(fieldElement, 'error', message);
+            this.showInlineNotification(fieldElement, message, 'error');
             fieldElement.classList.remove('valid');
             fieldElement.classList.add('error');
         }

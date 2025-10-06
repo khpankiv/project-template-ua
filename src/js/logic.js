@@ -3,8 +3,7 @@
 // =====================================================================================
 import { updateCartCounter } from './header.js';
 import { dataFile } from './file_links.js';
-import { fetchProducts } from './utils.js';
-import { getProductsByField } from './utils.js';
+import { fetchProducts, getProductsByField } from './utils.js';
 import notificationManager from './notifications.js';
 
 /*************************************************************************************************
@@ -184,7 +183,7 @@ export function doSearch (products, searchInput) {
 		
 		// Check if search query is entered
 		if (!query) {
-			notificationManager.showToast('warning', 'Enter product name to search');
+			notificationManager.showToast('Enter product name to search', 'warning');
 			return;
 		}
 		
@@ -195,10 +194,9 @@ export function doSearch (products, searchInput) {
 		
 		if (!exactMatch) {
 			notificationManager.showCartNotification('product-not-found');
-			return;
 		} else {		
 			// Show quick notification about found product
-			notificationManager.showToast('success', `Found: ${exactMatch.name}`);
+			notificationManager.showToast(`Found: ${exactMatch.name}`, 'success');
 			setTimeout(() => {
 				window.location.href = `pages/product-details-template.html?id=${exactMatch.id}`;
 			}, 500);
