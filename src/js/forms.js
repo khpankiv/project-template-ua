@@ -315,7 +315,7 @@ export function initReviewForm() {
 	let productName = document.querySelector('#product-name')?.textContent || 'Product';
 	const reviewsElement = document.querySelector('#number-of-reviews');
 	if (reviewsElement) {
-		reviewsElement.textContent = '1 review for ' + productName;
+		reviewsElement.textContent = `1 review for ${productName}`;
 	}
 }
 

@@ -108,11 +108,16 @@ export function getCartTotal(cartItems) {
  ********************************************************************************************/
 export function readActualFilters() {
 	let filters = {category: undefined, color: undefined, size: undefined, salesStatus: undefined, sort: undefined};
-  filters = {
-	category: document.querySelector('#filter-category span') ? document.querySelector('#filter-category span').textContent : undefined,
-		color: document.querySelector('#filter-color span') ? document.querySelector('#filter-color span').textContent : undefined,
-		size: document.querySelector('#filter-size span') ? document.querySelector('#filter-size span').textContent : undefined,
-		salesStatus: document.querySelector('#filter-sales-status input') ? document.querySelector('#filter-sales-status input').checked : undefined,
+  const categoryElement = document.querySelector('#filter-category span');
+	const colorElement = document.querySelector('#filter-color span');
+	const sizeElement = document.querySelector('#filter-size span');
+	const salesElement = document.querySelector('#filter-sales-status input');
+
+	filters = {
+		category: categoryElement?.textContent,
+		color: colorElement?.textContent,
+		size: sizeElement?.textContent,
+		salesStatus: salesElement?.checked,
 	};
 	return filters;
 }
@@ -133,7 +138,8 @@ export async function applyFilters() {
 		if (filters['salesStatus']) {
 			products = products.filter(product => product.salesStatus === true);
 		}
-		const sort = document.querySelector('#sort-dropdown .selected') ? document.querySelector('#sort-dropdown .selected').dataset.value : undefined;
+		const sortElement = document.querySelector('#sort-dropdown .selected');
+		const sort = sortElement?.dataset.value;
 		if (sort) {
 			products = handleSort(products, sort);
 		}

@@ -100,7 +100,7 @@ export async function updatePagination(products, currentPage) {
   // Create page number buttons
   for (let i = 1; i <= totalPages; i++) {
     const btn = document.createElement('button');
-    btn.className = 'button-page-number' + (i === currentPage ? ' selected' : '');
+    btn.className = `button-page-number${i === currentPage ? ' selected' : ''}`;
     btn.textContent = i;
     btn.addEventListener('click', async () => {
       const newPage = i;
