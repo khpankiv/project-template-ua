@@ -147,7 +147,6 @@ body.anti-hover {
 	position: relative;
 	margin-bottom: $space-lg;
 
-	// max-width: $search-field-width;
 	width: 100%;
 	
 	.catalog-search {
@@ -166,17 +165,6 @@ body.anti-hover {
 		align-items: center;
 		justify-content: space-between;
 
-		// width: 100%;
-		// padding: $space-md;
-		// border: $border solid $form-input-border-color;
-		// background: $form-input-bg-color;
-		// color: $form-input-text-color;
-		// font-size: $control-font-size;
-		// font-family: inherit;
-		// min-height: $control-height;
-		// transition: border-color $animation-fast $animation-ease;
-		// height: $input-height;
-		// padding-right: $space-xl;
 		
 		&:focus {
 			outline: none;

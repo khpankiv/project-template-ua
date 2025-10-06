@@ -70,8 +70,6 @@
 	background-color: $main-hero-bg;
 	cursor: pointer;
 
-	// min-height: 60vh;
-
 	.hero-content {
 		display: flex;
 		flex-direction: row;
@@ -142,12 +140,6 @@
 	margin-top: $main-offer-up-margin;
 	z-index: 3;
 	box-shadow: $shadow;
-
-	// display: grid;
-	// grid-template-columns: 1fr 1fr;
-	// gap: 0;
-	// min-height: 400px;
-	// @include split-section(right);
 
 	@media (max-width: $breakpoint-tablet) {
 		grid-template-columns: 1fr;
