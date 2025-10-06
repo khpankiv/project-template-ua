@@ -35,7 +35,6 @@ function initLoginModal() {
     window.addEventListener('click', (e) => {
 			if (e.target === loginModal) {
 				loginModal.style.display = 'none';
-				// clearFormErrors();
 			}
     });
 
@@ -47,57 +46,8 @@ function initLoginModal() {
     });
 
 		new FormValidator('#login-form');
-
-    // // Form validation and submission
-    // loginForm?.addEventListener('submit', (e) => {
-		// 	e.preventDefault();
-		// 	validateAndSubmitLogin();
-    // });
-
-    // // Real-time email validation
-    // document.querySelector('#email')?.addEventListener('input', validateEmail);
-		// const emailInput = document.querySelector('#email');
-		// validateEmail(emailInput);
 }
 
-
-// // Login form validation and submission
-// function validateAndSubmitLogin() {
-//     const email = document.querySelector('#email').value;
-//     const password = document.querySelector('#password').value;
-//     const emailError = document.querySelector('#email-error');
-//     const passwordError = document.querySelector('#password-error');
-    
-//     let isValid = true;
-
-//     // Email validation
-//     if (!validateEmail()) {
-//         isValid = false;
-//     }
-
-//     // Password validation
-//     if (password.length < 1) {
-//         passwordError.textContent = 'Password is required';
-//         passwordError.style.display = 'block';
-//         isValid = false;
-//     } else {
-//         passwordError.style.display = 'none';
-//     }
-
-//     if (isValid) {
-//         // Simulate successful login
-//         alert('Login successful!');
-//         document.querySelector('#login-modal').style.display = 'none';
-//         clearFormErrors();
-//         document.querySelector('#login-form').reset();
-//     }
-// }
-
-// // Clear form errors
-// function clearFormErrors() {
-//     const errors = document.querySelectorAll('.error-message');
-//     errors.forEach(error => error.style.display = 'none');
-// }
 // ==========================================================================================
 // Cart counter functionality
 // =========================================================================================

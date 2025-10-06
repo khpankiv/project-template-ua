@@ -114,9 +114,6 @@ input:-webkit-autofill:active {
 // Floating label active states
 .floating-input:focus + .floating-label,
 .floating-input:not(:placeholder-shown) + .floating-label {
-	// top: 0;
-	// transform:  scale($floating-label-scale);
-	// color: $form-label-color-focused;
 	opacity: 0;
 	
 	.required-star {

@@ -16,25 +16,6 @@ export const numberOfRandomSets = 5; // Number of random luggage sets to display
 export const imageCount = 4; // Number of images for slider
 
 
-//html identifiers - i'm not shure it's goode idea to add them all here....
 
-// export const productGridId = '#product-grid';
-// export const sidebarId = '#sidebar-random-products';
-// export const sidebarProductTemplateId = '#sidebar-product-template';
-// export const productCardTemplateId = '#product-card-template';
-// export const cartCounterId = '#cart-counter';
-// export const cartItemsContainerId = '#cart-items-container';
-// export const cartTotalId = '#cart-total';
-// export const cartItemTemplateId = '#cart-item-template';
-// export const selectedProductsId = '#selected-products';
-// export const newProductsId = '#new-products';
-// export const contactFormId = '#contact-form';
-// export const contactFormMessageId = '#form-message';
-// export const filterDropdownId = '#filter-dropdown';
-// export const filterOptionsContainerId = '#filter-options-container';
-// export const sortDropdownId = '#sort-dropdown';
-// export const searchInputId = '#search-input';
-// export const searchButtonId = '#search-button';
-// export const resetFiltersId = '#reset-filters';
 
 

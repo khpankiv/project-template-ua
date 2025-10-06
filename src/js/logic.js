@@ -6,7 +6,6 @@ import { dataFile } from './file_links.js';
 import { fetchProducts } from './utils.js';
 import { getProductsByField } from './utils.js';
 import notificationManager from './notifications.js';
-// import { renderProductsForPage } from './ui.js';
 
 /*************************************************************************************************
  * @name addToCart - Adds a specified quantity of a product to the cart.

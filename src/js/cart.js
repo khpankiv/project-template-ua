@@ -26,19 +26,6 @@ function initCartEventListeners() {
 }
 
 
-
-// function showCartNotification(message, type = 'success') {
-//     const notification = document.createElement('div');
-//     notification.className = `notification-card ${type}`;
-//     notification.textContent = message;  
-//     document.body.appendChild(notification);
-    
-//     setTimeout(() => {
-//         notification.style.animation = 'fadeOut 0.3s ease-out';
-//         setTimeout(() => notification.remove(), 300);
-//     }, 2500);
-// }
-
 // =======Initialization on DOMContentLoaded =======
 document.addEventListener('DOMContentLoaded', async () => {
 		await loadComponent('header', headerPath);

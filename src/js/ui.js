@@ -409,7 +409,6 @@ export async function displayCartItems() {
 				cartTableBody.appendChild(row);
 			});
   	// Update cart summary after rendering items
-  	// initCartRowsControls();
 		updateCartSummary(items);
 	}
 }
@@ -422,6 +421,5 @@ function updateCartSummary(cartItems) {
 	const { subtotal, discount, total } = getCartTotal(cartItems);
   document.getElementById('cart-subtotal-amount').textContent = `$${subtotal}`;
   document.getElementById('cart-discount-amount').textContent = `$${discount}`;
-  // document.getElementById('cart-shipping-amount').textContent = `$${shipping}`;
   document.getElementById('cart-total-amount').textContent = `$${total}`;
 }
